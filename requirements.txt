@@ -1,0 +1,11 @@
+requests>=2.31
+pandas>=2.1
+pyarrow>=14
+duckdb>=0.10
+pyyaml>=6
+python-dotenv>=1.0
+elasticsearch>=8.12,<9
+xlrd>=2.0
+openpyxl>=3.1
+pytz>=2024.1
+tzdata>=2024.1

@@ -1,0 +1,173 @@
+# Full Zillow Research public-CSV catalog (slugs/files/levels live-verified).
+# URL = {base}/{slug}/{Level}_{file}. Dead (dataset x level) combos are auto-skipped.
+base: https://files.zillowstatic.com/research/public_csvs
+datasets:
+  # ===== ZORI (rent index) =====
+  - dataset: zori_allhomes_sm
+    slug: zori
+    file: zori_uc_sfrcondomfr_sm_month.csv
+    levels: [Metro, City, County, Zip]
+  - dataset: zori_allhomes_sm_sa
+    slug: zori
+    file: zori_uc_sfrcondomfr_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zori_sfr_sm
+    slug: zori
+    file: zori_uc_sfr_sm_month.csv
+    levels: [Metro, Zip]
+  - dataset: zori_sfr_sm_sa
+    slug: zori
+    file: zori_uc_sfr_sm_sa_month.csv
+    levels: [Metro, Zip]
+
+  # ===== ZHVI (home value index) =====
+  - dataset: zhvi_allhomes_mid_sa
+    slug: zhvi
+    file: zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, City, County, Zip]
+  - dataset: zhvi_allhomes_bottom_sa
+    slug: zhvi
+    file: zhvi_uc_sfrcondo_tier_0.0_0.33_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_allhomes_top_sa
+    slug: zhvi
+    file: zhvi_uc_sfrcondo_tier_0.67_1.0_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_sfr_mid_sa
+    slug: zhvi
+    file: zhvi_uc_sfr_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_condo_mid_sa
+    slug: zhvi
+    file: zhvi_uc_condo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_bdrmcnt_1_sa
+    slug: zhvi
+    file: zhvi_bdrmcnt_1_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_bdrmcnt_2_sa
+    slug: zhvi
+    file: zhvi_bdrmcnt_2_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_bdrmcnt_3_sa
+    slug: zhvi
+    file: zhvi_bdrmcnt_3_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_bdrmcnt_4_sa
+    slug: zhvi
+    file: zhvi_bdrmcnt_4_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvi_bdrmcnt_5_sa
+    slug: zhvi
+    file: zhvi_bdrmcnt_5_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+
+  # ===== ZHVF (home value forecast) =====
+  - dataset: zhvf_growth_sa
+    slug: zhvf_growth
+    file: zhvf_growth_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv
+    levels: [Metro, Zip]
+  - dataset: zhvf_growth_raw
+    slug: zhvf_growth
+    file: zhvf_growth_uc_sfrcondo_tier_0.33_0.67_month.csv
+    levels: [Metro, Zip]
+
+  # ===== Sale prices =====
+  - dataset: median_sale_price_sm
+    slug: median_sale_price
+    file: median_sale_price_uc_sfrcondo_sm_month.csv
+    levels: [Metro, City, County, Zip]
+  - dataset: median_sale_price_sm_sa
+    slug: median_sale_price
+    file: median_sale_price_uc_sfrcondo_sm_sa_month.csv
+    levels: [Metro]
+  - dataset: mean_sale_price_sm
+    slug: mean_sale_price
+    file: mean_sale_price_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+  - dataset: new_con_median_sale_price
+    slug: new_con_median_sale_price
+    file: new_con_median_sale_price_uc_sfrcondo_month.csv
+    levels: [Metro]
+  - dataset: new_con_median_sale_price_per_sqft
+    slug: new_con_median_sale_price_per_sqft
+    file: new_con_median_sale_price_per_sqft_uc_sfrcondo_month.csv
+    levels: [Metro]
+
+  # ===== List prices =====
+  - dataset: median_list_price_sm
+    slug: mlp
+    file: mlp_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+
+  # ===== Flow / inventory =====
+  - dataset: new_listings_sm
+    slug: new_listings
+    file: new_listings_uc_sfrcondo_sm_month.csv
+    levels: [Metro, Zip]
+  - dataset: for_sale_inventory_sm
+    slug: invt_fs
+    file: invt_fs_uc_sfrcondo_sm_month.csv
+    levels: [Metro, Zip]
+  - dataset: new_pending_sm
+    slug: new_pending
+    file: new_pending_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+  - dataset: sales_count_now
+    slug: sales_count_now
+    file: sales_count_now_uc_sfrcondo_month.csv
+    levels: [Metro]
+  - dataset: total_transaction_value
+    slug: total_transaction_value
+    file: total_transaction_value_uc_sfrcondo_month.csv
+    levels: [Metro]
+  - dataset: new_con_sales_count_raw
+    slug: new_con_sales_count_raw
+    file: new_con_sales_count_raw_uc_sfrcondo_month.csv
+    levels: [Metro]
+
+  # ===== Days-to-pending / close =====
+  - dataset: median_days_to_pending
+    slug: med_doz_pending
+    file: med_doz_pending_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+  - dataset: mean_days_to_pending
+    slug: mean_doz_pending
+    file: mean_doz_pending_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+  - dataset: mean_days_to_close
+    slug: mean_days_to_close
+    file: mean_days_to_close_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+
+  # ===== Price cuts =====
+  - dataset: share_listings_price_cut
+    slug: perc_listings_price_cut
+    file: perc_listings_price_cut_uc_sfrcondo_sm_month.csv
+    levels: [Metro, Zip]
+  - dataset: median_price_cut_amount
+    slug: med_listings_price_cut_amt
+    file: med_listings_price_cut_amt_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+  - dataset: mean_price_cut_amount
+    slug: mean_listings_price_cut_amt
+    file: mean_listings_price_cut_amt_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+
+  # ===== Sale-to-list & demand =====
+  - dataset: mean_sale_to_list
+    slug: mean_sale_to_list
+    file: mean_sale_to_list_uc_sfrcondo_sm_month.csv
+    levels: [Metro, Zip]
+  - dataset: median_sale_to_list
+    slug: median_sale_to_list
+    file: median_sale_to_list_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+  - dataset: pct_sold_above_list
+    slug: pct_sold_above_list
+    file: pct_sold_above_list_uc_sfrcondo_sm_month.csv
+    levels: [Metro]
+  - dataset: market_heat_index
+    slug: market_temp_index
+    file: market_temp_index_uc_sfrcondo_month.csv
+    levels: [Metro, Zip]

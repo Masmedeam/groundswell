@@ -1,0 +1,40 @@
+# Groundswell demo metros — the reference table that drives ingestion.
+# county names are listed WITHOUT the " County" suffix (crosswalk normalizes both sides).
+# cbsa is informational for now; WARN rollup uses state + county membership.
+metros:
+  - metro_id: sf
+    name: San Francisco
+    zori_region: "San Francisco, CA"      # metro-level ZORI RegionName
+    fred_nonfarm_id: SANF806NA
+    warn_state: CA
+    cbsa: "41860"                          # SF-Oakland-Berkeley MSA (FRED series is the 41884 MD)
+    counties: ["San Francisco", "San Mateo", "Marin", "Alameda", "Contra Costa"]
+  - metro_id: austin
+    name: Austin
+    zori_region: "Austin, TX"
+    fred_nonfarm_id: AUST448NA
+    warn_state: TX
+    cbsa: "12420"
+    counties: ["Travis", "Williamson", "Hays", "Bastrop", "Caldwell"]
+  - metro_id: phoenix
+    name: Phoenix
+    zori_region: "Phoenix, AZ"
+    fred_nonfarm_id: PHOE004NA
+    warn_state: AZ
+    cbsa: "38060"
+    counties: ["Maricopa", "Pinal"]
+  - metro_id: nyc
+    name: New York
+    zori_region: "New York, NY"
+    fred_nonfarm_id: NEWY636NA
+    warn_state: NY
+    cbsa: "35620"
+    counties: ["New York", "Kings", "Queens", "Bronx", "Richmond",
+               "Nassau", "Suffolk", "Westchester", "Rockland", "Putnam", "Orange", "Dutchess"]
+  - metro_id: chicago
+    name: Chicago
+    zori_region: "Chicago, IL"
+    fred_nonfarm_id: CHIC917NA
+    warn_state: IL
+    cbsa: "16980"
+    counties: ["Cook", "DuPage", "Lake", "Will", "Kane", "McHenry", "Kendall", "Grundy", "DeKalb"]

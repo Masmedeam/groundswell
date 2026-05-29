@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+html, body { height: 100%; }
+body {
+  @apply bg-[#FAFAFA] text-ground-ink antialiased;
+}
+/* minimal prose for agent answers */
+.prose-gw p { @apply my-2 leading-relaxed; }
+.prose-gw h1,.prose-gw h2,.prose-gw h3 { @apply font-semibold mt-4 mb-1; }
+.prose-gw h2 { @apply text-lg; }
+.prose-gw ul { @apply list-disc pl-5 my-2; }
+.prose-gw strong { @apply font-semibold text-ground; }
+.prose-gw code { @apply bg-ground-soft px-1 rounded text-sm; }
+.scroll-thin::-webkit-scrollbar { width: 8px; }
+.scroll-thin::-webkit-scrollbar-thumb { @apply bg-black/10 rounded; }
