@@ -70,5 +70,13 @@ jobs:
             cd /opt/groundswell/docker
             sudo docker-compose -f docker-compose.prod.yml up -d --no-deps --build groundswell-api groundswell-web
             sudo docker-compose -f docker-compose.prod.yml ps
-            curl -fsS http://localhost:8000/health
+            for attempt in $(seq 1 30); do
+              if curl -fsS http://localhost:8000/health; then
+                exit 0
+              fi
+              echo "API health check failed; retrying (${attempt}/30)"
+              sleep 2
+            done
+            sudo docker logs --tail=120 groundswell-api
+            exit 1
           EOF
