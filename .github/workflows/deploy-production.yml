@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Configure SSH
         env:
@@ -68,7 +68,7 @@ jobs:
           ssh -i ~/.ssh/groundswell_prod -p "${PROD_PORT:-22}" "${PROD_USER}@${PROD_HOST}" <<'EOF'
             set -euo pipefail
             cd /opt/groundswell/docker
-            sudo docker-compose -f docker-compose.prod.yml up -d --build groundswell-api groundswell-web
+            sudo docker-compose -f docker-compose.prod.yml up -d --no-deps --build groundswell-api groundswell-web
             sudo docker-compose -f docker-compose.prod.yml ps
             curl -fsS http://localhost:8000/health
           EOF
