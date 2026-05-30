@@ -28,8 +28,18 @@ export interface MetroOverview {
   metro_id: string;
   display_name: string;
   tier: string;
+  // `state` = engine's MOST RECENT CONFIRMED TURN direction (from detection.json
+  // currentByMetro[metro].lastTurn.direction). This is the validated 79.3%
+  // backtest output — NOT the noisy monthly classifier (.state) which can flip
+  // month-to-month without turn confirmation. SF's last confirmed turn was
+  // 2025-03 firming (WARN-dominant); Denver's was 2022-10 softening.
   state: EngineState;
-  score: number;
+  // The month the most recent confirmed turn fired. Mandatory display alongside
+  // state pill — without it, a 3-year-old confirmed turn (e.g. Boise 2022-09)
+  // would masquerade as a current statement. With it, the reader sees
+  // "Firming · since 2025-03" honestly.
+  state_since: string | null;          // "YYYY-MM" or null if no confirmed turn ever
+  score: number;                       // raw monthly composite score (descriptive only)
   dominant: DominantSignal | null;
   concession_share: number | null;
   concession_count: number;
@@ -51,8 +61,19 @@ interface MetroMapJson {
   metros: Record<string, MetroMapEntry>;
   name_lookups: { by_display_name: Record<string, string> };
 }
+interface DetectionLastTurn {
+  detectionYM: string;
+  direction: EngineState;
+  scoreAtDetection: number;
+}
+interface DetectionCurrent {
+  state: EngineState;          // raw monthly classifier — NOT used for display
+  score: number;
+  cleanCount: number;
+  lastTurn?: DetectionLastTurn | null;  // engine's most recent CONFIRMED turn
+}
 interface DetectionJson {
-  currentByMetro: Record<string, { state: EngineState; score: number; cleanCount: number }>;
+  currentByMetro: Record<string, DetectionCurrent>;
 }
 interface ResultsRow {
   metro: string;
@@ -113,11 +134,19 @@ export function getEngineOverview(): OverviewResult {
     const listing = listings.metros[displayName];
     const hasListing = listing && "concessionShare" in listing;
     const share = hasListing ? (listing as ListingsMetro).concessionShare : null;
+    // Use the engine's MOST RECENT CONFIRMED TURN, not the raw monthly state.
+    // See MetroOverview.state comment for why. Fall back to .state only if a
+    // metro has literally never had a confirmed turn (currently none do).
+    const lastTurn = cur?.lastTurn ?? null;
+    const stateValue: EngineState =
+      (lastTurn?.direction as EngineState | undefined) ?? cur?.state ?? "neutral";
+    const stateSince = lastTurn?.detectionYM ?? null;
     return {
       metro_id,
       display_name: displayName,
       tier: meta.tier ?? "",
-      state: (cur?.state ?? "neutral") as EngineState,
+      state: stateValue,
+      state_since: stateSince,
       score: cur?.score ?? 0,
       dominant: getDominantSignal(results, displayName),
       concession_share: share,

@@ -34,9 +34,16 @@ export default function MetroCard({
     <div className="rounded-xl border border-black/[0.06] bg-white p-4 shadow-sm transition hover:shadow">
       <div className="flex items-baseline justify-between gap-2">
         <h3 className="text-base font-semibold text-ground-ink">{row.display_name}</h3>
-        <span className={`text-xs font-medium ${d.c}`}>
-          {d.a} {d.label}
-        </span>
+        <div className="text-right">
+          <div className={`text-xs font-medium ${d.c}`}>
+            {d.a} {d.label}
+          </div>
+          {row.state_since && (
+            <div className="text-[10px] text-black/45 tabular-nums">
+              since {row.state_since}
+            </div>
+          )}
+        </div>
       </div>
       <div className="mt-3 space-y-2 text-[12px]">
         <div>
