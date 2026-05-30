@@ -1,13 +1,25 @@
-// Pitch page — branded landing for the submission PDF.
-// We deliberately do NOT embed the PDF inline (browser viewer chrome —
-// toolbar, zoom, menu — looks unbranded). Instead we surface a clean
-// branded card with a primary Download button and a secondary
-// "View in browser" link that opens /pitch.pdf in a new tab (the
-// browser's native viewer takes over outside our brand).
+// Pitch page — renders the submission PDF as inline page images.
 //
-// To swap the PDF: overwrite app/web/public/pitch.pdf and redeploy.
-// No code change.
+// Why images, not <object data="...pdf">: the browser's PDF viewer chrome
+// (toolbar, zoom controls, menu) reads as unbranded and clunky on top of
+// the cream/ground design language. Rendering each page as a high-DPI PNG
+// inside a styled container gives a clean on-brand presentation with no
+// viewer UI.
+//
+// Page images are pre-rendered from public/pitch.pdf via pdftocairo and
+// committed to public/. Single source of truth is still pitch.pdf — the
+// PNGs are a derived artifact.
+//
+// To swap the PDF (e.g. after the Loom demo link is filled in):
+//   1. Overwrite app/web/public/pitch.pdf
+//   2. From app/web/public/, run:
+//      pdftocairo -png -r 200 pitch.pdf pitch-page
+//      (produces pitch-page-1.png + pitch-page-2.png)
+//   3. Commit all three files together
+//
+// pdftocairo is from poppler-utils (brew install poppler on macOS).
 
+import Image from "next/image";
 import TopNav from "@/components/TopNav";
 
 export const metadata = {
@@ -16,13 +28,15 @@ export const metadata = {
     "Two-page submission pitch for HomeStar — a demand-side early-warning engine for CRE rental markets, validated across 17 markets.",
 };
 
+const PAGE_ASPECT = 1700 / 2200; // pdftocairo -r 200 → 1700×2200 for US Letter
+
 export default function PitchPage() {
   return (
     <main className="min-h-screen bg-cream">
       <TopNav />
 
       {/* Title block */}
-      <section className="mx-auto max-w-3xl px-6 pt-16">
+      <section className="mx-auto max-w-3xl px-6 pt-12">
         <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground">
           Market intelligence · Submission pitch
         </p>
@@ -35,55 +49,53 @@ export default function PitchPage() {
           dropped, and where the Bright Data live layer corroborates the
           historical engine.
         </p>
+
+        {/* Secondary affordances — sit beside the pitch, not above it */}
+        <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-rule pt-5">
+          <a
+            href="/pitch.pdf"
+            download="HomeStar-pitch.pdf"
+            className="rounded-sm bg-ground px-5 py-2.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-ground-deep"
+          >
+            Download PDF
+          </a>
+          <a
+            href="/pitch.pdf"
+            target="_blank"
+            rel="noopener"
+            className="text-[12px] font-medium text-ground transition hover:text-ground-deep hover:underline underline-offset-4"
+          >
+            View full PDF →
+          </a>
+          <span className="ml-auto text-[10.5px] tabular-nums uppercase tracking-[0.14em] text-ink-faint">
+            2 pages · PDF · 494 KB
+          </span>
+        </div>
       </section>
 
-      {/* Branded download card — no embedded viewer */}
+      {/* Inline rendered pages — the actual content */}
       <section className="mx-auto max-w-3xl px-6 pt-10 pb-20">
-        <div className="border-t border-ground/80 bg-white/70 px-8 py-7">
-          <div className="flex items-baseline justify-between gap-4">
-            <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground/80">
-                Document
+        <ul className="space-y-8">
+          {[1, 2].map((n) => (
+            <li
+              key={n}
+              className="relative overflow-hidden border border-rule bg-white shadow-[0_4px_24px_-12px_rgba(14,21,19,0.18)]"
+              style={{ aspectRatio: PAGE_ASPECT }}
+            >
+              <Image
+                src={`/pitch-page-${n}.png`}
+                alt={`HomeStar pitch — page ${n} of 2`}
+                fill
+                priority={n === 1}
+                sizes="(min-width: 768px) 720px, 100vw"
+                className="object-contain"
+              />
+              <div className="absolute bottom-3 right-4 text-[10px] font-semibold uppercase tracking-[0.18em] tabular-nums text-ink-faint">
+                Page {n} / 2
               </div>
-              <div className="mt-1.5 font-serif text-[18px] font-semibold text-ground-ink">
-                HomeStar pitch
-              </div>
-            </div>
-            <div className="text-right text-[11px] tabular-nums text-ink-faint">
-              2 pages · PDF · 494 KB
-            </div>
-          </div>
-
-          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
-            <a
-              href="/pitch.pdf"
-              download="HomeStar-pitch.pdf"
-              className="rounded-sm bg-ground px-5 py-2.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-ground-deep"
-            >
-              Download PDF
-            </a>
-            <a
-              href="/pitch.pdf"
-              target="_blank"
-              rel="noopener"
-              className="text-[12px] font-medium text-ground transition hover:text-ground-deep hover:underline underline-offset-4"
-            >
-              View in browser →
-            </a>
-          </div>
-
-          <p className="mt-7 border-t border-rule pt-4 text-[11px] text-ink-faint">
-            Also linked from the app header. Direct URL:{" "}
-            <a
-              href="/pitch.pdf"
-              className="text-ground hover:underline"
-              target="_blank"
-              rel="noopener"
-            >
-              /pitch.pdf
-            </a>
-          </p>
-        </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Footer */}

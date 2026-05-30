@@ -143,7 +143,7 @@ export default function DataSourcesPage() {
               point at the same Sun Belt cluster.
             </h2>
             <p className="mt-3 max-w-3xl text-[13.5px] leading-relaxed text-ink-soft">
-              Two genuinely independent sources — engine fundamentals (FRED / BLS
+              Two independent sources — engine fundamentals (FRED / BLS
               labor data) and live concessions (Bright Data → apartments.com,
               operators cutting effective rent right now). They converge on the
               same cluster despite measuring different things on different
@@ -250,7 +250,7 @@ export default function DataSourcesPage() {
               </div>
               FRED, BLS public API, Zillow research CSVs — clean public APIs.
               Using BD there would be theatre. We use BD only where it&apos;s
-              genuinely the right tool: anti-bot, no-API, demand-texture data
+              the right tool: anti-bot, no-API, demand-texture data
               otherwise inaccessible.
             </div>
             <div>
