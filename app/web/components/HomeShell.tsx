@@ -6,11 +6,10 @@
 // landing branch (messages.length === 0) now renders <LandingOverview>
 // instead of the original Google-style prompt.
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import ChatPanel from "@/components/ChatPanel";
 import CanvasPanel from "@/components/CanvasPanel";
 import LandingOverview from "@/components/LandingOverview";
+import TopNav from "@/components/TopNav";
 import { streamChat } from "@/lib/api";
 import type { Artifact, ChatMessage } from "@/lib/types";
 import type { MetroOverview } from "@/lib/engine-overview";
@@ -137,32 +136,17 @@ export default function HomeShell({
   // ---------- chat workspace ----------
   return (
     <main className="flex h-screen flex-col">
-      <header className="flex items-center justify-between border-b border-black/[0.06] px-5 py-3">
-        <button
-          onClick={resetChat}
-          title="Back to markets overview"
-          className="flex items-center gap-2 hover:opacity-75 transition cursor-pointer"
-        >
-          <Image src="/logo.png" alt="HomeStar" width={28} height={28} priority />
-          <span className="text-sm font-semibold text-ground-ink">
-            Home<span className="text-ground">Star</span>
-          </span>
-        </button>
-        <div className="flex items-center gap-5">
-          <Link
-            href="/pitch"
-            className="text-[11px] uppercase tracking-[0.16em] text-black/40 hover:text-ground transition"
-          >
-            Pitch ↗
-          </Link>
+      <TopNav
+        onLogoClick={resetChat}
+        right={
           <button
             onClick={resetChat}
-            className="text-xs text-black/40 hover:text-ground transition"
+            className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink-soft transition hover:text-ground"
           >
-            ← Markets overview
+            ← New question
           </button>
-        </div>
-      </header>
+        }
+      />
       <div className="flex min-h-0 flex-1">
         {/* left: chat */}
         <section className="flex w-[44%] min-w-[360px] flex-col border-r border-black/[0.06]">

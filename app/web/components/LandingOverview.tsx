@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import MetroCard from "./MetroCard";
+import TopNav from "./TopNav";
 import type { MetroOverview } from "@/lib/engine-overview";
 
 // Visual treatment: editorial / research-note framing matching pitch PDF.
@@ -190,40 +189,21 @@ export default function LandingOverview({
   const [askOpen, setAskOpen] = useState(false);
   const sorted = useMemo(() => sortRows(overview, sortKey), [overview, sortKey]);
   return (
-    <main className="mx-auto min-h-screen max-w-6xl px-8 pt-6 pb-16">
-      {/* Top bar: kicker left · docked Ask · Pitch link */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-ground">
-          <span className="inline-block h-px w-6 bg-ground/60" />
-          Market intelligence
+    <>
+      <TopNav right={<AskAnalystDock onAsk={onAsk} open={askOpen} setOpen={setAskOpen} />} />
+      <main className="mx-auto min-h-screen max-w-6xl px-8 pt-8 pb-16">
+      {/* Title block — kicker + serif H1, since wordmark lives in TopNav now */}
+      <header>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground">
+          Market overview
         </div>
-        <div className="flex items-center gap-5">
-          <AskAnalystDock onAsk={onAsk} open={askOpen} setOpen={setAskOpen} />
-          <Link
-            href="/pitch"
-            className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink-faint transition hover:text-ground"
-          >
-            Pitch ↗
-          </Link>
-        </div>
-      </div>
-
-      {/* Title block — compact, no tagline (engine-status carries the framing) */}
-      <header className="mt-6 flex items-center gap-3">
-        <Image
-          src="/logo.png"
-          alt="HomeStar"
-          width={40}
-          height={40}
-          priority
-        />
-        <h1 className="font-serif text-[34px] font-semibold leading-none tracking-tight text-ground-ink">
-          Home<span className="text-ground">Star</span>
+        <h1 className="mt-2 font-serif text-[32px] font-semibold leading-tight tracking-tight text-ground-ink">
+          17 markets across 4 tiers — the engine&apos;s current read.
         </h1>
       </header>
 
       {/* Editorial banner — tightened: kicker + single paragraph */}
-      <section className="mt-5 grid grid-cols-[3px_1fr] gap-5">
+      <section className="mt-6 grid grid-cols-[3px_1fr] gap-5">
         <div className="bg-ground/80" />
         <div>
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground">
@@ -246,7 +226,11 @@ export default function LandingOverview({
             onClick={() => setAskOpen(true)}
             className="mt-2.5 text-[11.5px] text-ink-faint transition hover:text-ground"
           >
-            Have a cross-metro question? <span className="font-medium text-ground">Ask the analyst →</span>
+            Have a cross-metro question?{" "}
+            <span className="font-medium text-ground underline underline-offset-2 decoration-ground/40 hover:decoration-ground">
+              Ask the analyst
+            </span>
+            .
           </button>
         </div>
       </section>
@@ -258,7 +242,7 @@ export default function LandingOverview({
             By metro
           </div>
           <h2 className="mt-0.5 font-serif text-[18px] font-semibold leading-tight text-ground-ink">
-            17 markets across 4 tiers — current read
+            Click any market to ask the analyst.
           </h2>
         </div>
         <div className="flex items-center gap-5 shrink-0 pb-1">
@@ -299,6 +283,7 @@ export default function LandingOverview({
       <p className="mt-16 text-[10.5px] uppercase tracking-[0.18em] text-ink-faint">
         Each card click pre-seeds a question for the analyst agent. Numbers reflect the validated engine state.
       </p>
-    </main>
+      </main>
+    </>
   );
 }

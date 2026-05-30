@@ -8,8 +8,7 @@
 // To swap the PDF: overwrite app/web/public/pitch.pdf and redeploy.
 // No code change.
 
-import Link from "next/link";
-import Image from "next/image";
+import TopNav from "@/components/TopNav";
 
 export const metadata = {
   title: "HomeStar — Submission pitch",
@@ -20,33 +19,7 @@ export const metadata = {
 export default function PitchPage() {
   return (
     <main className="min-h-screen bg-cream">
-      {/* Header band — matches landing chrome */}
-      <header className="border-b border-rule">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link
-            href="/"
-            className="flex items-center gap-3 transition hover:opacity-80"
-            title="Back to the engine"
-          >
-            <Image
-              src="/logo.png"
-              alt="HomeStar"
-              width={36}
-              height={36}
-              priority
-            />
-            <span className="text-base font-semibold text-ground-ink">
-              Home<span className="text-ground">Star</span>
-            </span>
-          </Link>
-          <Link
-            href="/"
-            className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint transition hover:text-ground"
-          >
-            ← Back to app
-          </Link>
-        </div>
-      </header>
+      <TopNav />
 
       {/* Title block */}
       <section className="mx-auto max-w-3xl px-6 pt-16">
