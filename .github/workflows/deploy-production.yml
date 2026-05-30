@@ -32,23 +32,31 @@ jobs:
           chmod 600 ~/.ssh/groundswell_prod
           ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
 
-      - name: Sync source to production
+      - name: Upload source to production
         env:
           PROD_HOST: ${{ secrets.PROD_HOST }}
           PROD_PORT: ${{ secrets.PROD_PORT }}
           PROD_USER: ${{ secrets.PROD_USER }}
         run: |
           set -euo pipefail
-          rsync -az --delete \
-            --exclude='.git/' \
-            --exclude='.github/' \
+          tar \
+            --exclude='.git' \
+            --exclude='.github' \
             --exclude='.env' \
-            --exclude='backups/' \
-            --exclude='app/web/node_modules/' \
-            --exclude='__pycache__/' \
-            --exclude='.pytest_cache/' \
-            -e "ssh -i ~/.ssh/groundswell_prod -p ${PROD_PORT:-22}" \
-            ./ "${PROD_USER}@${PROD_HOST}:/opt/groundswell/"
+            --exclude='backups' \
+            --exclude='app/web/node_modules' \
+            --exclude='__pycache__' \
+            --exclude='.pytest_cache' \
+            -czf - . | ssh -i ~/.ssh/groundswell_prod -p "${PROD_PORT:-22}" "${PROD_USER}@${PROD_HOST}" '
+              set -euo pipefail
+              rm -rf /tmp/groundswell-release
+              mkdir -p /tmp/groundswell-release
+              tar -xzf - -C /tmp/groundswell-release
+              cd /opt/groundswell
+              rm -rf app groundswell docker config scripts data
+              cp -a /tmp/groundswell-release/. /opt/groundswell/
+              rm -rf /tmp/groundswell-release
+            '
 
       - name: Rebuild and restart app containers
         env:
