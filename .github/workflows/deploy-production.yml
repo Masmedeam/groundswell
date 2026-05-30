@@ -1,0 +1,66 @@
+name: Deploy production
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to production VM
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure SSH
+        env:
+          PROD_HOST: ${{ secrets.PROD_HOST }}
+          PROD_SSH_KEY: ${{ secrets.PROD_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s\n' "$PROD_SSH_KEY" > ~/.ssh/groundswell_prod
+          chmod 600 ~/.ssh/groundswell_prod
+          ssh-keyscan -H "$PROD_HOST" >> ~/.ssh/known_hosts
+
+      - name: Sync source to production
+        env:
+          PROD_HOST: ${{ secrets.PROD_HOST }}
+          PROD_PORT: ${{ secrets.PROD_PORT }}
+          PROD_USER: ${{ secrets.PROD_USER }}
+        run: |
+          set -euo pipefail
+          rsync -az --delete \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='.env' \
+            --exclude='backups/' \
+            --exclude='app/web/node_modules/' \
+            --exclude='__pycache__/' \
+            --exclude='.pytest_cache/' \
+            -e "ssh -i ~/.ssh/groundswell_prod -p ${PROD_PORT:-22}" \
+            ./ "${PROD_USER}@${PROD_HOST}:/opt/groundswell/"
+
+      - name: Rebuild and restart app containers
+        env:
+          PROD_HOST: ${{ secrets.PROD_HOST }}
+          PROD_PORT: ${{ secrets.PROD_PORT }}
+          PROD_USER: ${{ secrets.PROD_USER }}
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/groundswell_prod -p "${PROD_PORT:-22}" "${PROD_USER}@${PROD_HOST}" <<'EOF'
+            set -euo pipefail
+            cd /opt/groundswell/docker
+            sudo docker-compose -f docker-compose.prod.yml up -d --build groundswell-api groundswell-web
+            sudo docker-compose -f docker-compose.prod.yml ps
+            curl -fsS http://localhost:8000/health
+          EOF
