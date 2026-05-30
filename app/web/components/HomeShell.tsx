@@ -29,13 +29,29 @@ export default function HomeShell({
   const [toolStatus, setToolStatus] = useState<string | null>(null);
   const sessionRef = useRef<string | null>(null);
   const turnRef = useRef(0);
+  // Tracks the in-flight stream so reset/new-turn can cancel it. See
+  // resetChat() / send() — without this, late SSE events (e.g. a token
+  // arriving milliseconds after the user clicks the logo) try to mutate
+  // a messages array that's already been reset to [] and crash.
+  const abortRef = useRef<AbortController | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
 
+  // Abort any in-flight stream on unmount as a final safety net.
+  useEffect(() => () => abortRef.current?.abort(), []);
+
   async function send(text: string) {
     const q = text.trim();
     if (!q || busy) return;
+    // If a prior stream is somehow still in flight (e.g. user starts
+    // a follow-up before the previous one completed), tear it down
+    // before launching the new one.
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const { signal } = controller;
+
     setInput("");
     turnRef.current += 1;
     const turn = turnRef.current;
@@ -44,57 +60,86 @@ export default function HomeShell({
     setToolStatus("thinking…");
     try {
       await streamChat(q, sessionRef.current, (e) => {
+        // Defense in depth: even if the abort fires mid-handler, a
+        // buffered event from the same parse batch may still call us.
+        // Bail before touching any state.
+        if (signal.aborted) return;
+
         if (e.type === "session") sessionRef.current = e.session_id;
         else if (e.type === "token")
           setMessages((p) => {
+            // Race guard: a late token after a reset would see an empty
+            // array. Don't try to append to nothing.
+            if (p.length === 0) return p;
             const c = [...p];
-            c[c.length - 1] = { ...c[c.length - 1], text: c[c.length - 1].text + e.text };
+            const last = c[c.length - 1];
+            c[c.length - 1] = { ...last, text: last.text + e.text };
             return c;
           });
         else if (e.type === "tool_call") setToolStatus(`querying ${e.name}…`);
-        else if (e.type === "artifact") setArtifacts((p) => [...p, { ...e.artifact, turn }]);
+        else if (e.type === "artifact") {
+          // Don't append stale artifacts to a fresh landing — if the
+          // user has navigated away (messages reset), drop them.
+          setArtifacts((p) => (signal.aborted ? p : [...p, { ...e.artifact, turn }]));
+        }
         else if (e.type === "error")
           setMessages((p) => {
+            if (p.length === 0) return p;
             const c = [...p];
-            c[c.length - 1] = { ...c[c.length - 1], text: (c[c.length - 1].text || "") + `\n\n_error: ${e.message}_` };
+            const last = c[c.length - 1];
+            c[c.length - 1] = { ...last, text: (last.text || "") + `\n\n_error: ${e.message}_` };
             return c;
           });
-      });
+      }, signal);
     } catch (err: unknown) {
+      // Intentional cancellation — silent. Not a real error.
+      if (signal.aborted) return;
+      if (err instanceof DOMException && err.name === "AbortError") return;
       const msg = err instanceof Error ? err.message : String(err);
       setMessages((p) => {
+        if (p.length === 0) return p;
         const c = [...p];
-        c[c.length - 1] = { ...c[c.length - 1], text: `_connection error: ${msg}_` };
+        const last = c[c.length - 1];
+        c[c.length - 1] = { ...last, text: `_connection error: ${msg}_` };
         return c;
       });
     } finally {
-      setBusy(false);
-      setToolStatus(null);
+      // Only clear busy/status if this is still the active stream.
+      // (A newer send() may have already replaced abortRef.current.)
+      if (abortRef.current === controller) {
+        setBusy(false);
+        setToolStatus(null);
+        abortRef.current = null;
+      }
     }
   }
 
-  // ---------- landing (NEW — replaces the original Google-style prompt) ----------
+  // Reset to landing. Tears down the active stream so late SSE events
+  // can't crash the freshly-empty messages array. Used by:
+  //   - clickable HomeStar logo in chat header
+  //   - "← Markets overview" affordance
+  //   - (future) any other path that flips messages.length back to 0
+  const resetChat = () => {
+    abortRef.current?.abort();
+    abortRef.current = null;
+    setMessages([]);
+    setArtifacts([]);
+    setBusy(false);
+    setToolStatus(null);
+    sessionRef.current = null;
+  };
+
+  // ---------- landing ----------
   if (messages.length === 0) {
     return <LandingOverview overview={overview} fetchedAt={fetchedAt} onAsk={send} />;
   }
 
-  // Shared reset handler — flips messages.length back to 0 so the page
-  // re-renders LandingOverview. Wired to both the clickable HomeStar logo
-  // (universal "click brand to go home" convention) and the secondary
-  // "← Markets overview" affordance on the right of the header. Two
-  // affordances for the same action — discoverability over minimalism.
-  const goHome = () => {
-    setMessages([]);
-    setArtifacts([]);
-    sessionRef.current = null;
-  };
-
-  // ---------- chat workspace (header has two home affordances; ChatPanel + CanvasPanel internals untouched) ----------
+  // ---------- chat workspace ----------
   return (
     <main className="flex h-screen flex-col">
       <header className="flex items-center justify-between border-b border-black/[0.06] px-5 py-3">
         <button
-          onClick={goHome}
+          onClick={resetChat}
           title="Back to markets overview"
           className="flex items-center gap-2 hover:opacity-75 transition cursor-pointer"
         >
@@ -111,7 +156,7 @@ export default function HomeShell({
             Pitch ↗
           </Link>
           <button
-            onClick={goHome}
+            onClick={resetChat}
             className="text-xs text-black/40 hover:text-ground transition"
           >
             ← Markets overview
