@@ -33,8 +33,20 @@ def _centroid(level, region_name, state):
         return COUNTY_CENTROIDS.get(f"{nm}|{state}")
     return None
 
-SIGNAL_SERIES = ["rent_index", "nonfarm_emp", "permits", "postings", "warn_notices",
-                 "warn_affected", "fhfa_hpi", "qcew_emp"]
+SIGNAL_SERIES = [
+    "rent_index",
+    "nonfarm_emp",
+    "permits",
+    "postings",
+    "linkedin_postings",
+    "warn_notices",
+    "warn_affected",
+    "fhfa_hpi",
+    "qcew_emp",
+    "apartment_list_rent",
+    "apartment_list_vacancy",
+    "apartment_list_time_on_market",
+]
 ZILLOW_LEVELS = ["Metro", "County", "City", "Zip"]
 
 # NAICS sector code -> label (QCEW agglvl 74)
@@ -98,6 +110,49 @@ def _artifact(atype, title, **kw):
     return {"id": str(uuid.uuid4())[:8], "type": atype, "title": title, **kw}
 
 
+def _fmt_num(v):
+    if isinstance(v, float):
+        return round(v, 2)
+    return v
+
+
+def _latest_signal(metro_id, series):
+    pts = _points(_idx("signals"), [term("metro_id", metro_id), term("series", series)])
+    if not pts:
+        return None, []
+    return {
+        "latest": _fmt_num(pts[-1]["value"]),
+        "as_of": pts[-1]["date"],
+        "yoy_pct": _yoy(pts),
+        "trend": pts[-18:],
+        "n": len(pts),
+    }, pts
+
+
+def _direction(value, higher_is_better=True):
+    if value is None:
+        return "neutral"
+    if value > 0.5:
+        return "positive" if higher_is_better else "negative"
+    if value < -0.5:
+        return "negative" if higher_is_better else "positive"
+    return "neutral"
+
+
+def _month_buckets(rows, date_field, value_field=None):
+    buckets = {}
+    for row in rows:
+        dt = row.get(date_field)
+        if not dt:
+            continue
+        month = dt[:7]
+        b = buckets.setdefault(month, {"date": f"{month}-01", "count": 0, "value": 0})
+        b["count"] += 1
+        if value_field:
+            b["value"] += row.get(value_field) or 0
+    return [buckets[k] for k in sorted(buckets)]
+
+
 # ---------------- tools ----------------
 
 def get_metro_overview(metro_id):
@@ -118,6 +173,57 @@ def get_metro_overview(metro_id):
     summary = {"metro": meta.get("name"), "cards": [{k: c[k] for k in ("label", "latest", "as_of", "yoy_pct")} for c in cards]}
     art = _artifact("metric_cards", f"{meta.get('name', metro_id)} — market snapshot", cards=cards,
                     confidence="directional", sources=sources)
+    return {"summary": summary, "artifact": art}
+
+
+def get_market_snapshot(metro_id):
+    """Board view of rent, labor, supply, ownership, and live pulse signals."""
+    meta = metros().get(metro_id, {"name": metro_id})
+    groups = [
+        ("Rent", [
+            ("rent_index", "ZORI rent", True),
+            ("apartment_list_rent", "Apartment List rent", True),
+            ("apartment_list_vacancy", "Vacancy", False),
+            ("apartment_list_time_on_market", "Time on market", False),
+        ]),
+        ("Labor", [
+            ("nonfarm_emp", "Nonfarm employment", True),
+            ("postings", "Indeed postings", True),
+            ("linkedin_postings", "LinkedIn postings", True),
+            ("warn_affected", "WARN affected", False),
+        ]),
+        ("Supply / Ownership", [
+            ("permits", "Building permits", False),
+            ("fhfa_hpi", "FHFA HPI", True),
+            ("qcew_emp", "QCEW employment", True),
+        ]),
+    ]
+    board, sources = [], []
+    for group, series_defs in groups:
+        items = []
+        for series, label, higher_is_better in series_defs:
+            latest, pts = _latest_signal(metro_id, series)
+            if not latest:
+                continue
+            latest.update({
+                "label": label,
+                "series": series,
+                "direction": _direction(latest["yoy_pct"], higher_is_better=higher_is_better),
+            })
+            items.append(latest)
+            sources.append(_src("groundswell-signals", f"metro_id={metro_id} series={series}", len(pts), pts))
+        if items:
+            board.append({"group": group, "items": items})
+    summary = {
+        "metro": meta.get("name", metro_id),
+        "signals": [
+            {"group": g["group"], "label": i["label"], "latest": i["latest"],
+             "as_of": i["as_of"], "yoy_pct": i["yoy_pct"], "direction": i["direction"]}
+            for g in board for i in g["items"]
+        ],
+    }
+    art = _artifact("snapshot_board", f"{meta.get('name', metro_id)} market board",
+                    groups=board, confidence="directional", sources=sources)
     return {"summary": summary, "artifact": art}
 
 
@@ -203,6 +309,31 @@ def compare_metros(series, metro_ids=None, mode="yoy"):
     return {"summary": {"mode": mode, "series": series, "ranking": bars}, "artifact": art}
 
 
+def compare_market_board(metro_ids=None, series=None, mode="yoy"):
+    """Heatmap-style cross-metro board across several signals."""
+    metro_ids = metro_ids or list(metros().keys())
+    series = series or ["rent_index", "nonfarm_emp", "linkedin_postings", "warn_affected",
+                        "permits", "apartment_list_vacancy", "fhfa_hpi"]
+    rows, sources = [], []
+    for mid in metro_ids:
+        cells = []
+        for s in series:
+            pts = _points(_idx("signals"), [term("metro_id", mid), term("series", s)])
+            if not pts:
+                cells.append({"series": s, "value": None, "as_of": None, "tone": "empty"})
+                continue
+            val = _yoy(pts) if mode == "yoy" else pts[-1]["value"]
+            higher_is_better = s not in {"warn_affected", "warn_notices", "apartment_list_vacancy",
+                                         "apartment_list_time_on_market", "permits"}
+            cells.append({"series": s, "value": _fmt_num(val), "as_of": pts[-1]["date"],
+                          "tone": _direction(val, higher_is_better=higher_is_better)})
+            sources.append(_src("groundswell-signals", f"metro_id={mid} series={s}", len(pts), pts))
+        rows.append({"metro_id": mid, "cells": cells})
+    art = _artifact("heatmap", f"Metro signal board ({mode})", rows=rows, series=series, mode=mode,
+                    confidence="directional", sources=sources)
+    return {"summary": {"mode": mode, "series": series, "rows": rows}, "artifact": art}
+
+
 def get_zillow_metric(dataset, level="Metro", metro_id=None, date_from=None, date_to=None):
     filters = [term("dataset", dataset), term("level", level)]
     if metro_id:
@@ -251,6 +382,88 @@ def map_metric(dataset, level="Zip", metro_id=None, period=None):
                               "query": f"dataset={dataset} level={level} metro_id={metro_id}", "n": len(regions),
                               "date_range": period or "latest"}])
     return {"summary": {"dataset": dataset, "level": level, "n_regions": len(regions)}, "artifact": art}
+
+
+def get_warn_timeline(metro_id=None, date_from=None, date_to=None, min_workers=0, size=500):
+    filters = []
+    if metro_id:
+        filters.append(term("metro_id", metro_id))
+    if min_workers:
+        filters.append({"range": {"affected_workers": {"gte": min_workers}}})
+    if date_from or date_to:
+        r = {}
+        if date_from:
+            r["gte"] = date_from
+        if date_to:
+            r["lte"] = date_to
+        filters.append({"range": {"notice_date": r}})
+    body = {"size": size, "query": {"bool": {"filter": filters}} if filters else {"match_all": {}},
+            "sort": [{"notice_date": {"order": "desc", "missing": "_last"}}],
+            "_source": ["employer_name", "city", "county", "state", "affected_workers",
+                        "notice_date", "effective_date", "layoff_type", "source_url", "metro_id"]}
+    res = es.search(index=_idx("warn_notices"), body=body)
+    rows = [h["_source"] for h in res["hits"]["hits"]]
+    total = res["hits"]["total"]["value"]
+    buckets = _month_buckets(rows, "notice_date", "affected_workers")
+    events = rows[:40]
+    affected = sum((r.get("affected_workers") or 0) for r in rows)
+    art = _artifact("event_timeline", f"WARN timeline — {metro_id or 'all metros'}",
+                    buckets=buckets, events=events, count_label="notices",
+                    value_label="affected workers",
+                    summary_text=f"{total} notices; {affected:,} affected workers in returned sample",
+                    sources=[{"label": "groundswell-warn_notices", "es_index": "groundswell-warn_notices",
+                              "query": f"metro_id={metro_id} min_workers={min_workers}",
+                              "n": total, "date_range": f"{date_from or '*'}..{date_to or '*'}"}])
+    return {"summary": {"total_notices": total, "sample_affected": affected,
+                        "months": len(buckets), "recent_events": events[:8]}, "artifact": art}
+
+
+def get_postings_timeline(metro_id=None, date_from=None, date_to=None, query=None, size=500):
+    rows, total = [], 0
+
+    def _collect(index, title_field, date_field, source_label):
+        filters = []
+        if metro_id:
+            filters.append(term("metro_id", metro_id))
+        if query:
+            filters.append({"match": {title_field: query}})
+        if date_from or date_to:
+            r = {}
+            if date_from:
+                r["gte"] = date_from
+            if date_to:
+                r["lte"] = date_to
+            filters.append({"range": {date_field: r}})
+        body = {"size": size, "query": {"bool": {"filter": filters}} if filters else {"match_all": {}},
+                "sort": [{date_field: {"order": "desc", "missing": "_last"}}],
+                "_source": [title_field, "company", "location", date_field, "url", "source", "metro_id"]}
+        try:
+            res = es.search(index=index, body=body)
+        except Exception:
+            return 0, []
+        out = []
+        for h in res["hits"]["hits"]:
+            s = h["_source"]
+            out.append({"title": s.get(title_field), "company": s.get("company"),
+                        "location": s.get("location"), "date": s.get(date_field),
+                        "url": s.get("url"), "source": s.get("source") or source_label,
+                        "metro_id": s.get("metro_id")})
+        return res["hits"]["total"]["value"], out
+
+    indeed_total, indeed_rows = _collect(_idx("job_postings"), "positionName", "postingDateParsed", "Indeed")
+    linkedin_total, linkedin_rows = _collect(_idx("linkedin_job_postings"), "title", "postedAt", "LinkedIn")
+    total = indeed_total + linkedin_total
+    rows = sorted(linkedin_rows + indeed_rows, key=lambda r: r.get("date") or "", reverse=True)
+    buckets = _month_buckets(rows, "date")
+    art = _artifact("event_timeline", f"Job postings timeline — {metro_id or 'all metros'}",
+                    buckets=buckets, events=rows[:40], count_label="postings",
+                    value_label="postings",
+                    summary_text=f"{total} postings across Indeed and LinkedIn (shown {min(len(rows), 40)})",
+                    sources=[{"label": "job postings", "es_index": "groundswell-job_postings,groundswell-linkedin_job_postings",
+                              "query": f"metro_id={metro_id} q={query}", "n": total,
+                              "date_range": f"{date_from or '*'}..{date_to or '*'}"}])
+    return {"summary": {"total_postings": total, "months": len(buckets), "recent_events": rows[:8]},
+            "artifact": art}
 
 
 def search_warn(metro_id=None, date_from=None, date_to=None, min_workers=0, size=50):
@@ -330,6 +543,68 @@ def search_postings(metro_id=None, date_from=None, date_to=None, query=None, siz
     return {"summary": {"total_postings": total, "source_counts": source_counts, "shown": len(rows)}, "artifact": art}
 
 
+def get_live_comps(metro_id=None, source="apartments", price_min=None, price_max=None, beds=None, size=24):
+    source = (source or "apartments").lower()
+    if source in {"redfin", "sale", "sales", "for_sale"}:
+        filters = []
+        if metro_id:
+            filters.append(term("metro_id", metro_id))
+        if price_min or price_max:
+            r = {}
+            if price_min:
+                r["gte"] = price_min
+            if price_max:
+                r["lte"] = price_max
+            filters.append({"range": {"price": r}})
+        if beds:
+            filters.append({"range": {"beds": {"gte": beds}}})
+        body = {"size": size, "query": {"bool": {"filter": filters}} if filters else {"match_all": {}},
+                "sort": [{"scrapedAt": {"order": "desc", "missing": "_last"}}],
+                "_source": ["address", "city", "state", "zip", "price", "beds", "baths", "sqFt",
+                            "pricePerSqFt", "daysOnRedfin", "propertyType", "listingStatus",
+                            "coverPhoto", "url", "metro_id", "latitude", "longitude"]}
+        res = es.search(index=_idx("redfin_listings"), body=body)
+        items = []
+        for h in res["hits"]["hits"]:
+            s = h["_source"]
+            items.append({"title": s.get("address") or "Redfin listing",
+                          "subtitle": ", ".join(x for x in [s.get("city"), s.get("state"), s.get("zip")] if x),
+                          "price": s.get("price"), "beds": s.get("beds"), "baths": s.get("baths"),
+                          "sqft": s.get("sqFt"), "price_per_sqft": s.get("pricePerSqFt"),
+                          "days": s.get("daysOnRedfin"), "property_type": s.get("propertyType"),
+                          "status": s.get("listingStatus"), "image": s.get("coverPhoto"),
+                          "url": s.get("url"), "lat": s.get("latitude"), "lng": s.get("longitude")})
+        idx = "groundswell-redfin_listings"
+    else:
+        filters = []
+        if metro_id:
+            filters.append(term("metro_id", metro_id))
+        body = {"size": size, "query": {"bool": {"filter": filters}} if filters else {"match_all": {}},
+                "sort": [{"finishedAt": {"order": "desc", "missing": "_last"}}],
+                "_source": ["propertyName", "name", "address_full", "address_city", "address_state",
+                            "address_postalCode", "pricing_rentRange", "rating", "url", "source_url",
+                            "metro_id", "phone", "latitude", "longitude"]}
+        res = es.search(index=_idx("apartments_com_properties"), body=body)
+        items = []
+        for h in res["hits"]["hits"]:
+            s = h["_source"]
+            items.append({"title": s.get("propertyName") or s.get("name") or s.get("address_full") or "Apartment comp",
+                          "subtitle": s.get("address_full") or ", ".join(
+                              x for x in [s.get("address_city"), s.get("address_state"), s.get("address_postalCode")] if x),
+                          "price_text": s.get("pricing_rentRange"), "rating": s.get("rating"),
+                          "phone": s.get("phone"), "url": s.get("url") or s.get("source_url"),
+                          "lat": s.get("latitude"), "lng": s.get("longitude")})
+        idx = "groundswell-apartments_com_properties"
+    total = res["hits"]["total"]["value"]
+    art = _artifact("comps", f"{'Redfin' if source in {'redfin', 'sale', 'sales', 'for_sale'} else 'Apartments.com'} comps — {metro_id or 'all metros'}",
+                    source=source, items=items,
+                    summary_text=f"{total} comps matched (shown {len(items)})",
+                    sources=[{"label": idx, "es_index": idx,
+                              "query": f"metro_id={metro_id} source={source} price={price_min}..{price_max} beds={beds}",
+                              "n": total, "date_range": "latest snapshot"}])
+    return {"summary": {"total": total, "shown": len(items), "items": items[:8]}, "artifact": art}
+
+
 def get_industry_mix(metro_id, top=12):
     """Latest annual private-sector employment by NAICS sector (QCEW) for a metro."""
     idx = _idx("qcew")
@@ -373,14 +648,19 @@ def get_industry_mix(metro_id, top=12):
 
 DISPATCH = {
     "get_metro_overview": get_metro_overview,
+    "get_market_snapshot": get_market_snapshot,
     "get_industry_mix": get_industry_mix,
     "get_timeseries": get_timeseries,
     "lead_lag": lead_lag,
     "compare_metros": compare_metros,
+    "compare_market_board": compare_market_board,
     "get_zillow_metric": get_zillow_metric,
     "map_metric": map_metric,
+    "get_warn_timeline": get_warn_timeline,
+    "get_postings_timeline": get_postings_timeline,
     "search_warn": search_warn,
     "search_postings": search_postings,
+    "get_live_comps": get_live_comps,
 }
 
 

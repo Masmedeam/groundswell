@@ -6,10 +6,11 @@ import { streamChat } from "@/lib/api";
 import type { Artifact, ChatMessage } from "@/lib/types";
 
 const EXAMPLES = [
-  "Is rent growth firming or cooling in San Francisco?",
-  "Compare rent growth across all five metros.",
-  "Do layoffs lead employment in SF, and by how long?",
-  "Show for-sale inventory trends in Austin.",
+  "Give me the full market board for San Francisco.",
+  "Compare all five metros across rent, labor, supply, and layoffs.",
+  "Show the WARN layoff timeline for Austin.",
+  "Show live apartment comps in Phoenix.",
+  "Map ZIP-level rent in Chicago.",
 ];
 
 export default function Home() {
@@ -117,9 +118,9 @@ export default function Home() {
           New question
         </button>
       </header>
-      <div className="flex min-h-0 flex-1">
+      <div className="flex min-h-0 flex-1 flex-col md:flex-row">
         {/* left: chat */}
-        <section className="flex w-[44%] min-w-[360px] flex-col border-r border-black/[0.06]">
+        <section className="flex min-h-[42vh] w-full flex-col border-b border-black/[0.06] md:min-h-0 md:w-[44%] md:min-w-[360px] md:border-b-0 md:border-r">
           <div className="flex-1 overflow-auto scroll-thin px-5 py-5">
             <ChatPanel messages={messages} busy={busy} toolStatus={toolStatus} />
             <div ref={bottomRef} />
@@ -146,7 +147,7 @@ export default function Home() {
           </form>
         </section>
         {/* right: canvas */}
-        <section className="flex-1 overflow-auto scroll-thin bg-[#FAFAFA] px-5 py-5">
+        <section className="flex-1 overflow-auto scroll-thin bg-[#FAFAFA] px-4 py-4 md:px-5 md:py-5">
           <CanvasPanel artifacts={artifacts} />
         </section>
       </div>

@@ -14,35 +14,52 @@ client = Anthropic(api_key=CLAUDE_API_KEY)
 SESSIONS: dict[str, list] = {}
 
 TOOLS = [
-    {"name": "get_metro_overview", "description": "Market snapshot for one metro: latest rent index, employment, permits with YoY. Use first when asked about a metro.",
+    {"name": "get_metro_overview", "description": "Artifact: metric_cards. Compact market snapshot for one metro: latest rent index, employment, permits with YoY. Use for quick answers when a full board is unnecessary.",
      "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}}, "required": ["metro_id"]}},
-    {"name": "get_industry_mix", "description": "Latest annual private-sector employment by industry (NAICS sector) for a metro, from QCEW. Use to explain WHICH sectors drive a metro's labor demand and wage levels.",
+    {"name": "get_market_snapshot", "description": "Artifact: snapshot_board. Full metro board across rent, labor, supply, ownership pressure, Apartment List vacancy/time-on-market, LinkedIn postings, WARN, permits, and FHFA. Use first for broad metro read, underwriting, firming/cooling, or 'what is going on in this market' questions.",
      "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}}, "required": ["metro_id"]}},
-    {"name": "get_timeseries", "description": "Monthly time series for one or more metros and a signal series. Use to show trends/charts.",
+    {"name": "get_industry_mix", "description": "Artifact: bar. Latest annual private-sector employment by industry (NAICS sector) for a metro, from QCEW. Use to explain WHICH sectors drive a metro's labor demand and wage levels.",
+     "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}}, "required": ["metro_id"]}},
+    {"name": "get_timeseries", "description": "Artifact: timeseries. Monthly time series for one or more metros and one signal series. Use for trend questions, historical context, and single-signal comparisons across metros.",
      "input_schema": {"type": "object", "properties": {
          "metro_ids": {"type": "array", "items": {"type": "string"}},
          "series": {"type": "string", "enum": es_tools.SIGNAL_SERIES},
          "date_from": {"type": "string"}, "date_to": {"type": "string"}}, "required": ["metro_ids", "series"]}},
-    {"name": "lead_lag", "description": "Estimate how many months a leading signal (e.g. warn_notices, postings, permits) leads a target (nonfarm_emp or rent_index) in a metro, via cross-correlation.",
+    {"name": "lead_lag", "description": "Artifact: timeseries with lead annotation. Estimate how many months a leading signal (WARN, postings, permits, LinkedIn) leads a target (nonfarm_emp or rent_index) in a metro. Use for explicit lead/lag or predictive signal questions.",
      "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}, "signal": {"type": "string"},
                                                        "target": {"type": "string"}}, "required": ["metro_id", "signal"]}},
-    {"name": "compare_metros", "description": "Rank metros by a signal, latest value or YoY. Use for cross-market questions.",
+    {"name": "compare_metros", "description": "Artifact: bar. Rank metros by one signal, latest value or YoY. Use when the user asks for a simple ranking on one metric.",
      "input_schema": {"type": "object", "properties": {"series": {"type": "string"},
                                                        "metro_ids": {"type": "array", "items": {"type": "string"}},
                                                        "mode": {"type": "string", "enum": ["latest", "yoy"]}}, "required": ["series"]}},
-    {"name": "get_zillow_metric", "description": "Query the Zillow family (e.g. zori_allhomes_sm, zhvi_allhomes_mid_sa, median_sale_price_sm, for_sale_inventory_sm, market_heat_index) at a level (Metro/County/City/Zip) for a metro.",
+    {"name": "compare_market_board", "description": "Artifact: heatmap. Cross-metro signal board across several indicators. Use for 'compare markets', 'which metro is strongest/weakest', or multi-signal screening questions.",
+     "input_schema": {"type": "object", "properties": {"metro_ids": {"type": "array", "items": {"type": "string"}},
+                                                       "series": {"type": "array", "items": {"type": "string"}},
+                                                       "mode": {"type": "string", "enum": ["latest", "yoy"]}}, "required": []}},
+    {"name": "get_zillow_metric", "description": "Artifact: timeseries. Query Zillow metrics (e.g. zori_allhomes_sm, zhvi_allhomes_mid_sa, median_sale_price_sm, for_sale_inventory_sm, market_heat_index) at Metro/County/City/Zip level.",
      "input_schema": {"type": "object", "properties": {"dataset": {"type": "string"}, "level": {"type": "string"},
                                                        "metro_id": {"type": "string"}, "date_from": {"type": "string"},
                                                        "date_to": {"type": "string"}}, "required": ["dataset"]}},
-    {"name": "map_metric", "description": "Choropleth data: latest value of a Zillow dataset per Zip/County within a metro. Use for map/geographic questions.",
+    {"name": "map_metric", "description": "Artifact: map. Latest Zillow metric by Zip/County within a metro. Use for geography, submarket, neighborhood, ZIP, county, and heat-map questions.",
      "input_schema": {"type": "object", "properties": {"dataset": {"type": "string"}, "level": {"type": "string"},
                                                        "metro_id": {"type": "string"}, "period": {"type": "string"}}, "required": ["dataset", "metro_id"]}},
-    {"name": "search_warn", "description": "Recent WARN layoff notices, filterable by metro/date/min affected workers.",
+    {"name": "get_warn_timeline", "description": "Artifact: event_timeline. Monthly WARN notices/affected workers with recent event list. Use before a raw WARN table when the user asks about layoffs, demand risk, or recent labor contraction.",
      "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}, "date_from": {"type": "string"},
                                                        "date_to": {"type": "string"}, "min_workers": {"type": "integer"}}, "required": []}},
-    {"name": "search_postings", "description": "Job postings from historical Indeed plus live LinkedIn snapshots, filterable by metro/date/keyword.",
+    {"name": "get_postings_timeline", "description": "Artifact: event_timeline. Monthly job-posting counts with recent postings from LinkedIn/Indeed. Use for hiring momentum, expansion pressure, live job pulse, or keyword-specific hiring questions.",
      "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}, "date_from": {"type": "string"},
                                                        "date_to": {"type": "string"}, "query": {"type": "string"}}, "required": []}},
+    {"name": "search_warn", "description": "Artifact: table. Recent WARN layoff notices, filterable by metro/date/min affected workers. Use when the user asks to inspect notices or companies.",
+     "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}, "date_from": {"type": "string"},
+                                                       "date_to": {"type": "string"}, "min_workers": {"type": "integer"}}, "required": []}},
+    {"name": "search_postings", "description": "Artifact: table. Job postings from historical Indeed plus live LinkedIn snapshots, filterable by metro/date/keyword. Use when the user asks to inspect individual postings.",
+     "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"}, "date_from": {"type": "string"},
+                                                       "date_to": {"type": "string"}, "query": {"type": "string"}}, "required": []}},
+    {"name": "get_live_comps", "description": "Artifact: comps. Live/current-state comps from Apartments.com rent properties or Redfin for-sale listings. Use for comps, listings, rent ranges, sale prices, amenities, and current property-level market pulse.",
+     "input_schema": {"type": "object", "properties": {"metro_id": {"type": "string"},
+                                                       "source": {"type": "string", "enum": ["apartments", "redfin"]},
+                                                       "price_min": {"type": "number"}, "price_max": {"type": "number"},
+                                                       "beds": {"type": "integer"}}, "required": []}},
 ]
 
 
@@ -72,10 +89,17 @@ Doctrine:
 - Be concise and plain-spoken. Cite which signals drove your read. The right-hand panel renders your tool artifacts (charts/maps/tables) automatically — refer to them naturally ("see the chart"), don't paste raw number tables in prose.
 - If data is thin or coverage differs by metro/source, say so honestly.
 
+Right-panel artifact choices:
+- Broad one-metro read: get_market_snapshot, then add get_timeseries or get_warn_timeline only if it supports the answer.
+- Cross-metro screen: compare_market_board for multi-signal views; compare_metros for one-metric rankings.
+- Geography/submarket: map_metric.
+- Layoffs/hiring momentum: get_warn_timeline or get_postings_timeline; use search_* only for detailed rows.
+- Property comps/current listings: get_live_comps.
+
 Available metros (use these metro_id values):
 {metro_lines}
 
-Signal series: rent_index, nonfarm_emp, permits, postings, warn_notices, warn_affected, fhfa_hpi (FHFA house-price index), qcew_emp (QCEW employment).
+Signal series: {", ".join(es_tools.SIGNAL_SERIES)}.
 Keep answers tight (a few short paragraphs). End a metro read with a one-line "HomeStar read:" or "Defensible underwrite:" takeaway."""
 
 

@@ -4,23 +4,30 @@ export type Source = {
 
 export type Artifact = {
   id: string;
-  type: "metric_cards" | "timeseries" | "bar" | "map" | "table";
+  type: "metric_cards" | "snapshot_board" | "timeseries" | "bar" | "heatmap" | "map" | "table" | "event_timeline" | "comps";
   title: string;
   turn?: number;
   confidence?: string;
   sources?: Source[];
   // type-specific
   cards?: any[];
+  groups?: { group: string; items: any[] }[];
   lines?: { metro_id: string; points: { date: string; value: number }[] }[];
   series?: string;
+  mode?: string;
   annotations?: any[];
   bars?: { metro_id: string; value: number; as_of?: string }[];
   metric?: string;
+  rows?: any[];
+  buckets?: { date: string; count: number; value?: number }[];
+  events?: any[];
+  count_label?: string;
+  value_label?: string;
+  items?: any[];
   regions?: { region: string; region_id?: string; value: number; as_of?: string; lat?: number | null; lng?: number | null }[];
   level?: string;
   metro_id?: string;
   columns?: string[];
-  rows?: any[];
   summary_text?: string;
 };
 
