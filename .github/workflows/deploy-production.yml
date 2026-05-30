@@ -65,7 +65,7 @@ jobs:
           PROD_USER: ${{ secrets.PROD_USER }}
         run: |
           set -euo pipefail
-          ssh -i ~/.ssh/groundswell_prod -p "${PROD_PORT:-22}" "${PROD_USER}@${PROD_HOST}" <<'EOF'
+          ssh -i ~/.ssh/groundswell_prod -p "${PROD_PORT:-22}" "${PROD_USER}@${PROD_HOST}" 'bash -se' <<'EOF'
             set -euo pipefail
             cd /opt/groundswell/docker
             sudo docker-compose -f docker-compose.prod.yml up -d --no-deps --build groundswell-api groundswell-web
