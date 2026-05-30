@@ -1,5 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import MetroCard from "./MetroCard";
 import type { MetroOverview } from "@/lib/engine-overview";
 
@@ -63,8 +65,26 @@ export default function LandingOverview({
   const sorted = useMemo(() => sortRows(overview, sortKey), [overview, sortKey]);
   return (
     <main className="mx-auto min-h-screen max-w-7xl px-6 py-8">
-      {/* Title block */}
-      <div className="mb-6 text-center">
+      {/* Pitch link — small, top-right, unobtrusive */}
+      <div className="mb-2 flex justify-end">
+        <Link
+          href="/pitch"
+          className="text-[11px] uppercase tracking-[0.18em] text-black/45 hover:text-ground transition"
+        >
+          Pitch ↗
+        </Link>
+      </div>
+
+      {/* Title block — logo mark above wordmark */}
+      <div className="mb-6 flex flex-col items-center text-center">
+        <Image
+          src="/logo.png"
+          alt="HomeStar"
+          width={56}
+          height={56}
+          priority
+          className="mb-2"
+        />
         <h1 className="text-3xl font-semibold tracking-tight text-ground-ink">
           Home<span className="text-ground">Star</span>
         </h1>

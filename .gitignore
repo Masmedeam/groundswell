@@ -20,3 +20,6 @@ app/web/.next/
 app/web/out/
 app/web/node_modules/
 app/api/__pycache__/
+
+# Next.js incremental build state — local-only
+*.tsbuildinfo

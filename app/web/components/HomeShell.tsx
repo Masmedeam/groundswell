@@ -6,6 +6,8 @@
 // landing branch (messages.length === 0) now renders <LandingOverview>
 // instead of the original Google-style prompt.
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import ChatPanel from "@/components/ChatPanel";
 import CanvasPanel from "@/components/CanvasPanel";
 import LandingOverview from "@/components/LandingOverview";
@@ -94,16 +96,27 @@ export default function HomeShell({
         <button
           onClick={goHome}
           title="Back to markets overview"
-          className="text-sm font-semibold text-ground-ink hover:opacity-75 transition cursor-pointer"
+          className="flex items-center gap-2 hover:opacity-75 transition cursor-pointer"
         >
-          Home<span className="text-ground">Star</span>
+          <Image src="/logo.png" alt="HomeStar" width={28} height={28} priority />
+          <span className="text-sm font-semibold text-ground-ink">
+            Home<span className="text-ground">Star</span>
+          </span>
         </button>
-        <button
-          onClick={goHome}
-          className="text-xs text-black/40 hover:text-ground transition"
-        >
-          ← Markets overview
-        </button>
+        <div className="flex items-center gap-5">
+          <Link
+            href="/pitch"
+            className="text-[11px] uppercase tracking-[0.16em] text-black/40 hover:text-ground transition"
+          >
+            Pitch ↗
+          </Link>
+          <button
+            onClick={goHome}
+            className="text-xs text-black/40 hover:text-ground transition"
+          >
+            ← Markets overview
+          </button>
+        </div>
       </header>
       <div className="flex min-h-0 flex-1">
         {/* left: chat */}
