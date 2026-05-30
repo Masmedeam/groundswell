@@ -34,7 +34,9 @@ services:
         condition: service_healthy
 
   groundswell-api:
-    build: ../app/api
+    build:
+      context: ..
+      dockerfile: app/api/Dockerfile
     container_name: groundswell-api
     env_file: ../.env
     environment:
@@ -47,7 +49,8 @@ services:
 
   groundswell-web:
     build:
-      context: ../app/web
+      context: ..
+      dockerfile: app/web/Dockerfile
       args:
         NEXT_PUBLIC_API_URL: http://localhost:8000
     container_name: groundswell-web
