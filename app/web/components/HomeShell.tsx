@@ -76,16 +76,33 @@ export default function HomeShell({
     return <LandingOverview overview={overview} fetchedAt={fetchedAt} onAsk={send} />;
   }
 
-  // ---------- chat workspace (UNCHANGED from Salim's original page.tsx) ----------
+  // Shared reset handler — flips messages.length back to 0 so the page
+  // re-renders LandingOverview. Wired to both the clickable HomeStar logo
+  // (universal "click brand to go home" convention) and the secondary
+  // "← Markets overview" affordance on the right of the header. Two
+  // affordances for the same action — discoverability over minimalism.
+  const goHome = () => {
+    setMessages([]);
+    setArtifacts([]);
+    sessionRef.current = null;
+  };
+
+  // ---------- chat workspace (header has two home affordances; ChatPanel + CanvasPanel internals untouched) ----------
   return (
     <main className="flex h-screen flex-col">
       <header className="flex items-center justify-between border-b border-black/[0.06] px-5 py-3">
-        <div className="text-sm font-semibold">Home<span className="text-ground">Star</span></div>
         <button
-          onClick={() => { setMessages([]); setArtifacts([]); sessionRef.current = null; }}
-          className="text-xs text-black/40 hover:text-ground"
+          onClick={goHome}
+          title="Back to markets overview"
+          className="text-sm font-semibold text-ground-ink hover:opacity-75 transition cursor-pointer"
         >
-          New question
+          Home<span className="text-ground">Star</span>
+        </button>
+        <button
+          onClick={goHome}
+          className="text-xs text-black/40 hover:text-ground transition"
+        >
+          ← Markets overview
         </button>
       </header>
       <div className="flex min-h-0 flex-1">
