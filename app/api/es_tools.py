@@ -788,15 +788,55 @@ def get_signal_validation(metro_id):
         })
 
     clean_rows = [r for r in metro_rows if len(r["flags"]) == 0 and r["corr"] is not None]
-    dominant = clean_rows[0] if clean_rows else None
+    n_clean = len(clean_rows)
+    n_tested = len(metro_rows)
+
+    # top_drivers: up to 3 ranked clean signals. NO PADDING — if fewer than 3
+    # clean signals exist for this metro, top_drivers has fewer entries and
+    # drivers_note states the honesty explicitly. Flagged signals are NEVER
+    # promoted into top_drivers no matter how few clean signals exist —
+    # discipline holds.
+    top_drivers = [
+        {"rank": i + 1, "signal": r["signal"], "leadMonths": r["leadMonths"],
+         "corr": round(r["corr"], 2), "n": r["nAtBestLag"]}
+        for i, r in enumerate(clean_rows[:3])
+    ]
+
+    if n_clean >= 3:
+        headline = (
+            f"{n_clean} clean signals validated for {metro_display}. "
+            f"Top driver: {top_drivers[0]['signal']} leads "
+            f"{top_drivers[0]['leadMonths']}mo at r={top_drivers[0]['corr']:.2f}."
+        )
+        drivers_note = f"top 3 drivers shown (of {n_clean} clean signals)"
+    elif n_clean > 0:
+        plural = "signals" if n_clean > 1 else "signal"
+        headline = (
+            f"Only {n_clean} clean {plural} validated for {metro_display} — fewer than 3. "
+            f"Top driver: {top_drivers[0]['signal']} leads "
+            f"{top_drivers[0]['leadMonths']}mo at r={top_drivers[0]['corr']:.2f}."
+        )
+        drivers_note = (
+            f"only {n_clean} clean {plural} validated for {metro_display} — no padding; "
+            f"remaining tested signals were flagged (see flagged_signals)"
+        )
+    else:
+        headline = (
+            f"No clean leading signal established for {metro_display} in this window."
+        )
+        drivers_note = (
+            f"no clean leading signal established for {metro_display}; "
+            f"all tested signals flagged (see flagged_signals)"
+        )
 
     summary = {
-        "metro_id": metro_id, "metro": metro_display,
-        "n_signals_tested": len(metro_rows),
-        "n_clean": len(clean_rows),
-        "dominant_signal": dominant["signal"] if dominant else None,
-        "dominant_lead_months": dominant["leadMonths"] if dominant else None,
-        "dominant_corr": round(dominant["corr"], 2) if dominant else None,
+        "metro_id": metro_id,
+        "metro": metro_display,
+        "headline": headline,
+        "top_drivers": top_drivers,
+        "drivers_note": drivers_note,
+        "n_clean": n_clean,
+        "n_signals_tested": n_tested,
         "clean_signals": [
             {"signal": r["signal"], "leadMonths": r["leadMonths"],
              "corr": round(r["corr"], 2), "n": r["nAtBestLag"]}
@@ -808,13 +848,7 @@ def get_signal_validation(metro_id):
              "flags": r["flags"]}
             for r in metro_rows if len(r["flags"]) > 0
         ],
-        "note": (
-            f"{metro_display}: {len(clean_rows)} of {len(metro_rows)} signals "
-            f"clean (no flags). Dominant: {dominant['signal']} leads "
-            f"{dominant['leadMonths']}mo at r={dominant['corr']:.2f}."
-            if dominant
-            else f"{metro_display}: no clean leading signal established in this window."
-        ),
+        "note": headline,
     }
 
     art = _artifact(

@@ -4,9 +4,9 @@ import MetroCard from "./MetroCard";
 import type { MetroOverview } from "@/lib/engine-overview";
 
 function questionForState(state: string, metro: string): string {
-  if (state === "firming") return `Why is ${metro} firming?`;
-  if (state === "softening") return `Why is ${metro} softening?`;
-  return `What's driving the market in ${metro}?`;
+  if (state === "firming") return `What are the top 3 signals driving the firming call in ${metro}?`;
+  if (state === "softening") return `What are the top 3 signals driving the softening call in ${metro}?`;
+  return `What are the top validated signals for ${metro}?`;
 }
 
 const CROSS_METRO_EXAMPLES = [
@@ -73,19 +73,18 @@ export default function LandingOverview({
         </p>
       </div>
 
-      {/* Header banner — regime-dependent framing */}
+      {/* Header banner — engine framing (postings-universal, JOLTS+WARN corroborators) */}
       <div className="mb-5 rounded-xl border border-ground-soft bg-ground-soft/40 px-5 py-4">
         <div className="mb-1 text-sm font-semibold text-ground">
-          17 markets. 6 demand signals. Different dominants per metro.
+          17 markets. 6 demand signals validated, 3 tested and dropped. Walk-forward backtest at 79.3% hit rate.
         </div>
         <p className="text-[13px] leading-relaxed text-black/65">
-          The engine validates per-market:{" "}
-          <strong className="text-ground-ink">postings is the universal leader</strong>{" "}
-          (clean in 16 of 17),{" "}
+          <strong className="text-ground-ink">Postings is the universal leader</strong>{" "}
+          across markets (clean in 16 of 17).{" "}
           <strong className="text-ground-ink">JOLTS quits</strong>{" "}
-          clean in 14 of 17,{" "}
+          (14/17) and{" "}
           <strong className="text-ground-ink">WARN</strong>{" "}
-          is SF&apos;s depth specialty (multi-cycle, leads 7mo). Click a market below to ask the agent why — drill down to the signal that&apos;s actually driving it.
+          (SF&apos;s multi-cycle depth signal) add corroborating signal underneath. Click any market to surface the full top-signal decomposition.
         </p>
       </div>
 
