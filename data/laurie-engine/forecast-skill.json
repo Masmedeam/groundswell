@@ -1,0 +1,2035 @@
+{
+  "config": {
+    "methodology": "skill over persistence + base-rate baselines on same confirmed turns (apples-to-apples)",
+    "evaluatedAt": "per-signal lead (locked headline rule from detection engine)",
+    "confidenceMapping": "engine p̂ = 0.5 + 0.40 × min(1, |demandScore| / 3)",
+    "persistenceMethod": "predict rent YoY moves same direction as trailing 3mo YoY change; persistence p̂ = 0.5 + 0.40 × min(1, |trend pp| / 2)",
+    "baseRateMethod": "in-sample climatology — predict majority realized direction across all judged turns; p̂ = sample fraction of majority class",
+    "brierFormula": "BS = mean((p̂ − y)²) where y = 1 if hit, 0 otherwise",
+    "bssFormula": "BSS = 1 − BS_engine / BS_baseline   (BSS > 0 ⇒ engine has skill)",
+    "skillFormula": "skill = engine hit rate − baseline hit rate (in percentage points)",
+    "basedOnNTurns": 58,
+    "baseRateDirection": "softening",
+    "baseRateProb": 0.5517241379310345,
+    "walkForward": true,
+    "notes": "Persistence is the key competitor: if BSS_vsPersistence ≤ 0 or skill_vsPersistence ≤ 0, the engine has no demonstrated skill over a naive trend-continuation forecast. Report as-is."
+  },
+  "perTurn": [
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2018-07",
+      "realized": "softening",
+      "delta": -0.2620924620337166,
+      "scoreAtDetection": 1.2802762959809522,
+      "dominantSignal": "jolts_hires",
+      "dominantLeadMonths": 3,
+      "dominantCorr": 0.42249117767371386,
+      "engine": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.6707035061307937
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5207397563982998,
+        "trend": -0.10369878199149918
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2020-08",
+      "realized": "softening",
+      "delta": -3.1409923936217616,
+      "scoreAtDetection": -54.32510933161535,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 2,
+      "dominantCorr": -0.39390708458043056,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -4.24433192711057
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2021-07",
+      "realized": "firming",
+      "delta": 10.263261547632274,
+      "scoreAtDetection": 102.3412519083399,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 7,
+      "dominantCorr": -0.6970417382204076,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 6.044854683341008
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2022-10",
+      "realized": "softening",
+      "delta": -3.602380908822039,
+      "scoreAtDetection": -318.49487578516323,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 7,
+      "dominantCorr": -0.6689103926962074,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -2.1255528790899847
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2025-03",
+      "realized": "firming",
+      "delta": 2.2368843266939975,
+      "scoreAtDetection": 30.706617989867976,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 7,
+      "dominantCorr": -0.5853214705905216,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.6253693578556335,
+        "trend": 0.6268467892781677
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2019-04",
+      "realized": "firming",
+      "delta": 0.10704504047886232,
+      "scoreAtDetection": 3.0442370496437,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.7269060837727108,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.529664161989644,
+        "trend": 0.1483208099482196
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2020-08",
+      "realized": "softening",
+      "delta": -0.9952311765755817,
+      "scoreAtDetection": -3.481279426780557,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 3,
+      "dominantCorr": 0.6442374267055349,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.807618918769442,
+        "trend": -1.53809459384721
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2021-08",
+      "realized": "firming",
+      "delta": 2.7508851590507675,
+      "scoreAtDetection": 7.760989960531855,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.7621837275472407,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 10.324167852730705
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2023-10",
+      "realized": "softening",
+      "delta": -1.2547040604894533,
+      "scoreAtDetection": -1.881869917523438,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 2,
+      "dominantCorr": 0.4046020322675388,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.7509159890031251
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -3.709440282290952
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Salt Lake City",
+      "detectionYM": "2020-05",
+      "realized": "firming",
+      "delta": 0.3651610773316434,
+      "scoreAtDetection": -27.708312597082724,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 4,
+      "dominantCorr": 0.5249996071026201,
+      "engine": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.7214571482412773,
+        "trend": -1.1072857412063866
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Salt Lake City",
+      "detectionYM": "2021-06",
+      "realized": "firming",
+      "delta": 1.3506053727076779,
+      "scoreAtDetection": 85.19600291617982,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.6739118136456926,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 5.416364664535842
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Salt Lake City",
+      "detectionYM": "2023-01",
+      "realized": "softening",
+      "delta": -4.088135628495131,
+      "scoreAtDetection": -5.734157889360932,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.579174490769446,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -3.680256409125467
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Philadelphia",
+      "detectionYM": "2022-09",
+      "realized": "softening",
+      "delta": -3.862679596739098,
+      "scoreAtDetection": 7.3167149606637665,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.5070437882762487,
+      "engine": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.8830837687694715,
+        "trend": -1.9154188438473572
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Philadelphia",
+      "detectionYM": "2023-01",
+      "realized": "softening",
+      "delta": -1.48136831813187,
+      "scoreAtDetection": -7.619268232391643,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.47993477564963555,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -2.3937852143290694
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "New York",
+      "detectionYM": "2020-07",
+      "realized": "softening",
+      "delta": -3.980274830411822,
+      "scoreAtDetection": -340.20706222662744,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 2,
+      "dominantCorr": -0.34702672581917676,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -4.652089417048365
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2018-08",
+      "realized": "firming",
+      "delta": 0.6893124702413962,
+      "scoreAtDetection": 9.374345347768285,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 4,
+      "dominantCorr": 0.3374764325196585,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.6810024749524516,
+        "trend": -0.9050123747622578
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2020-11",
+      "realized": "firming",
+      "delta": 12.021732866395746,
+      "scoreAtDetection": -5.176810336471311,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 10,
+      "dominantCorr": 0.7609657961402801,
+      "engine": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.9,
+        "trend": -3.0601757085626806
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2021-07",
+      "realized": "firming",
+      "delta": 9.22423249277195,
+      "scoreAtDetection": 56.04183625767668,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 9,
+      "dominantCorr": -0.37885580802184954,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 7.630375385613696
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2023-02",
+      "realized": "softening",
+      "delta": -2.1150733975516607,
+      "scoreAtDetection": -1753.1527518085259,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 9,
+      "dominantCorr": -0.37563300930351146,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.8707504092740126,
+        "trend": -1.8537520463700625
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2019-05",
+      "realized": "firming",
+      "delta": 0.564119128117528,
+      "scoreAtDetection": 0.8516170255399832,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 6,
+      "dominantCorr": 0.6124658423096384,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.6135489367386644
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5198183188211951,
+        "trend": -0.09909159410597557
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2020-08",
+      "realized": "softening",
+      "delta": -1.823185453117222,
+      "scoreAtDetection": -10.30039978472104,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.7432287423502394,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -3.8065736284380027
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2021-07",
+      "realized": "firming",
+      "delta": 11.13403828639153,
+      "scoreAtDetection": 10.82545963379835,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.912498812232485,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 6.499405909658171
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2023-01",
+      "realized": "softening",
+      "delta": -2.3459136140239467,
+      "scoreAtDetection": -12.021664744640256,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 7,
+      "dominantCorr": 0.5810933103986724,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.8460723100383438,
+        "trend": -1.7303615501917191
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Boise",
+      "detectionYM": "2018-12",
+      "realized": "softening",
+      "delta": -1.6671084366253321,
+      "scoreAtDetection": -5.332394724592115,
+      "dominantSignal": "jolts_absorption",
+      "dominantLeadMonths": 8,
+      "dominantCorr": -0.3839321130249418,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.5969379132562895,
+        "trend": 0.4846895662814479
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Boise",
+      "detectionYM": "2019-12",
+      "realized": "firming",
+      "delta": 0.11363460187922758,
+      "scoreAtDetection": 2.6976454087202004,
+      "dominantSignal": "jolts_absorption",
+      "dominantLeadMonths": 9,
+      "dominantCorr": -0.3561819541477143,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.8596860544960268
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.5466689152119638,
+        "trend": 0.23334457605981918
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Boise",
+      "detectionYM": "2022-09",
+      "realized": "softening",
+      "delta": -1.1239406592316046,
+      "scoreAtDetection": -10.473740585649532,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.6982493723766354,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -3.299678519369147
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Sacramento",
+      "detectionYM": "2020-10",
+      "realized": "firming",
+      "delta": 1.489848222178181,
+      "scoreAtDetection": -4001.5161906652593,
+      "dominantSignal": "warn",
+      "dominantLeadMonths": 2,
+      "dominantCorr": -0.5710176781410359,
+      "engine": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 2.7308685796392904
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Sacramento",
+      "detectionYM": "2021-10",
+      "realized": "softening",
+      "delta": -0.6422827463285099,
+      "scoreAtDetection": 19.009753726457518,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 2,
+      "dominantCorr": 0.46468286886896165,
+      "engine": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.6011043581329553,
+        "trend": -0.5055217906647762
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Sacramento",
+      "detectionYM": "2022-10",
+      "realized": "softening",
+      "delta": -1.3208858433381447,
+      "scoreAtDetection": -3.98868919564265,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.6182468253246103,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -2.8506854802305037
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2020-09",
+      "realized": "softening",
+      "delta": -0.8593158449903404,
+      "scoreAtDetection": -7.275679281593187,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.7442646591367793,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.7094552970347002,
+        "trend": -1.047276485173501
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2021-08",
+      "realized": "firming",
+      "delta": 5.396470819989938,
+      "scoreAtDetection": 5.468180530886018,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.821401348895084,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 4.00927263449173
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2022-09",
+      "realized": "softening",
+      "delta": -2.351950639709999,
+      "scoreAtDetection": -4.122103801080447,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 8,
+      "dominantCorr": 0.5179223841940883,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.7156620706728752,
+        "trend": -1.078310353364376
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2022-12",
+      "realized": "softening",
+      "delta": -0.6832788497297777,
+      "scoreAtDetection": 2.2517700146260804,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 3,
+      "dominantCorr": 0.734744813296798,
+      "engine": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.800236001950144
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.6822596228100796,
+        "trend": -0.911298114050398
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2024-03",
+      "realized": "softening",
+      "delta": -0.2616875708610671,
+      "scoreAtDetection": -16.61064825534665,
+      "dominantSignal": "postings",
+      "dominantLeadMonths": 7,
+      "dominantCorr": 0.9772938811842669,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5358841778431586,
+        "trend": -0.1794208892157929
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Denver",
+      "detectionYM": "2020-10",
+      "realized": "softening",
+      "delta": -0.5189141442984201,
+      "scoreAtDetection": -5.040373959748904,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.737125111953889,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.5907128764566326,
+        "trend": 0.45356438228316287
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Denver",
+      "detectionYM": "2021-07",
+      "realized": "firming",
+      "delta": 1.547578945870324,
+      "scoreAtDetection": 7.284969118127942,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.822999809249096,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 6.490183231994594
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Denver",
+      "detectionYM": "2022-10",
+      "realized": "softening",
+      "delta": -2.0712149635992496,
+      "scoreAtDetection": -14.352957381514555,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 4,
+      "dominantCorr": 0.6189862902918517,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -4.148297829312939
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Atlanta",
+      "detectionYM": "2021-11",
+      "realized": "softening",
+      "delta": -2.775287803575985,
+      "scoreAtDetection": 23.355888449360066,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 3,
+      "dominantCorr": 0.7525786278127133,
+      "engine": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.9,
+        "trend": 2.486572272075918
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Atlanta",
+      "detectionYM": "2023-03",
+      "realized": "softening",
+      "delta": -4.028770667882885,
+      "scoreAtDetection": -9.547697975377,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.6206003683995048,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5737809720193587,
+        "trend": -0.36890486009679346
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2018-06",
+      "realized": "firming",
+      "delta": 0.43508660612175865,
+      "scoreAtDetection": 8.497074965601591,
+      "dominantSignal": "jolts_absorption",
+      "dominantLeadMonths": 2,
+      "dominantCorr": -0.5261649255305361,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.5527428571487508,
+        "trend": 0.2637142857437542
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2019-06",
+      "realized": "softening",
+      "delta": -1.081302153534505,
+      "scoreAtDetection": -15.76384850357862,
+      "dominantSignal": "jolts_absorption",
+      "dominantLeadMonths": 10,
+      "dominantCorr": -0.5288112075727951,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5248793611596229,
+        "trend": -0.12439680579811441
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2021-06",
+      "realized": "firming",
+      "delta": 8.782957994950607,
+      "scoreAtDetection": 6.115804462257703,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 6,
+      "dominantCorr": 0.8391877790387992,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 4.431791124101453
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2023-12",
+      "realized": "firming",
+      "delta": 0.09560898874638646,
+      "scoreAtDetection": -20.349620199826347,
+      "dominantSignal": "postings",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.9561615203578165,
+      "engine": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.7587957121006161,
+        "trend": 1.2939785605030805
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2019-03",
+      "realized": "firming",
+      "delta": 0.32954595677737997,
+      "scoreAtDetection": 14.035541321651415,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 6,
+      "dominantCorr": 0.39228454870073337,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5317444516489419,
+        "trend": -0.15872225824470965
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2020-02",
+      "realized": "softening",
+      "delta": -1.8400831480013624,
+      "scoreAtDetection": -1.7441216521197385,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.38370676346634214,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.7325495536159652
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5655257354558072,
+        "trend": -0.3276286772790362
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2021-01",
+      "realized": "firming",
+      "delta": 10.008064357353938,
+      "scoreAtDetection": 4.013439893953286,
+      "dominantSignal": "jolts_hires",
+      "dominantLeadMonths": 7,
+      "dominantCorr": 0.3638044555834829,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.7401956180605161,
+        "trend": 1.2009780903025806
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2023-01",
+      "realized": "softening",
+      "delta": -4.174726960520761,
+      "scoreAtDetection": -2.602608219996045,
+      "dominantSignal": "jolts_hires",
+      "dominantLeadMonths": 5,
+      "dominantCorr": 0.31107769955453923,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.847014429332806
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -3.263398233924221
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Phoenix",
+      "detectionYM": "2018-09",
+      "realized": "firming",
+      "delta": 0.17436894496329458,
+      "scoreAtDetection": 6.570242870554268,
+      "dominantSignal": "jolts_hires",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.6176028298321012,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.6177482182031717,
+        "trend": 0.5887410910158586
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Phoenix",
+      "detectionYM": "2023-03",
+      "realized": "softening",
+      "delta": -0.9858635278400913,
+      "scoreAtDetection": -13.765209132756318,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 4,
+      "dominantCorr": 0.488039232888633,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.6807751301976975,
+        "trend": -0.9038756509884878
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2019-01",
+      "realized": "softening",
+      "delta": -0.12397999891230516,
+      "scoreAtDetection": -9.608697134491388,
+      "dominantSignal": "jolts_absorption",
+      "dominantLeadMonths": 8,
+      "dominantCorr": -0.399557878888636,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.5390175955382304,
+        "trend": 0.19508797769115205
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2019-10",
+      "realized": "softening",
+      "delta": -2.2393901341182785,
+      "scoreAtDetection": 6.168961384097109,
+      "dominantSignal": "jolts_absorption",
+      "dominantLeadMonths": 8,
+      "dominantCorr": -0.38501233955071845,
+      "engine": {
+        "dir": "firming",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5783475054511703,
+        "trend": -0.3917375272558514
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2020-11",
+      "realized": "softening",
+      "delta": -0.5365884046414409,
+      "scoreAtDetection": -6.1033715888973425,
+      "dominantSignal": "employment",
+      "dominantLeadMonths": 1,
+      "dominantCorr": 0.7708992058920721,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.6370548011654451,
+        "trend": -0.6852740058272258
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2021-07",
+      "realized": "firming",
+      "delta": 2.719871605068825,
+      "scoreAtDetection": 36.240050616848904,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 7,
+      "dominantCorr": 0.4903918163210479,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 2.5397484389025595
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2024-03",
+      "realized": "firming",
+      "delta": 0.5883551693786759,
+      "scoreAtDetection": -16.683371068377788,
+      "dominantSignal": "postings",
+      "dominantLeadMonths": 7,
+      "dominantCorr": 0.9070222385113733,
+      "engine": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.5001651987138949,
+        "trend": 0.0008259935694745479
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2019-04",
+      "realized": "firming",
+      "delta": 0.2736263365419562,
+      "scoreAtDetection": 9.943125676324653,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 8,
+      "dominantCorr": 0.39772502705298624,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.6043249475103606,
+        "trend": -0.5216247375518028
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2020-08",
+      "realized": "firming",
+      "delta": 9.644727432173429,
+      "scoreAtDetection": -2.7196029036395224,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 9,
+      "dominantCorr": 0.38074440650953356,
+      "engine": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.8626137204852697
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.54719924015217,
+        "trend": -0.23599620076085026
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2021-10",
+      "realized": "firming",
+      "delta": 3.8157788776109705,
+      "scoreAtDetection": 15.636937638111139,
+      "dominantSignal": "jolts_quits",
+      "dominantLeadMonths": 3,
+      "dominantCorr": 0.5082004732386122,
+      "engine": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "firming",
+        "hit": true,
+        "p": 0.9,
+        "trend": 7.7027295673991
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": false,
+        "p": 0.5517241379310345
+      }
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2022-11",
+      "realized": "softening",
+      "delta": -5.498548398890547,
+      "scoreAtDetection": -3.7965343839547017,
+      "dominantSignal": "jolts_hires",
+      "dominantLeadMonths": 3,
+      "dominantCorr": 0.3336508791808397,
+      "engine": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9
+      },
+      "persistence": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.9,
+        "trend": -6.912715475454682
+      },
+      "baseRate": {
+        "dir": "softening",
+        "hit": true,
+        "p": 0.5517241379310345
+      }
+    }
+  ],
+  "aggregate": {
+    "overall": {
+      "n": 58,
+      "engine": {
+        "hits": 46,
+        "hitRate": 0.7931034482758621,
+        "brier": 0.17000573932688123,
+        "weightedAcc": 0.7959696793062386
+      },
+      "persistence": {
+        "nJudged": 58,
+        "hits": 47,
+        "hitRate": 0.8103448275862069,
+        "brier": 0.14319879128099466
+      },
+      "baseRate": {
+        "hits": 32,
+        "hitRate": 0.5517241379310345,
+        "brier": 0.24732461355529112
+      },
+      "skill": {
+        "vsPersistence": -0.01724137931034475,
+        "vsBaseRate": 0.24137931034482762
+      },
+      "bss": {
+        "vsPersistence": -0.1872009379833668,
+        "vsBaseRate": 0.312621025125446
+      }
+    },
+    "byMetro": {
+      "San Francisco": {
+        "n": 5,
+        "engine": {
+          "hits": 4,
+          "hitRate": 0.8,
+          "brier": 0.09796863862722792,
+          "weightedAcc": 0.842952453812828
+        },
+        "persistence": {
+          "nJudged": 5,
+          "hits": 5,
+          "hitRate": 1,
+          "brier": 0.08000769982613228
+        },
+        "baseRate": {
+          "hits": 3,
+          "hitRate": 0.6,
+          "brier": 0.24233055885850177
+        },
+        "skill": {
+          "vsPersistence": -0.19999999999999996,
+          "vsBaseRate": 0.20000000000000007
+        },
+        "bss": {
+          "vsPersistence": -0.22449012832673887,
+          "vsBaseRate": 0.5957231350073666
+        }
+      },
+      "Austin": {
+        "n": 4,
+        "engine": {
+          "hits": 4,
+          "hitRate": 1,
+          "brier": 0.023010711133572823,
+          "weightedAcc": 1
+        },
+        "persistence": {
+          "nJudged": 4,
+          "hits": 4,
+          "hitRate": 1,
+          "brier": 0.06955657023308562
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 0.5,
+          "brier": 0.25267538644470866
+        },
+        "skill": {
+          "vsPersistence": 0,
+          "vsBaseRate": 0.5
+        },
+        "bss": {
+          "vsPersistence": 0.6691799055579737,
+          "vsBaseRate": 0.9089317267607777
+        }
+      },
+      "Salt Lake City": {
+        "n": 3,
+        "engine": {
+          "hits": 2,
+          "hitRate": 0.6666666666666666,
+          "brier": 0.27666666666666667,
+          "weightedAcc": 0.6666666666666666
+        },
+        "persistence": {
+          "nJudged": 3,
+          "hits": 2,
+          "hitRate": 0.6666666666666666,
+          "brier": 0.1801668055828121
+        },
+        "baseRate": {
+          "hits": 1,
+          "hitRate": 0.3333333333333333,
+          "brier": 0.26991676575505347
+        },
+        "skill": {
+          "vsPersistence": 0,
+          "vsBaseRate": 0.3333333333333333
+        },
+        "bss": {
+          "vsPersistence": -0.5356139871142871,
+          "vsBaseRate": -0.025007342143906097
+        }
+      },
+      "Philadelphia": {
+        "n": 2,
+        "engine": {
+          "hits": 1,
+          "hitRate": 0.5,
+          "brier": 0.41000000000000003,
+          "weightedAcc": 0.5
+        },
+        "persistence": {
+          "nJudged": 2,
+          "hits": 2,
+          "hitRate": 1,
+          "brier": 0.011834702562575204
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 1,
+          "brier": 0.2009512485136742
+        },
+        "skill": {
+          "vsPersistence": -0.5,
+          "vsBaseRate": -0.5
+        },
+        "bss": {
+          "vsPersistence": -33.643878697597366,
+          "vsBaseRate": -1.0402958579881658
+        }
+      },
+      "New York": {
+        "n": 1,
+        "engine": {
+          "hits": 1,
+          "hitRate": 1,
+          "brier": 0.009999999999999995,
+          "weightedAcc": 1
+        },
+        "persistence": {
+          "nJudged": 1,
+          "hits": 1,
+          "hitRate": 1,
+          "brier": 0.009999999999999995
+        },
+        "baseRate": {
+          "hits": 1,
+          "hitRate": 1,
+          "brier": 0.2009512485136742
+        },
+        "skill": {
+          "vsPersistence": 0,
+          "vsBaseRate": 0
+        },
+        "bss": {
+          "vsPersistence": 0,
+          "vsBaseRate": 0.9502366863905326
+        }
+      },
+      "Seattle": {
+        "n": 4,
+        "engine": {
+          "hits": 3,
+          "hitRate": 0.75,
+          "brier": 0.21000000000000002,
+          "weightedAcc": 0.75
+        },
+        "persistence": {
+          "nJudged": 4,
+          "hits": 2,
+          "hitRate": 0.5,
+          "brier": 0.32511745689855
+        },
+        "baseRate": {
+          "hits": 1,
+          "hitRate": 0.25,
+          "brier": 0.2785374554102259
+        },
+        "skill": {
+          "vsPersistence": 0.25,
+          "vsBaseRate": 0.5
+        },
+        "bss": {
+          "vsPersistence": 0.35407959325441984,
+          "vsBaseRate": 0.24606189967982905
+        }
+      },
+      "Boston": {
+        "n": 4,
+        "engine": {
+          "hits": 4,
+          "hitRate": 1,
+          "brier": 0.044836106073954204,
+          "weightedAcc": 1
+        },
+        "persistence": {
+          "nJudged": 4,
+          "hits": 3,
+          "hitRate": 0.75,
+          "brier": 0.07847620457975635
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 0.5,
+          "brier": 0.25267538644470866
+        },
+        "skill": {
+          "vsPersistence": 0.25,
+          "vsBaseRate": 0.5
+        },
+        "bss": {
+          "vsPersistence": 0.4286662267364535,
+          "vsBaseRate": 0.8225545166673154
+        }
+      },
+      "Boise": {
+        "n": 3,
+        "engine": {
+          "hits": 3,
+          "hitRate": 1,
+          "brier": 0.013229334434297321,
+          "weightedAcc": 1
+        },
+        "persistence": {
+          "nJudged": 3,
+          "hits": 2,
+          "hitRate": 0.6666666666666666,
+          "brier": 0.1906146482392904
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 0.6666666666666666,
+          "brier": 0.23543400713436383
+        },
+        "skill": {
+          "vsPersistence": 0.33333333333333337,
+          "vsBaseRate": 0.33333333333333337
+        },
+        "bss": {
+          "vsPersistence": 0.9305964438908718,
+          "vsBaseRate": 0.943808736064424
+        }
+      },
+      "Sacramento": {
+        "n": 3,
+        "engine": {
+          "hits": 1,
+          "hitRate": 0.3333333333333333,
+          "brier": 0.5433333333333333,
+          "weightedAcc": 0.3333333333333333
+        },
+        "persistence": {
+          "nJudged": 3,
+          "hits": 3,
+          "hitRate": 1,
+          "brier": 0.0597059110335072
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 0.6666666666666666,
+          "brier": 0.23543400713436383
+        },
+        "skill": {
+          "vsPersistence": -0.6666666666666667,
+          "vsBaseRate": -0.3333333333333333
+        },
+        "bss": {
+          "vsPersistence": -8.100159832221847,
+          "vsBaseRate": -1.3077946127946132
+        }
+      },
+      "Chicago": {
+        "n": 5,
+        "engine": {
+          "hits": 4,
+          "hitRate": 0.8,
+          "brier": 0.13607553176343018,
+          "weightedAcc": 0.8181379358753742
+        },
+        "persistence": {
+          "nJudged": 5,
+          "hits": 5,
+          "hitRate": 1,
+          "brier": 0.098325345229669
+        },
+        "baseRate": {
+          "hits": 4,
+          "hitRate": 0.8,
+          "brier": 0.22164090368608796
+        },
+        "skill": {
+          "vsPersistence": -0.19999999999999996,
+          "vsBaseRate": 0
+        },
+        "bss": {
+          "vsPersistence": -0.38393139068654203,
+          "vsBaseRate": 0.386054065380661
+        }
+      },
+      "Denver": {
+        "n": 3,
+        "engine": {
+          "hits": 3,
+          "hitRate": 1,
+          "brier": 0.009999999999999995,
+          "weightedAcc": 1
+        },
+        "persistence": {
+          "nJudged": 3,
+          "hits": 2,
+          "hitRate": 0.6666666666666666,
+          "brier": 0.1229805674705563
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 0.6666666666666666,
+          "brier": 0.23543400713436383
+        },
+        "skill": {
+          "vsPersistence": 0.33333333333333337,
+          "vsBaseRate": 0.33333333333333337
+        },
+        "bss": {
+          "vsPersistence": 0.9186863404058192,
+          "vsBaseRate": 0.9575252525252526
+        }
+      },
+      "Atlanta": {
+        "n": 2,
+        "engine": {
+          "hits": 1,
+          "hitRate": 0.5,
+          "brier": 0.41000000000000003,
+          "weightedAcc": 0.5
+        },
+        "persistence": {
+          "nJudged": 2,
+          "hits": 1,
+          "hitRate": 0.5,
+          "brier": 0.49583132990638135
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 1,
+          "brier": 0.2009512485136742
+        },
+        "skill": {
+          "vsPersistence": 0,
+          "vsBaseRate": -0.5
+        },
+        "bss": {
+          "vsPersistence": 0.17310590261125136,
+          "vsBaseRate": -1.0402958579881658
+        }
+      },
+      "Washington DC": {
+        "n": 4,
+        "engine": {
+          "hits": 3,
+          "hitRate": 0.75,
+          "brier": 0.21000000000000002,
+          "weightedAcc": 0.75
+        },
+        "persistence": {
+          "nJudged": 4,
+          "hits": 4,
+          "hitRate": 1,
+          "brier": 0.12348952044614993
+        },
+        "baseRate": {
+          "hits": 1,
+          "hitRate": 0.25,
+          "brier": 0.2785374554102259
+        },
+        "skill": {
+          "vsPersistence": -0.25,
+          "vsBaseRate": 0.5
+        },
+        "bss": {
+          "vsPersistence": -0.7005491578661909,
+          "vsBaseRate": 0.24606189967982905
+        }
+      },
+      "Dallas": {
+        "n": 4,
+        "engine": {
+          "hits": 4,
+          "hitRate": 1,
+          "brier": 0.028733581525846617,
+          "weightedAcc": 1
+        },
+        "persistence": {
+          "nJudged": 4,
+          "hits": 3,
+          "hitRate": 0.75,
+          "brier": 0.13725459132140208
+        },
+        "baseRate": {
+          "hits": 2,
+          "hitRate": 0.5,
+          "brier": 0.25267538644470866
+        },
+        "skill": {
+          "vsPersistence": 0.25,
+          "vsBaseRate": 0.5
+        },
+        "bss": {
+          "vsPersistence": 0.7906548608012489,
+          "vsBaseRate": 0.886282625584767
+        }
+      },
+      "Phoenix": {
+        "n": 2,
+        "engine": {
+          "hits": 2,
+          "hitRate": 1,
+          "brier": 0.009999999999999995,
+          "weightedAcc": 1
+        },
+        "persistence": {
+          "nJudged": 2,
+          "hits": 2,
+          "hitRate": 1,
+          "brier": 0.1240104710935735
+        },
+        "baseRate": {
+          "hits": 1,
+          "hitRate": 0.5,
+          "brier": 0.25267538644470866
+        },
+        "skill": {
+          "vsPersistence": 0,
+          "vsBaseRate": 0.5
+        },
+        "bss": {
+          "vsPersistence": 0.9193616481590947,
+          "vsBaseRate": 0.9604235294117647
+        }
+      },
+      "Minneapolis": {
+        "n": 5,
+        "engine": {
+          "hits": 3,
+          "hitRate": 0.6,
+          "brier": 0.33,
+          "weightedAcc": 0.6000000000000001
+        },
+        "persistence": {
+          "nJudged": 5,
+          "hits": 4,
+          "hitRate": 0.8,
+          "brier": 0.17197896807856822
+        },
+        "baseRate": {
+          "hits": 3,
+          "hitRate": 0.6,
+          "brier": 0.2423305588585018
+        },
+        "skill": {
+          "vsPersistence": -0.20000000000000007,
+          "vsBaseRate": 0
+        },
+        "bss": {
+          "vsPersistence": -0.9188392841689819,
+          "vsBaseRate": -0.3617762512266929
+        }
+      },
+      "Miami": {
+        "n": 4,
+        "engine": {
+          "hits": 3,
+          "hitRate": 0.75,
+          "brier": 0.19352560769235977,
+          "weightedAcc": 0.7578705444474145
+        },
+        "persistence": {
+          "nJudged": 4,
+          "hits": 2,
+          "hitRate": 0.5,
+          "brier": 0.17115891265162808
+        },
+        "baseRate": {
+          "hits": 1,
+          "hitRate": 0.25,
+          "brier": 0.2785374554102259
+        },
+        "skill": {
+          "vsPersistence": 0.25,
+          "vsBaseRate": 0.5
+        },
+        "bss": {
+          "vsPersistence": -0.13067794539134647,
+          "vsBaseRate": 0.3052079570148364
+        }
+      }
+    }
+  }
+}

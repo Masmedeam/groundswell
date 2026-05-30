@@ -1,0 +1,16 @@
+.git/
+.env
+*.env
+
+__pycache__/
+*.pyc
+.venv/
+
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+
+data/*
+!data/laurie-engine/
+!data/laurie-engine/**

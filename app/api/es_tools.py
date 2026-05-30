@@ -646,6 +646,412 @@ def get_industry_mix(metro_id, top=12):
                         "avg_wage": b["avg_annual_wage"]} for b in bars[:6]]}, "artifact": art}
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# LAURIE-ENGINE TOOLS — Path B (JSON-on-disk, bypasses Elasticsearch).
+# These 4 tools read data/laurie-engine/*.json directly. They expose Laurie's
+# validated analytical engine — walk-forward lead-lag, detection-accuracy
+# backtest, forecast-skill harness, rotation backtest, and live BD concessions
+# snapshot — without requiring an ES loader. See data/laurie-engine/ contents
+# + DATA.md at the repo root for the full data shape and provenance.
+#
+# These supplement (do not replace) the existing ES tools above. Metro IDs
+# follow the project convention (sf/austin/phoenix/nyc/chicago plus 12 added
+# in Laurie's metro-id-map.json: slc, philly, seattle, boston, boise,
+# sacramento, denver, atlanta, dc, dallas, minneapolis, miami).
+# ─────────────────────────────────────────────────────────────────────────────
+
+_LE_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "laurie-engine"
+_LE_CACHE: dict[str, object] = {}
+
+
+def _le_load(name):
+    """Load and cache a laurie-engine JSON file by basename (no extension)."""
+    if name not in _LE_CACHE:
+        path = _LE_DIR / f"{name}.json"
+        _LE_CACHE[name] = json.loads(path.read_text())
+    return _LE_CACHE[name]
+
+
+def _le_src(filename, query_desc, n, date_range="validated final state"):
+    """Source disclosure for Laurie-engine JSON-backed tools. Parallels his
+    _src() but points at data/laurie-engine/ instead of an ES index."""
+    label = f"data/laurie-engine/{filename}"
+    return {"label": label, "es_index": label, "query": query_desc,
+            "n": n, "date_range": date_range}
+
+
+def _le_metro_lookups():
+    """Return (id_to_display_name, display_name_to_id) maps from
+    data/laurie-engine/metro-id-map.json."""
+    m = _le_load("metro-id-map")
+    id_to_name = {mid: meta["display_name"] for mid, meta in m["metros"].items()}
+    name_to_id = m["name_lookups"]["by_display_name"]
+    return id_to_name, name_to_id
+
+
+def get_detection_summary():
+    """Headline engine validation: detection hit rate + skill vs baselines.
+    Walk-forward, per-signal-lead rule, no lookahead. Across 17 metros.
+    Sources: data/laurie-engine/{detection.json, forecast-skill.json}."""
+    det = _le_load("detection")
+    fs = _le_load("forecast-skill")
+    overall = det["aggregate"]["overall"]["atSignalLead"]
+    fs_overall = fs["aggregate"]["overall"]
+    hit_rate = overall["hitRate"]
+    n = overall["n"]
+    hits = overall["hits"]
+    median_lead = overall["medianDominantLead"]
+    skill_p_pp = fs_overall["skill"]["vsPersistence"] * 100
+    skill_b_pp = fs_overall["skill"]["vsBaseRate"] * 100
+    bss_p = fs_overall["bss"]["vsPersistence"]
+    bss_b = fs_overall["bss"]["vsBaseRate"]
+    n_metros = len(det["aggregate"]["byMetro"])
+
+    cards = [
+        {"label": "Detection hit rate", "latest": f"{hit_rate * 100:.1f}%",
+         "as_of": f"{hits} of {n} confirmed turns", "yoy_pct": None, "trend": []},
+        {"label": "Median dominant lead", "latest": f"{median_lead} mo",
+         "as_of": "lead from walk-forward refit at each turn", "yoy_pct": None, "trend": []},
+        {"label": "Skill vs persistence", "latest": f"{skill_p_pp:+.1f} pp",
+         "as_of": f"BSS = {bss_p:+.2f}  (engine vs trend-continuation)", "yoy_pct": None, "trend": []},
+        {"label": "Skill vs climatology", "latest": f"{skill_b_pp:+.1f} pp",
+         "as_of": f"BSS = {bss_b:+.2f}  (>0 = real skill)", "yoy_pct": None, "trend": []},
+    ]
+
+    by_metro = det["aggregate"]["byMetro"]
+    per_metro = {m: {"hit_rate": round(v["atSignalLead"]["hitRate"], 3),
+                     "n_turns": v["atSignalLead"]["n"]} for m, v in by_metro.items()}
+
+    summary = {
+        "headline": (f"{hit_rate * 100:.1f}% detection hit rate across {n_metros} metros "
+                     f"({hits}/{n} confirmed turns, median {median_lead}mo lead)"),
+        "hit_rate_pct": round(hit_rate * 100, 1),
+        "n_turns": n, "hits": hits, "median_lead_mo": median_lead,
+        "skill_vs_persistence_pp": round(skill_p_pp, 1),
+        "skill_vs_base_rate_pp": round(skill_b_pp, 1),
+        "bss_vs_persistence": round(bss_p, 2),
+        "bss_vs_base_rate": round(bss_b, 2),
+        "n_metros": n_metros,
+        "methodology": "walk-forward, per-signal-lead rule, no lookahead. Each turn judged at the leadMonths of its dominant contributing signal at that turn's asOf.",
+        "per_metro_hit_rates": per_metro,
+        "drill_down_hint": "Per-metro signal validation available via get_signal_validation(metro_id).",
+    }
+
+    art = _artifact(
+        "metric_cards",
+        f"Engine validation — {hit_rate * 100:.1f}% hit rate across {n_metros} metros",
+        cards=cards, confidence="directional",
+        sources=[
+            _le_src("detection.json",
+                    "aggregate.overall.atSignalLead (per-signal-lead rule, walk-forward)",
+                    n, date_range=f"{det['config']['startYM']} → {det['config']['endYM']}"),
+            _le_src("forecast-skill.json",
+                    "aggregate.overall (engine vs persistence + base-rate baselines, Brier + BSS)",
+                    fs_overall["n"]),
+        ],
+    )
+    return {"summary": summary, "artifact": art}
+
+
+def get_signal_validation(metro_id):
+    """Per-metro signal validation vs rent — which signals lead, by how many
+    months, with what correlation, with honest flags (clean / wrong-sign /
+    boundary-pinned / lags-not-leads / thin). The core drill-down tool for
+    'why is X firming/softening?' questions. Source: results.json."""
+    id_to_name, name_to_id = _le_metro_lookups()
+    if metro_id not in id_to_name:
+        return {"summary": {"error": f"unknown metro_id '{metro_id}'",
+                            "valid_metro_ids": sorted(id_to_name.keys())},
+                "artifact": None}
+    metro_display = id_to_name[metro_id]
+    results = _le_load("results")
+    metro_rows = [r for r in results
+                  if r["metro"] == metro_display and r["target"] == "rent"]
+    if not metro_rows:
+        return {"summary": {"metro_id": metro_id, "metro": metro_display,
+                            "note": "no rent-target signals tested for this metro"},
+                "artifact": None}
+
+    metro_rows.sort(key=lambda r: abs(r["corr"]) if r["corr"] is not None else -1,
+                    reverse=True)
+
+    bars = []
+    for r in metro_rows:
+        if r["corr"] is None:
+            continue
+        is_clean = len(r["flags"]) == 0
+        flag_note = "" if is_clean else f"  [{', '.join(r['flags'])}]"
+        bars.append({
+            "metro_id": r["signal"],
+            "value": round(r["corr"], 3),
+            "as_of": f"leads {r['leadMonths']}mo · n={r['nAtBestLag']}{flag_note}",
+        })
+
+    clean_rows = [r for r in metro_rows if len(r["flags"]) == 0 and r["corr"] is not None]
+    n_clean = len(clean_rows)
+    n_tested = len(metro_rows)
+
+    # top_drivers: up to 3 ranked clean signals. NO PADDING — if fewer than 3
+    # clean signals exist for this metro, top_drivers has fewer entries and
+    # drivers_note states the honesty explicitly. Flagged signals are NEVER
+    # promoted into top_drivers no matter how few clean signals exist —
+    # discipline holds.
+    top_drivers = [
+        {"rank": i + 1, "signal": r["signal"], "leadMonths": r["leadMonths"],
+         "corr": round(r["corr"], 2), "n": r["nAtBestLag"]}
+        for i, r in enumerate(clean_rows[:3])
+    ]
+
+    if n_clean >= 3:
+        headline = (
+            f"{n_clean} clean signals validated for {metro_display}. "
+            f"Top driver: {top_drivers[0]['signal']} leads "
+            f"{top_drivers[0]['leadMonths']}mo at r={top_drivers[0]['corr']:.2f}."
+        )
+        drivers_note = f"top 3 drivers shown (of {n_clean} clean signals)"
+    elif n_clean > 0:
+        plural = "signals" if n_clean > 1 else "signal"
+        headline = (
+            f"Only {n_clean} clean {plural} validated for {metro_display} — fewer than 3. "
+            f"Top driver: {top_drivers[0]['signal']} leads "
+            f"{top_drivers[0]['leadMonths']}mo at r={top_drivers[0]['corr']:.2f}."
+        )
+        drivers_note = (
+            f"only {n_clean} clean {plural} validated for {metro_display} — no padding; "
+            f"remaining tested signals were flagged (see flagged_signals)"
+        )
+    else:
+        headline = (
+            f"No clean leading signal established for {metro_display} in this window."
+        )
+        drivers_note = (
+            f"no clean leading signal established for {metro_display}; "
+            f"all tested signals flagged (see flagged_signals)"
+        )
+
+    summary = {
+        "metro_id": metro_id,
+        "metro": metro_display,
+        "headline": headline,
+        "top_drivers": top_drivers,
+        "drivers_note": drivers_note,
+        "n_clean": n_clean,
+        "n_signals_tested": n_tested,
+        "clean_signals": [
+            {"signal": r["signal"], "leadMonths": r["leadMonths"],
+             "corr": round(r["corr"], 2), "n": r["nAtBestLag"]}
+            for r in clean_rows
+        ],
+        "flagged_signals": [
+            {"signal": r["signal"], "leadMonths": r["leadMonths"],
+             "corr": round(r["corr"], 2) if r["corr"] is not None else None,
+             "flags": r["flags"]}
+            for r in metro_rows if len(r["flags"]) > 0
+        ],
+        "note": headline,
+    }
+
+    art = _artifact(
+        "bar",
+        f"{metro_display} — signal validation vs rent (Pearson r at best lag)",
+        metric="correlation (Pearson r)",
+        bars=bars,
+        sources=[_le_src("results.json",
+                          f"metro={metro_display} target=rent (all signals, clean + flagged)",
+                          len(metro_rows))],
+    )
+    return {"summary": summary, "artifact": art}
+
+
+def get_concessions_now(metro_id=None):
+    """Live apartments.com concessions share per metro — the leading edge of
+    rent (operators cut effective rent via concessions BEFORE face/asking rent
+    moves; ZORI face-rent indices won't reflect a softening market for
+    ~a quarter). Validated Bright Data snapshot from Laurie's Phase P pipeline.
+    metro_id optional — no-arg returns the full ranked cohort across 17 metros;
+    metro_id highlights that metro's relative position."""
+    snap = _le_load("listings-live")
+    fetched_at = snap.get("fetched_at", "unknown")
+    metros_dict = snap["metros"]
+    id_to_name, name_to_id = _le_metro_lookups()
+
+    rows = []
+    for display_name, m in metros_dict.items():
+        if not isinstance(m, dict) or m.get("concessionShare") is None:
+            continue
+        mid = name_to_id.get(display_name, display_name.lower().replace(" ", "_"))
+        rows.append({
+            "metro_id": mid, "display_name": display_name,
+            "share": m["concessionShare"], "n": m["n"],
+            "median_asking_rent": m.get("medianAskingRent"),
+            "concessions_count": m["concessionsCount"],
+        })
+    rows.sort(key=lambda r: r["share"], reverse=True)
+
+    bars = [{
+        "metro_id": r["display_name"],
+        "value": round(r["share"] * 100, 1),
+        "as_of": f"{r['concessions_count']}/{r['n']} buildings flagged",
+    } for r in rows]
+
+    high = [r for r in rows if r["share"] >= 0.75]
+    low = [r for r in rows if r["share"] < 0.35]
+
+    focus = None
+    if metro_id:
+        focus_rows = [r for r in rows if r["metro_id"] == metro_id]
+        if focus_rows:
+            f = focus_rows[0]
+            rank = rows.index(f) + 1
+            focus = {
+                "metro_id": metro_id, "metro": f["display_name"],
+                "concession_share_pct": round(f["share"] * 100, 1),
+                "n_buildings_sampled": f["n"],
+                "median_asking_rent_usd": f["median_asking_rent"],
+                "rank": rank, "n_metros": len(rows),
+                "interpretation": (
+                    "heavy concessions — Sun Belt oversupply texture" if f["share"] >= 0.75
+                    else "moderate concessions — softening texture" if f["share"] >= 0.50
+                    else "low concessions — constrained / landlord-favored"
+                ),
+            }
+
+    summary = {
+        "as_of": fetched_at[:10],
+        "n_metros": len(rows),
+        "focus_metro": focus,
+        "high_concession_metros": [
+            {"metro": r["display_name"], "share_pct": round(r["share"] * 100, 1)}
+            for r in high
+        ],
+        "low_concession_metros": [
+            {"metro": r["display_name"], "share_pct": round(r["share"] * 100, 1)}
+            for r in low
+        ],
+        "note": (
+            "Live snapshot via Bright Data Web Unlocker + Sonnet 4.6 → apartments.com "
+            "search-results, ~40 buildings sampled per metro. Sun Belt cluster "
+            "(Atlanta/Phoenix/Philly/Denver/Austin/Dallas/SLC) at 79-90%; "
+            "constrained coastal markets (NY/SF/Chicago) at 24-30%. This is the "
+            "validated reference snapshot; Salim's ES pipeline runs an independent "
+            "live BD scrape for refreshable data."
+        ),
+    }
+
+    title = (
+        f"Apartments.com concessions — {focus['metro']} (rank {focus['rank']}/{focus['n_metros']})"
+        if focus
+        else "Apartments.com concessions — 17 metros (Sun Belt oversupply vs constrained coastal)"
+    )
+    art = _artifact(
+        "bar", title,
+        metric="% of buildings offering concessions",
+        bars=bars,
+        sources=[_le_src(
+            "listings-live.json",
+            "Bright Data Web Unlocker → Sonnet 4.6 → apartments.com search-results",
+            len(rows), date_range=f"as of {fetched_at[:10]}",
+        )],
+    )
+    return {"summary": summary, "artifact": art}
+
+
+def get_rotation_cohort():
+    """Phase O price-rotation backtest cohort — the honest 'tried trading the
+    signal' result. Reinforces that the engine is an early-warning tool, NOT
+    a trading signal. Source: backtest-rotation.json."""
+    bt = _le_load("backtest-rotation")
+    h = bt["headline"]
+    cfg = bt["config"]
+    positions = bt["strategy"]["positions"]
+
+    def _ann(p):
+        if p["return"] is None or p["holdMonths"] <= 0:
+            return None
+        return (1 + p["return"]) ** (12 / p["holdMonths"]) - 1
+
+    def _fmt_pct(v):
+        return "—" if v is None else f"{v * 100:+.1f}%"
+
+    sorted_pos = sorted(positions, key=lambda p: (p["entryYM"], p["metro"]))
+    rows = []
+    for p in sorted_pos:
+        if p["return"] is None or p["holdMonths"] == 0:
+            continue
+        rows.append({
+            "metro": p["metro"],
+            "entry": p["entryYM"],
+            "exit": p["exitYM"],
+            "hold_mo": p["holdMonths"],
+            "return": _fmt_pct(p["return"]),
+            "annualized": _fmt_pct(_ann(p)),
+            "exit_reason": p["exitReason"],
+            "dominant_signal": p.get("dominantSignal") or "—",
+        })
+
+    columns = ["metro", "entry", "exit", "hold_mo", "return", "annualized",
+               "exit_reason", "dominant_signal"]
+
+    summary = {
+        "strategy_mean_annualized_pct": round(h["strategyMeanAnnualized"] * 100, 1),
+        "equal_weight_mean_annualized_pct": round(h["equalWeightMeanAnnualized"] * 100, 1),
+        "momentum_mean_annualized_pct": round(h["momentumMeanAnnualized"] * 100, 1),
+        "broad_index_annualized_pct": (
+            round(h["broadIndexAnnualized"] * 100, 1)
+            if h.get("broadIndexAnnualized") is not None else None
+        ),
+        "strategy_minus_equal_pp": (
+            round(h["strategyMinusEqualPp"], 1)
+            if h["strategyMinusEqualPp"] is not None else None
+        ),
+        "strategy_minus_momentum_pp": (
+            round(h["strategyMinusMomentumPp"], 1)
+            if h["strategyMinusMomentumPp"] is not None else None
+        ),
+        "pre_stated_thesis_held": h["preStatedHeld"],
+        "n_positions": len(rows),
+        "window": f"{cfg['startYM']} → {cfg['endYM']}",
+        "hold_rule": f"min {cfg['minHoldMonths']}mo, max {cfg['maxHoldMonths']}mo (Phase O fixed-exit)",
+        "return_measure": (
+            "Zillow ZHVI metro price index (residential repeat-sales) — "
+            "appreciation-only proxy for the CRE valuation channel, NOT deal-level prices"
+        ),
+        "key_finding": (
+            "Pre-stated thesis FAILED. Strategy underperformed equal-weight by ~0.4 pp "
+            "and momentum by ~1.7 pp on per-position annualized return. "
+            "Worked 2019-22 (Sun Belt rebound, 15 take-gain exits at +20-50%); "
+            "failed 2023 cohort (labor was right but rate cycle dominated valuations — "
+            "Austin/Dallas 2023 entries at -10 to -17% as ZHVI corrected from the "
+            "2022 peak). The honest read: this is an early-warning tool for the "
+            "AVOID and BUILD decision types, NOT a trading signal for BUY-existing "
+            "positions in illiquid CRE."
+        ),
+    }
+
+    art = _artifact(
+        "table",
+        f"Rotation backtest — {len(rows)} positions · pre-stated thesis FAILED",
+        columns=columns, rows=rows,
+        summary_text=(
+            f"Strategy {h['strategyMeanAnnualized'] * 100:.1f}% ann  vs  "
+            f"equal-weight {h['equalWeightMeanAnnualized'] * 100:.1f}%  vs  "
+            f"momentum {h['momentumMeanAnnualized'] * 100:.1f}%  →  thesis FAILED. "
+            f"Worked 2019-22, failed 2023 (rate cycle dominated valuations)."
+        ),
+        confidence="moderate",
+        sources=[_le_src(
+            "backtest-rotation.json",
+            "strategy.positions (Phase O fixed 2-4yr hold, walk-forward, no lookahead)",
+            len(rows), date_range=f"{cfg['startYM']} → {cfg['endYM']}",
+        )],
+    )
+    return {"summary": summary, "artifact": art}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DISPATCH — Salim's ES tools above + Laurie-engine JSON tools.
+# ─────────────────────────────────────────────────────────────────────────────
+
 DISPATCH = {
     "get_metro_overview": get_metro_overview,
     "get_market_snapshot": get_market_snapshot,
@@ -661,6 +1067,11 @@ DISPATCH = {
     "search_warn": search_warn,
     "search_postings": search_postings,
     "get_live_comps": get_live_comps,
+    # Laurie-engine (Path B, JSON-on-disk)
+    "get_detection_summary": get_detection_summary,
+    "get_signal_validation": get_signal_validation,
+    "get_concessions_now": get_concessions_now,
+    "get_rotation_cohort": get_rotation_cohort,
 }
 
 

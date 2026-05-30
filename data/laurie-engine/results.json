@@ -1,0 +1,1760 @@
+[
+  {
+    "metro": "Atlanta",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 10,
+    "corr": 0.9031856162029009,
+    "expectedSign": "positive",
+    "nAtBestLag": 39,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Atlanta",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.4375480675051483,
+    "expectedSign": "negative",
+    "nAtBestLag": 115,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Atlanta",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.5923569805531866,
+    "expectedSign": "positive",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Atlanta",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.7328791521173929,
+    "expectedSign": "positive",
+    "nAtBestLag": 115,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Atlanta",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.9496075545362909,
+    "expectedSign": "positive",
+    "nAtBestLag": 45,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Austin",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 7,
+    "corr": 0.9058580418059027,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Austin",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": -7,
+    "corr": 0.5306953407540936,
+    "expectedSign": "negative",
+    "nAtBestLag": 21,
+    "window": {
+      "start": "2023-07",
+      "end": "2026-04"
+    },
+    "signalMonths": 46,
+    "signalNonzeroPct": 84.8,
+    "flags": [
+      "thin",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Austin",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 3,
+    "corr": 0.3147438830634909,
+    "expectedSign": "negative",
+    "nAtBestLag": 117,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Austin",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.34945715395039295,
+    "expectedSign": "positive",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Austin",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.4405185835788979,
+    "expectedSign": "positive",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Austin",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 1,
+    "corr": 0.5065308658448885,
+    "expectedSign": "positive",
+    "nAtBestLag": 48,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Austin",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": 1,
+    "corr": 0.22645894039651623,
+    "expectedSign": "negative",
+    "nAtBestLag": 27,
+    "window": {
+      "start": "2023-07",
+      "end": "2026-04"
+    },
+    "signalMonths": 46,
+    "signalNonzeroPct": 84.8,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Boise",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 0,
+    "corr": 0.8867361936548132,
+    "expectedSign": "positive",
+    "nAtBestLag": 49,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Boise",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": -10,
+    "corr": 0.5233763333581859,
+    "expectedSign": "negative",
+    "nAtBestLag": 33,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 205,
+    "signalNonzeroPct": 33.7,
+    "flags": [
+      "sparse",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Boise",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 1,
+    "corr": 0.7207976818214269,
+    "expectedSign": "negative",
+    "nAtBestLag": 119,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Boise",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 12,
+    "corr": 0.2775278119101377,
+    "expectedSign": "positive",
+    "nAtBestLag": 108,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned"
+    ]
+  },
+  {
+    "metro": "Boise",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 1,
+    "corr": 0.6505690861321827,
+    "expectedSign": "positive",
+    "nAtBestLag": 119,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Boise",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 1,
+    "corr": 0.9540223819415029,
+    "expectedSign": "positive",
+    "nAtBestLag": 48,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Boise",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": -8,
+    "corr": 0.22766855816651618,
+    "expectedSign": "negative",
+    "nAtBestLag": 35,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 205,
+    "signalNonzeroPct": 33.7,
+    "flags": [
+      "sparse",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Boston",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 7,
+    "corr": 0.8721823906732565,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Boston",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": 12,
+    "corr": -0.17727662066273497,
+    "expectedSign": "negative",
+    "nAtBestLag": 53,
+    "window": {
+      "start": "2020-07",
+      "end": "2026-04"
+    },
+    "signalMonths": 83,
+    "signalNonzeroPct": 94,
+    "flags": [
+      "boundary-pinned"
+    ]
+  },
+  {
+    "metro": "Boston",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.6288923050301937,
+    "expectedSign": "negative",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Boston",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": -11,
+    "corr": -0.24215121160629793,
+    "expectedSign": "positive",
+    "nAtBestLag": 109,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Boston",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": -10,
+    "corr": -0.5745138408485702,
+    "expectedSign": "positive",
+    "nAtBestLag": 110,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Boston",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.9529693590189664,
+    "expectedSign": "positive",
+    "nAtBestLag": 43,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Boston",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": 9,
+    "corr": -0.15017319730357434,
+    "expectedSign": "negative",
+    "nAtBestLag": 56,
+    "window": {
+      "start": "2020-07",
+      "end": "2026-04"
+    },
+    "signalMonths": 83,
+    "signalNonzeroPct": 94,
+    "flags": []
+  },
+  {
+    "metro": "Chicago",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 7,
+    "corr": 0.9398019587814519,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Chicago",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.555725432347426,
+    "expectedSign": "negative",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Chicago",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 0,
+    "corr": -0.44332822164873553,
+    "expectedSign": "positive",
+    "nAtBestLag": 120,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Chicago",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": -7,
+    "corr": -0.5766587793685981,
+    "expectedSign": "positive",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Chicago",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.9710949678283008,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Dallas",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 10,
+    "corr": 0.917330323502174,
+    "expectedSign": "positive",
+    "nAtBestLag": 39,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Dallas",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.7001584430447279,
+    "expectedSign": "negative",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Dallas",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.44836808490841357,
+    "expectedSign": "positive",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Dallas",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.7286352327921999,
+    "expectedSign": "positive",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Dallas",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.9418370698769701,
+    "expectedSign": "positive",
+    "nAtBestLag": 44,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Denver",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 7,
+    "corr": 0.883954439774154,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Denver",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.7493819116322925,
+    "expectedSign": "negative",
+    "nAtBestLag": 115,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Denver",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": -12,
+    "corr": -0.30105856964938466,
+    "expectedSign": "positive",
+    "nAtBestLag": 108,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Denver",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.5499110179595122,
+    "expectedSign": "positive",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Denver",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 3,
+    "corr": 0.9455042528024441,
+    "expectedSign": "positive",
+    "nAtBestLag": 46,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Miami",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 11,
+    "corr": 0.8532913352903945,
+    "expectedSign": "positive",
+    "nAtBestLag": 38,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned"
+    ]
+  },
+  {
+    "metro": "Miami",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.4928089391336299,
+    "expectedSign": "negative",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Miami",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.3114563292203577,
+    "expectedSign": "positive",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Miami",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.5216661537266734,
+    "expectedSign": "positive",
+    "nAtBestLag": 115,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Miami",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.9128365688836101,
+    "expectedSign": "positive",
+    "nAtBestLag": 43,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Minneapolis",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 7,
+    "corr": 0.8652315469911389,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Minneapolis",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": -11,
+    "corr": -0.5353763979930315,
+    "expectedSign": "negative",
+    "nAtBestLag": 109,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Minneapolis",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": -11,
+    "corr": 0.23479827109112847,
+    "expectedSign": "positive",
+    "nAtBestLag": 109,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Minneapolis",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.5473451672990949,
+    "expectedSign": "positive",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Minneapolis",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.913566134483213,
+    "expectedSign": "positive",
+    "nAtBestLag": 43,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "New York",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 7,
+    "corr": 0.9324277954670678,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "New York",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": 1,
+    "corr": -0.9056342931055138,
+    "expectedSign": "negative",
+    "nAtBestLag": 55,
+    "window": {
+      "start": "2016-01",
+      "end": "2020-08"
+    },
+    "signalMonths": 170,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "New York",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 8,
+    "corr": 0.6081629416666318,
+    "expectedSign": "negative",
+    "nAtBestLag": 112,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "New York",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": -10,
+    "corr": -0.29605903724319926,
+    "expectedSign": "positive",
+    "nAtBestLag": 110,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "New York",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.5811689228092721,
+    "expectedSign": "positive",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "New York",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.9812854635304381,
+    "expectedSign": "positive",
+    "nAtBestLag": 43,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "New York",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": -0.6808616767294021,
+    "expectedSign": "negative",
+    "nAtBestLag": 52,
+    "window": {
+      "start": "2016-01",
+      "end": "2020-08"
+    },
+    "signalMonths": 170,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Philadelphia",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 8,
+    "corr": 0.9398675942578658,
+    "expectedSign": "positive",
+    "nAtBestLag": 41,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Philadelphia",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": 12,
+    "corr": -0.4845078379673139,
+    "expectedSign": "negative",
+    "nAtBestLag": 15,
+    "window": {
+      "start": "2024-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 41,
+    "signalNonzeroPct": 97.6,
+    "flags": [
+      "boundary-pinned",
+      "thin"
+    ]
+  },
+  {
+    "metro": "Philadelphia",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.6544849636064864,
+    "expectedSign": "negative",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Philadelphia",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": -8,
+    "corr": -0.2594477938799125,
+    "expectedSign": "positive",
+    "nAtBestLag": 112,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Philadelphia",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.48932626503954707,
+    "expectedSign": "positive",
+    "nAtBestLag": 115,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Philadelphia",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.9347865827712802,
+    "expectedSign": "positive",
+    "nAtBestLag": 43,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Philadelphia",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": -0.5337791658907896,
+    "expectedSign": "negative",
+    "nAtBestLag": 23,
+    "window": {
+      "start": "2024-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 41,
+    "signalNonzeroPct": 97.6,
+    "flags": [
+      "thin"
+    ]
+  },
+  {
+    "metro": "Phoenix",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 3,
+    "corr": 0.8364070299112163,
+    "expectedSign": "positive",
+    "nAtBestLag": 46,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Phoenix",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.41638711202028894,
+    "expectedSign": "negative",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Phoenix",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": -3,
+    "corr": 0.33098596046981865,
+    "expectedSign": "positive",
+    "nAtBestLag": 117,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Phoenix",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.5858444262210626,
+    "expectedSign": "positive",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Phoenix",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 1,
+    "corr": 0.9143854477461842,
+    "expectedSign": "positive",
+    "nAtBestLag": 48,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Sacramento",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 7,
+    "corr": 0.8663877850693169,
+    "expectedSign": "positive",
+    "nAtBestLag": 42,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Sacramento",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": -8,
+    "corr": -0.31971118058144404,
+    "expectedSign": "negative",
+    "nAtBestLag": 103,
+    "window": {
+      "start": "2016-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 143,
+    "signalNonzeroPct": 88.8,
+    "flags": [
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Sacramento",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 0,
+    "corr": 0.716015427126857,
+    "expectedSign": "negative",
+    "nAtBestLag": 120,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Sacramento",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 12,
+    "corr": 0.4501179607568437,
+    "expectedSign": "positive",
+    "nAtBestLag": 108,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned"
+    ]
+  },
+  {
+    "metro": "Sacramento",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 1,
+    "corr": 0.6266716674469323,
+    "expectedSign": "positive",
+    "nAtBestLag": 119,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Sacramento",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 2,
+    "corr": 0.9509431866580266,
+    "expectedSign": "positive",
+    "nAtBestLag": 47,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Sacramento",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": 12,
+    "corr": 0.25779186794588443,
+    "expectedSign": "negative",
+    "nAtBestLag": 99,
+    "window": {
+      "start": "2016-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 143,
+    "signalNonzeroPct": 88.8,
+    "flags": [
+      "boundary-pinned",
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Salt Lake City",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 10,
+    "corr": 0.9057164156241057,
+    "expectedSign": "positive",
+    "nAtBestLag": 39,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Salt Lake City",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": -10,
+    "corr": 0.5248386796478339,
+    "expectedSign": "negative",
+    "nAtBestLag": 9,
+    "window": {
+      "start": "2023-01",
+      "end": "2025-11"
+    },
+    "signalMonths": 50,
+    "signalNonzeroPct": 50,
+    "flags": [
+      "thin",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Salt Lake City",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.6200656385539932,
+    "expectedSign": "negative",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Salt Lake City",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.26169915292428514,
+    "expectedSign": "positive",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Salt Lake City",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.5960947489708975,
+    "expectedSign": "positive",
+    "nAtBestLag": 115,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Salt Lake City",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.9382567340778628,
+    "expectedSign": "positive",
+    "nAtBestLag": 44,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Salt Lake City",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": -10,
+    "corr": 0.8893120580141128,
+    "expectedSign": "negative",
+    "nAtBestLag": 9,
+    "window": {
+      "start": "2023-01",
+      "end": "2025-11"
+    },
+    "signalMonths": 50,
+    "signalNonzeroPct": 50,
+    "flags": [
+      "thin",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "San Francisco",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 4,
+    "corr": 0.9078300465562458,
+    "expectedSign": "positive",
+    "nAtBestLag": 45,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "San Francisco",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": 1,
+    "corr": -0.5171659614065182,
+    "expectedSign": "negative",
+    "nAtBestLag": 123,
+    "window": {
+      "start": "2016-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 143,
+    "signalNonzeroPct": 99.3,
+    "flags": []
+  },
+  {
+    "metro": "San Francisco",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.5971862459035852,
+    "expectedSign": "negative",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "San Francisco",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 8,
+    "corr": -0.3442502261621193,
+    "expectedSign": "positive",
+    "nAtBestLag": 112,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "San Francisco",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 6,
+    "corr": 0.6248634699115504,
+    "expectedSign": "positive",
+    "nAtBestLag": 114,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "San Francisco",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.9633414927198849,
+    "expectedSign": "positive",
+    "nAtBestLag": 44,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "San Francisco",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": -0.5901633318052758,
+    "expectedSign": "negative",
+    "nAtBestLag": 117,
+    "window": {
+      "start": "2016-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 143,
+    "signalNonzeroPct": 99.3,
+    "flags": []
+  },
+  {
+    "metro": "Seattle",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 6,
+    "corr": 0.9292585924274613,
+    "expectedSign": "positive",
+    "nAtBestLag": 43,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Seattle",
+    "signal": "warn",
+    "target": "employment",
+    "leadMonths": 8,
+    "corr": -0.2293486323162813,
+    "expectedSign": "negative",
+    "nAtBestLag": 102,
+    "window": {
+      "start": "2016-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 269,
+    "signalNonzeroPct": 88.1,
+    "flags": []
+  },
+  {
+    "metro": "Seattle",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.5616002129242497,
+    "expectedSign": "negative",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "wrong-sign"
+    ]
+  },
+  {
+    "metro": "Seattle",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": -12,
+    "corr": -0.3146390799488396,
+    "expectedSign": "positive",
+    "nAtBestLag": 108,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "boundary-pinned",
+      "wrong-sign",
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Seattle",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.6570707594083935,
+    "expectedSign": "positive",
+    "nAtBestLag": 116,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Seattle",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 4,
+    "corr": 0.9720311297098739,
+    "expectedSign": "positive",
+    "nAtBestLag": 45,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Seattle",
+    "signal": "warn",
+    "target": "rent",
+    "leadMonths": 8,
+    "corr": -0.29370593257630073,
+    "expectedSign": "negative",
+    "nAtBestLag": 102,
+    "window": {
+      "start": "2016-01",
+      "end": "2026-04"
+    },
+    "signalMonths": 269,
+    "signalNonzeroPct": 88.1,
+    "flags": []
+  },
+  {
+    "metro": "Washington DC",
+    "signal": "postings",
+    "target": "employment",
+    "leadMonths": 6,
+    "corr": 0.7657702980947316,
+    "expectedSign": "positive",
+    "nAtBestLag": 43,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Washington DC",
+    "signal": "jolts_absorption",
+    "target": "rent",
+    "leadMonths": -8,
+    "corr": -0.3201871425483957,
+    "expectedSign": "negative",
+    "nAtBestLag": 112,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Washington DC",
+    "signal": "jolts_hires",
+    "target": "rent",
+    "leadMonths": 7,
+    "corr": 0.36052653972130105,
+    "expectedSign": "positive",
+    "nAtBestLag": 113,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": []
+  },
+  {
+    "metro": "Washington DC",
+    "signal": "jolts_quits",
+    "target": "rent",
+    "leadMonths": -3,
+    "corr": 0.3179937611167677,
+    "expectedSign": "positive",
+    "nAtBestLag": 117,
+    "window": {
+      "start": "2016-01",
+      "end": "2025-12"
+    },
+    "signalMonths": 300,
+    "signalNonzeroPct": 100,
+    "flags": [
+      "lags-not-leads"
+    ]
+  },
+  {
+    "metro": "Washington DC",
+    "signal": "postings",
+    "target": "rent",
+    "leadMonths": 5,
+    "corr": 0.9437975544546006,
+    "expectedSign": "positive",
+    "nAtBestLag": 44,
+    "window": {
+      "start": "2021-02",
+      "end": "2025-02"
+    },
+    "signalMonths": 61,
+    "signalNonzeroPct": 100,
+    "flags": []
+  }
+]

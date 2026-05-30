@@ -1,0 +1,6545 @@
+{
+  "config": {
+    "startYM": "2017-01",
+    "endYM": "2026-03",
+    "lastRentYM": "2026-04",
+    "pubLagMonths": 1,
+    "stateBuffer": 0.5,
+    "persistenceMonths": 3,
+    "horizons": [
+      3,
+      6,
+      9
+    ],
+    "metros": [
+      "San Francisco",
+      "Austin",
+      "Salt Lake City",
+      "Philadelphia",
+      "New York",
+      "Seattle",
+      "Boston",
+      "Boise",
+      "Sacramento",
+      "Chicago",
+      "Denver",
+      "Atlanta",
+      "Washington DC",
+      "Dallas",
+      "Phoenix",
+      "Minneapolis",
+      "Miami"
+    ],
+    "walkForward": true,
+    "target": "rent YoY direction (signal → rent, the proximate stage of the transmission chain)",
+    "whyNotPrice": "Price appreciation lags rent by an additional 6-12 months; signal → price is too slow + noisy to test cleanly. We validate the fast/clean upstream link, not the slow downstream one.",
+    "evaluationLeadRule": "Each turn is evaluated at the leadMonths of its DOMINANT contributing signal (largest |contribution|, |corr| as tiebreaker). The lead is sourced from the walk-forward lead-lag refit at the turn's asOf — locked before rent outcomes are read, the same number that drove the score that caused the turn. The fixed 3/6/9-month grid is retained alongside as a diagnostic."
+  },
+  "turns": [
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2018-07",
+      "detectionDate": "2018-07-01",
+      "firstNewStateYM": "2018-05",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 1.2802762959809522,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_hires",
+          "leadMonths": 3,
+          "corr": 0.42249117767371386,
+          "latestYoY": 3.030303030303033,
+          "contribution": 1.2802762959809522
+        }
+      ],
+      "baseRentYoY": 3.62740082511961,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.3653083630858935,
+          "delta": -0.2620924620337166,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.579137540102531,
+          "delta": -0.048263285017079216,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.2295513057669103,
+          "delta": -0.39784951935269985,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_hires",
+        "dominantLeadMonths": 3,
+        "dominantContribution": 1.2802762959809522,
+        "dominantCorr": 0.42249117767371386,
+        "evalYM": "2018-10",
+        "rentYoY": 3.3653083630858935,
+        "delta": -0.2620924620337166,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2020-08",
+      "detectionDate": "2020-08-01",
+      "firstNewStateYM": "2020-06",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -54.32510933161535,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 3,
+          "corr": 0.530492128834109,
+          "latestYoY": -11.905238304854135,
+          "contribution": -6.3156352126194495
+        },
+        {
+          "name": "warn",
+          "leadMonths": 2,
+          "corr": -0.39390708458043056,
+          "latestYoY": 121.8801996672213,
+          "contribution": -48.009474118995904
+        }
+      ],
+      "baseRentYoY": -3.3888153780360453,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -7.567844506135859,
+          "delta": -4.179029128099813,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": -8.395315489545437,
+          "delta": -5.006500111509392,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": -5.2711695675693395,
+          "delta": -1.8823541895332943,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 2,
+        "dominantContribution": -48.009474118995904,
+        "dominantCorr": -0.39390708458043056,
+        "evalYM": "2020-10",
+        "rentYoY": -6.529807771657807,
+        "delta": -3.1409923936217616,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2021-07",
+      "detectionDate": "2021-07-01",
+      "firstNewStateYM": "2021-05",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 102.3412519083399,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.9244589248486352,
+          "latestYoY": 7.436980641567256,
+          "contribution": 6.875183128023379
+        },
+        {
+          "name": "warn",
+          "leadMonths": 7,
+          "corr": -0.6970417382204076,
+          "latestYoY": -97.49509803921569,
+          "contribution": 67.95815260522396
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.5894553466091262,
+          "latestYoY": 46.66666666666668,
+          "contribution": 27.507916175092564
+        }
+      ],
+      "baseRentYoY": -0.7090994573334554,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 6.542131321030759,
+          "delta": 7.2512307783642145,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 9.222901017954982,
+          "delta": 9.932000475288437,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 9.588902680717348,
+          "delta": 10.298002138050803,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 7,
+        "dominantContribution": 67.95815260522396,
+        "dominantCorr": -0.6970417382204076,
+        "evalYM": "2022-02",
+        "rentYoY": 9.554162090298819,
+        "delta": 10.263261547632274,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2022-10",
+      "detectionDate": "2022-10-01",
+      "firstNewStateYM": "2022-08",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -318.49487578516323,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.9112300936601181,
+          "latestYoY": 4.805046357055163,
+          "contribution": 4.378502841980586
+        },
+        {
+          "name": "warn",
+          "leadMonths": 7,
+          "corr": -0.6689103926962074,
+          "latestYoY": 476.1363636363637,
+          "contribution": -318.4925619769443
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 6,
+          "corr": 0.6790265807809356,
+          "latestYoY": -6.451612903225811,
+          "contribution": -4.380816650199588
+        }
+      ],
+      "baseRentYoY": 4.973139133508893,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.9212212477730386,
+          "delta": -2.051917885735854,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 1.8847032555004823,
+          "delta": -3.0884358780084105,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 0.15296178350330505,
+          "delta": -4.820177350005587,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 7,
+        "dominantContribution": -318.4925619769443,
+        "dominantCorr": -0.6689103926962074,
+        "evalYM": "2023-05",
+        "rentYoY": 1.3707582246868537,
+        "delta": -3.602380908822039,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": true
+    },
+    {
+      "metro": "San Francisco",
+      "detectionYM": "2025-03",
+      "detectionDate": "2025-03-01",
+      "firstNewStateYM": "2025-01",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 30.706617989867976,
+      "cleanCountAtDetection": 4,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.8975138421454036,
+          "latestYoY": -1.4861647097462956,
+          "contribution": -1.3338533987053063
+        },
+        {
+          "name": "postings",
+          "leadMonths": 5,
+          "corr": 0.9671167386916119,
+          "latestYoY": -10.904568660819477,
+          "contribution": -10.54599088009049
+        },
+        {
+          "name": "warn",
+          "leadMonths": 7,
+          "corr": -0.5853214705905216,
+          "latestYoY": -65.98053892215569,
+          "contribution": 38.619826072271316
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 6,
+          "corr": 0.6346617914227936,
+          "latestYoY": 6.249999999999992,
+          "contribution": 3.9666361963924546
+        }
+      ],
+      "baseRentYoY": 3.768543489545818,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.561049579255716,
+          "delta": 0.7925060897098981,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 5.593609533842899,
+          "delta": 1.8250660442970807,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 5.822052825515504,
+          "delta": 2.0535093359696863,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 7,
+        "dominantContribution": 38.619826072271316,
+        "dominantCorr": -0.5853214705905216,
+        "evalYM": "2025-10",
+        "rentYoY": 6.005427816239815,
+        "delta": 2.2368843266939975,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2019-04",
+      "detectionDate": "2019-04-01",
+      "firstNewStateYM": "2019-02",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 3.0442370496437,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.7269060837727108,
+          "latestYoY": 4.1879372282094876,
+          "contribution": 3.0442370496437
+        }
+      ],
+      "baseRentYoY": 4.799994351292821,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.497676430066298,
+          "delta": -0.302317921226523,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.7039349380896835,
+          "delta": -0.09605941320313782,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 4.238029803652221,
+          "delta": -0.5619645476406001,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 1,
+        "dominantContribution": 3.0442370496437,
+        "dominantCorr": 0.7269060837727108,
+        "evalYM": "2019-05",
+        "rentYoY": 4.907039391771684,
+        "delta": 0.10704504047886232,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2020-08",
+      "detectionDate": "2020-08-01",
+      "firstNewStateYM": "2020-06",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -3.481279426780557,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 3,
+          "corr": 0.6442374267055349,
+          "latestYoY": -5.403721178669994,
+          "contribution": -3.481279426780557
+        }
+      ],
+      "baseRentYoY": 0.36595910977265905,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -0.6292720668029226,
+          "delta": -0.9952311765755817,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 0.6617020210831884,
+          "delta": 0.2957429113105294,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 6.968101967042545,
+          "delta": 6.602142857269886,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 3,
+        "dominantContribution": -3.481279426780557,
+        "dominantCorr": 0.6442374267055349,
+        "evalYM": "2020-11",
+        "rentYoY": -0.6292720668029226,
+        "delta": -0.9952311765755817,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2021-08",
+      "detectionDate": "2021-08-01",
+      "firstNewStateYM": "2021-06",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 7.760989960531855,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.7621837275472407,
+          "latestYoY": 10.182571052136275,
+          "contribution": 7.760989960531855
+        }
+      ],
+      "baseRentYoY": 17.29226981977325,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 21.537078472629645,
+          "delta": 4.2448086528563955,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 20.680842519752808,
+          "delta": 3.3885726999795587,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 17.757790700948217,
+          "delta": 0.46552088117496737,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 1,
+        "dominantContribution": 7.760989960531855,
+        "dominantCorr": 0.7621837275472407,
+        "evalYM": "2021-09",
+        "rentYoY": 20.043154978824017,
+        "delta": 2.7508851590507675,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Austin",
+      "detectionYM": "2023-10",
+      "detectionDate": "2023-10-01",
+      "firstNewStateYM": "2023-08",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -1.881869917523438,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 2,
+          "corr": 0.4046020322675388,
+          "latestYoY": -4.651162790697678,
+          "contribution": -1.881869917523438
+        }
+      ],
+      "baseRentYoY": -2.5380678752119556,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -4.156049741290367,
+          "delta": -1.6179818660784115,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": -1.4890502380807507,
+          "delta": 1.049017637131205,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 0.40159519061419063,
+          "delta": 2.9396630658261462,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 2,
+        "dominantContribution": -1.881869917523438,
+        "dominantCorr": 0.4046020322675388,
+        "evalYM": "2023-12",
+        "rentYoY": -3.792771935701409,
+        "delta": -1.2547040604894533,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Salt Lake City",
+      "detectionYM": "2020-05",
+      "detectionDate": "2020-05-01",
+      "firstNewStateYM": "2020-03",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -27.708312597082724,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.5249996071026201,
+          "latestYoY": -52.77777777777778,
+          "contribution": -27.708312597082724
+        }
+      ],
+      "baseRentYoY": 2.4075189787120626,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.502445601954646,
+          "delta": 0.09492662324258339,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.076743420912673,
+          "delta": 1.6692244422006106,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 5.621832588776823,
+          "delta": 3.2143136100647607,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 4,
+        "dominantContribution": -27.708312597082724,
+        "dominantCorr": 0.5249996071026201,
+        "evalYM": "2020-09",
+        "rentYoY": 2.772680056043706,
+        "delta": 0.3651610773316434,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Salt Lake City",
+      "detectionYM": "2021-06",
+      "detectionDate": "2021-06-01",
+      "firstNewStateYM": "2021-04",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 85.19600291617982,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "jolts_hires",
+          "leadMonths": 9,
+          "corr": 0.5707159323142834,
+          "latestYoY": -8.163265306122454,
+          "contribution": -4.658905569912521
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 1,
+          "corr": 0.6739118136456926,
+          "latestYoY": 133.33333333333331,
+          "contribution": 89.85490848609234
+        }
+      ],
+      "baseRentYoY": 11.665686280438573,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 15.588334134813383,
+          "delta": 3.9226478543748104,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 18.30376736533017,
+          "delta": 6.638081084891597,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 17.76954368414114,
+          "delta": 6.103857403702568,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 1,
+        "dominantContribution": 89.85490848609234,
+        "dominantCorr": 0.6739118136456926,
+        "evalYM": "2021-07",
+        "rentYoY": 13.01629165314625,
+        "delta": 1.3506053727076779,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Salt Lake City",
+      "detectionYM": "2023-01",
+      "detectionDate": "2023-01-01",
+      "firstNewStateYM": "2022-11",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -5.734157889360932,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.5669162068406998,
+          "latestYoY": 3.5069885641677283,
+          "contribution": 1.9881686542316805
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.579174490769446,
+          "latestYoY": -13.33333333333333,
+          "contribution": -7.7223265435926125
+        }
+      ],
+      "baseRentYoY": 5.221224113717768,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.214147489636573,
+          "delta": -3.007076624081195,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 0.7073442029138697,
+          "delta": -4.513879910803898,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 0.1046621185028028,
+          "delta": -5.1165619952149655,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 5,
+        "dominantContribution": -7.7223265435926125,
+        "dominantCorr": 0.579174490769446,
+        "evalYM": "2023-06",
+        "rentYoY": 1.133088485222637,
+        "delta": -4.088135628495131,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Philadelphia",
+      "detectionYM": "2022-09",
+      "detectionDate": "2022-09-01",
+      "firstNewStateYM": "2022-07",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 7.3167149606637665,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 2,
+          "corr": 0.5359221547203847,
+          "latestYoY": 5.051528384279473,
+          "contribution": 2.707225976334239
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.5070437882762487,
+          "latestYoY": 9.09090909090908,
+          "contribution": 4.609488984329528
+        }
+      ],
+      "baseRentYoY": 8.029664373942973,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 5.12083963859686,
+          "delta": -2.908824735346113,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.256458042625296,
+          "delta": -3.7732063313176774,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.1843364048063156,
+          "delta": -4.845327969136657,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 5,
+        "dominantContribution": 4.609488984329528,
+        "dominantCorr": 0.5070437882762487,
+        "evalYM": "2023-02",
+        "rentYoY": 4.166984777203875,
+        "delta": -3.862679596739098,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Philadelphia",
+      "detectionYM": "2023-01",
+      "detectionDate": "2023-01-01",
+      "firstNewStateYM": "2022-11",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -7.619268232391643,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 2,
+          "corr": 0.55607834826971,
+          "latestYoY": 3.559619407517376,
+          "contribution": 1.9794272806010662
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.47993477564963555,
+          "latestYoY": -19.999999999999996,
+          "contribution": -9.598695512992709
+        }
+      ],
+      "baseRentYoY": 4.665704722938186,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.9603025371932126,
+          "delta": -0.705402185744973,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 2.9125651656359124,
+          "delta": -1.7531395573022732,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.620805990760456,
+          "delta": -1.0448987321777294,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 5,
+        "dominantContribution": -9.598695512992709,
+        "dominantCorr": 0.47993477564963555,
+        "evalYM": "2023-06",
+        "rentYoY": 3.1843364048063156,
+        "delta": -1.48136831813187,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Philadelphia",
+      "detectionYM": "2026-03",
+      "detectionDate": "2026-03-01",
+      "firstNewStateYM": "2026-01",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 3.104643376413515,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 2,
+          "corr": 0.5309613004149492,
+          "latestYoY": 0.20399572580383143,
+          "contribution": 0.10831383585189373
+        },
+        {
+          "name": "postings",
+          "leadMonths": 6,
+          "corr": 0.9347865827712802,
+          "latestYoY": -7.263899466869772,
+          "contribution": -6.790195760229318
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.48932626503954707,
+          "latestYoY": 19.999999999999996,
+          "contribution": 9.78652530079094
+        }
+      ],
+      "baseRentYoY": 3.3801010349834675,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": null,
+          "delta": null,
+          "hit": null,
+          "strictHit": null,
+          "beyondData": true
+        },
+        "6": {
+          "rentYoY": null,
+          "delta": null,
+          "hit": null,
+          "strictHit": null,
+          "beyondData": true
+        },
+        "9": {
+          "rentYoY": null,
+          "delta": null,
+          "hit": null,
+          "strictHit": null,
+          "beyondData": true
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 5,
+        "dominantContribution": 9.78652530079094,
+        "dominantCorr": 0.48932626503954707,
+        "evalYM": "2026-08",
+        "rentYoY": null,
+        "delta": null,
+        "hit": null,
+        "strictHit": null,
+        "beyondData": true
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "New York",
+      "detectionYM": "2020-07",
+      "detectionDate": "2020-07-01",
+      "firstNewStateYM": "2020-05",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -340.20706222662744,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "warn",
+          "leadMonths": 2,
+          "corr": -0.34702672581917676,
+          "latestYoY": 1103.5248041775458,
+          "contribution": -382.9525996539819
+        },
+        {
+          "name": "jolts_absorption",
+          "leadMonths": 1,
+          "corr": -0.44595484551350245,
+          "latestYoY": -40.32911246283874,
+          "contribution": 17.984963118061916
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 1,
+          "corr": 0.4814556115695774,
+          "latestYoY": 51.42857142857142,
+          "contribution": 24.76057430929255
+        }
+      ],
+      "baseRentYoY": -2.498316193243738,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -7.912561602751024,
+          "delta": -5.414245409507286,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": -8.95406691858226,
+          "delta": -6.455750725338522,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": -7.085602701283164,
+          "delta": -4.587286508039426,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 2,
+        "dominantContribution": -382.9525996539819,
+        "dominantCorr": -0.34702672581917676,
+        "evalYM": "2020-09",
+        "rentYoY": -6.47859102365556,
+        "delta": -3.980274830411822,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2018-08",
+      "detectionDate": "2018-08-01",
+      "firstNewStateYM": "2018-06",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 9.374345347768285,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.3374764325196585,
+          "latestYoY": 27.77777777777776,
+          "contribution": 9.374345347768285
+        }
+      ],
+      "baseRentYoY": 3.116647450420376,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.4460163134143897,
+          "delta": 0.3293688629940137,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.8704458738835017,
+          "delta": 0.7537984234631256,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.617899750989167,
+          "delta": 0.5012523005687908,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 4,
+        "dominantContribution": 9.374345347768285,
+        "dominantCorr": 0.3374764325196585,
+        "evalYM": "2018-12",
+        "rentYoY": 3.8059599206617722,
+        "delta": 0.6893124702413962,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2020-11",
+      "detectionDate": "2020-11-01",
+      "firstNewStateYM": "2020-09",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -5.176810336471311,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 10,
+          "corr": 0.7609657961402801,
+          "latestYoY": -6.802947468504869,
+          "contribution": -5.176810336471311
+        }
+      ],
+      "baseRentYoY": -2.0306786401830226,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -4.188801981082331,
+          "delta": -2.158123340899308,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 0.15915814307771373,
+          "delta": 2.1898367832607364,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 7.802581417419498,
+          "delta": 9.833260057602521,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 10,
+        "dominantContribution": -5.176810336471311,
+        "dominantCorr": 0.7609657961402801,
+        "evalYM": "2021-09",
+        "rentYoY": 9.991054226212723,
+        "delta": 12.021732866395746,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2021-07",
+      "detectionDate": "2021-07-01",
+      "firstNewStateYM": "2021-05",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 56.04183625767668,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 6,
+          "corr": 0.8256799017119507,
+          "latestYoY": 6.943250214961309,
+          "contribution": 5.732902155050734
+        },
+        {
+          "name": "warn",
+          "leadMonths": 9,
+          "corr": -0.37885580802184954,
+          "latestYoY": -95.35327816677275,
+          "contribution": 36.12514324740488
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 3,
+          "corr": 0.42551372565663204,
+          "latestYoY": 33.33333333333333,
+          "contribution": 14.183790855221066
+        }
+      ],
+      "baseRentYoY": 5.488128193793799,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 11.9128773197012,
+          "delta": 6.424749125907401,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 15.231256751785338,
+          "delta": 9.74312855799154,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 14.71236068656575,
+          "delta": 9.22423249277195,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 9,
+        "dominantContribution": 36.12514324740488,
+        "dominantCorr": -0.37885580802184954,
+        "evalYM": "2022-04",
+        "rentYoY": 14.71236068656575,
+        "delta": 9.22423249277195,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Seattle",
+      "detectionYM": "2023-02",
+      "detectionDate": "2023-02-01",
+      "firstNewStateYM": "2022-12",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -1753.1527518085259,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 3,
+          "corr": 0.7632021555300057,
+          "latestYoY": 2.119766825649179,
+          "contribution": 1.6178106105564511
+        },
+        {
+          "name": "warn",
+          "leadMonths": 9,
+          "corr": -0.37563300930351146,
+          "latestYoY": 4700,
+          "contribution": -1765.4751437265038
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.6422748784452916,
+          "latestYoY": 16.666666666666668,
+          "contribution": 10.704581307421527
+        }
+      ],
+      "baseRentYoY": 3.517717448090469,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 1.965850700968734,
+          "delta": -1.551866747121735,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 0.19534474160144644,
+          "delta": -3.3223727064890225,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 1.4026440505388083,
+          "delta": -2.1150733975516607,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 9,
+        "dominantContribution": -1765.4751437265038,
+        "dominantCorr": -0.37563300930351146,
+        "evalYM": "2023-11",
+        "rentYoY": 1.4026440505388083,
+        "delta": -2.1150733975516607,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2019-05",
+      "detectionDate": "2019-05-01",
+      "firstNewStateYM": "2019-03",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 0.8516170255399832,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 6,
+          "corr": 0.6124658423096384,
+          "latestYoY": 1.3904726871436521,
+          "contribution": 0.8516170255399832
+        }
+      ],
+      "baseRentYoY": 3.0177297401204797,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.5695920842793183,
+          "delta": 0.5518623441588386,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.5818488682380076,
+          "delta": 0.564119128117528,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.5637952373148734,
+          "delta": 0.5460654971943937,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 6,
+        "dominantContribution": 0.8516170255399832,
+        "dominantCorr": 0.6124658423096384,
+        "evalYM": "2019-11",
+        "rentYoY": 3.5818488682380076,
+        "delta": 0.564119128117528,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2020-08",
+      "detectionDate": "2020-08-01",
+      "firstNewStateYM": "2020-06",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -10.30039978472104,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.7432287423502394,
+          "latestYoY": -13.858990103301302,
+          "contribution": -10.30039978472104
+        }
+      ],
+      "baseRentYoY": -1.8498535995266727,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -5.718848009573217,
+          "delta": -3.8689944100465445,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": -5.769069939816968,
+          "delta": -3.9192163402902955,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": -2.2384086330012907,
+          "delta": -0.38855503347461795,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 1,
+        "dominantContribution": -10.30039978472104,
+        "dominantCorr": 0.7432287423502394,
+        "evalYM": "2020-09",
+        "rentYoY": -3.6730390526438947,
+        "delta": -1.823185453117222,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2021-07",
+      "detectionDate": "2021-07-01",
+      "firstNewStateYM": "2021-05",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 10.82545963379835,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 5,
+          "corr": 0.912498812232485,
+          "latestYoY": 11.863532849224418,
+          "contribution": 10.82545963379835
+        }
+      ],
+      "baseRentYoY": 2.416531984183143,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 11.35477620491272,
+          "delta": 8.938244220729578,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 13.047714481792717,
+          "delta": 10.631182497609574,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 11.292002628188595,
+          "delta": 8.875470644005452,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 5,
+        "dominantContribution": 10.82545963379835,
+        "dominantCorr": 0.912498812232485,
+        "evalYM": "2021-12",
+        "rentYoY": 13.550570270574672,
+        "delta": 11.13403828639153,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Boston",
+      "detectionYM": "2023-01",
+      "detectionDate": "2023-01-01",
+      "firstNewStateYM": "2022-11",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -12.021664744640256,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 5,
+          "corr": 0.8252738763582792,
+          "latestYoY": 2.197925218299859,
+          "contribution": 1.813890264851942
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 7,
+          "corr": 0.5810933103986724,
+          "latestYoY": -23.809523809523807,
+          "contribution": -13.835555009492198
+        }
+      ],
+      "baseRentYoY": 7.923747082672642,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 8.390690545219472,
+          "delta": 0.4669434625468307,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 6.257670992955328,
+          "delta": -1.666076089717314,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 4.918003558043771,
+          "delta": -3.005743524628871,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 6,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 7,
+        "dominantContribution": -13.835555009492198,
+        "dominantCorr": 0.5810933103986724,
+        "evalYM": "2023-08",
+        "rentYoY": 5.577833468648695,
+        "delta": -2.3459136140239467,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Boise",
+      "detectionYM": "2018-12",
+      "detectionDate": "2018-12-01",
+      "firstNewStateYM": "2018-10",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -5.332394724592115,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_absorption",
+          "leadMonths": 8,
+          "corr": -0.3839321130249418,
+          "latestYoY": 13.888900000000003,
+          "contribution": -5.332394724592115
+        }
+      ],
+      "baseRentYoY": 8.796284163759488,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 8.406802370974937,
+          "delta": -0.38948179278455086,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 7.784281802359243,
+          "delta": -1.0120023614002447,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 6.847290557647448,
+          "delta": -1.9489936061120394,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_absorption",
+        "dominantLeadMonths": 8,
+        "dominantContribution": -5.332394724592115,
+        "dominantCorr": -0.3839321130249418,
+        "evalYM": "2019-08",
+        "rentYoY": 7.129175727134156,
+        "delta": -1.6671084366253321,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Boise",
+      "detectionYM": "2019-12",
+      "detectionDate": "2019-12-01",
+      "firstNewStateYM": "2019-10",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 2.6976454087202004,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_absorption",
+          "leadMonths": 9,
+          "corr": -0.3561819541477143,
+          "latestYoY": -7.573784626947844,
+          "contribution": 2.6976454087202004
+        }
+      ],
+      "baseRentYoY": 7.0806351337072675,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 6.5209673119905025,
+          "delta": -0.559667821716765,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.110959893635667,
+          "delta": -2.9696752400716004,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 7.194269735586495,
+          "delta": 0.11363460187922758,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 9,
+      "signalLead": {
+        "dominantSignal": "jolts_absorption",
+        "dominantLeadMonths": 9,
+        "dominantContribution": 2.6976454087202004,
+        "dominantCorr": -0.3561819541477143,
+        "evalYM": "2020-09",
+        "rentYoY": 7.194269735586495,
+        "delta": 0.11363460187922758,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Boise",
+      "detectionYM": "2022-09",
+      "detectionDate": "2022-09-01",
+      "firstNewStateYM": "2022-07",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -10.473740585649532,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 1,
+          "corr": 0.6982493723766354,
+          "latestYoY": -15.000000000000002,
+          "contribution": -10.473740585649532
+        }
+      ],
+      "baseRentYoY": 5.882310128294826,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.327461666588443,
+          "delta": -2.5548484617063827,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 2.6858200891464317,
+          "delta": -3.196490039148394,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": -0.6328749515806859,
+          "delta": -6.515185079875511,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 1,
+        "dominantContribution": -10.473740585649532,
+        "dominantCorr": 0.6982493723766354,
+        "evalYM": "2022-10",
+        "rentYoY": 4.758369469063221,
+        "delta": -1.1239406592316046,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Sacramento",
+      "detectionYM": "2020-10",
+      "detectionDate": "2020-10-01",
+      "firstNewStateYM": "2020-08",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -4001.5161906652593,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "warn",
+          "leadMonths": 2,
+          "corr": -0.5710176781410359,
+          "latestYoY": 7007.692307692308,
+          "contribution": -4001.5161906652593
+        }
+      ],
+      "baseRentYoY": 6.042262291142823,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 8.085671290520988,
+          "delta": 2.0434089993781654,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 9.366681620873091,
+          "delta": 3.3244193297302687,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 13.75431085919509,
+          "delta": 7.712048568052268,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "warn",
+        "dominantLeadMonths": 2,
+        "dominantContribution": -4001.5161906652593,
+        "dominantCorr": -0.5710176781410359,
+        "evalYM": "2020-12",
+        "rentYoY": 7.532110513321004,
+        "delta": 1.489848222178181,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Sacramento",
+      "detectionYM": "2021-10",
+      "detectionDate": "2021-10-01",
+      "firstNewStateYM": "2021-08",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 19.009753726457518,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 2,
+          "corr": 0.46468286886896165,
+          "latestYoY": 40.9090909090909,
+          "contribution": 19.009753726457518
+        }
+      ],
+      "baseRentYoY": 13.248789068530314,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 12.101089401771418,
+          "delta": -1.1476996667588963,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 11.385499464573972,
+          "delta": -1.8632896039563427,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 7.766604597191824,
+          "delta": -5.48218447133849,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 2,
+        "dominantContribution": 19.009753726457518,
+        "dominantCorr": 0.46468286886896165,
+        "evalYM": "2021-12",
+        "rentYoY": 12.606506322201804,
+        "delta": -0.6422827463285099,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Sacramento",
+      "detectionYM": "2022-10",
+      "detectionDate": "2022-10-01",
+      "firstNewStateYM": "2022-08",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -3.98868919564265,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 1,
+          "corr": 0.6182468253246103,
+          "latestYoY": -6.451612903225811,
+          "contribution": -3.98868919564265
+        }
+      ],
+      "baseRentYoY": 4.91591911696132,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.2914703741975795,
+          "delta": -2.624448742763741,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 1.8398140206630358,
+          "delta": -3.0761050962982845,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 0.9197397580644411,
+          "delta": -3.996179358896879,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 1,
+        "dominantContribution": -3.98868919564265,
+        "dominantCorr": 0.6182468253246103,
+        "evalYM": "2022-11",
+        "rentYoY": 3.5950332736231756,
+        "delta": -1.3208858433381447,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2020-09",
+      "detectionDate": "2020-09-01",
+      "firstNewStateYM": "2020-07",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -7.275679281593187,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.7442646591367793,
+          "latestYoY": -9.775661375661368,
+          "contribution": -7.275679281593187
+        }
+      ],
+      "baseRentYoY": -0.27987835103722825,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -1.829129249445562,
+          "delta": -1.5492508984083337,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": -2.088496571829576,
+          "delta": -1.8086182207923476,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 2.700167777131753,
+          "delta": 2.9800461281689814,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 1,
+        "dominantContribution": -7.275679281593187,
+        "dominantCorr": 0.7442646591367793,
+        "evalYM": "2020-10",
+        "rentYoY": -1.1391941960275687,
+        "delta": -0.8593158449903404,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2021-08",
+      "detectionDate": "2021-08-01",
+      "firstNewStateYM": "2021-06",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 5.468180530886018,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 5,
+          "corr": 0.821401348895084,
+          "latestYoY": 6.657136049559201,
+          "contribution": 5.468180530886018
+        }
+      ],
+      "baseRentYoY": 5.023087882647793,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 9.005404810006638,
+          "delta": 3.982316927358845,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 10.658220313759397,
+          "delta": 5.635132431111604,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 10.328988270409678,
+          "delta": 5.305900387761884,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 5,
+        "dominantContribution": 5.468180530886018,
+        "dominantCorr": 0.821401348895084,
+        "evalYM": "2022-01",
+        "rentYoY": 10.419558702637731,
+        "delta": 5.396470819989938,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2022-09",
+      "detectionDate": "2022-09-01",
+      "firstNewStateYM": "2022-07",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -4.122103801080447,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 3,
+          "corr": 0.7263680387616743,
+          "latestYoY": 4.511194362679516,
+          "contribution": 3.276787401692242
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 8,
+          "corr": 0.5179223841940883,
+          "latestYoY": -14.285714285714283,
+          "contribution": -7.398891202772689
+        }
+      ],
+      "baseRentYoY": 8.807369878317115,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 7.896071764266717,
+          "delta": -0.911298114050398,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 7.212792914536939,
+          "delta": -1.5945769637801757,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 6.236997411041199,
+          "delta": -2.5703724672759156,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 8,
+        "dominantContribution": -7.398891202772689,
+        "dominantCorr": 0.5179223841940883,
+        "evalYM": "2023-05",
+        "rentYoY": 6.455419238607115,
+        "delta": -2.351950639709999,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2022-12",
+      "detectionDate": "2022-12-01",
+      "firstNewStateYM": "2022-10",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 2.2517700146260804,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 3,
+          "corr": 0.734744813296798,
+          "latestYoY": 3.064696713573784,
+          "contribution": 2.2517700146260804
+        }
+      ],
+      "baseRentYoY": 7.896071764266717,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 7.212792914536939,
+          "delta": -0.6832788497297777,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 6.236997411041199,
+          "delta": -1.6590743532255177,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 5.638364177399344,
+          "delta": -2.2577075868673724,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 3,
+        "dominantContribution": 2.2517700146260804,
+        "dominantCorr": 0.734744813296798,
+        "evalYM": "2023-03",
+        "rentYoY": 7.212792914536939,
+        "delta": -0.6832788497297777,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Chicago",
+      "detectionYM": "2024-03",
+      "detectionDate": "2024-03-01",
+      "firstNewStateYM": "2024-01",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -16.61064825534665,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.7461732726277922,
+          "latestYoY": 0.2583698814538112,
+          "contribution": 0.192788699992845
+        },
+        {
+          "name": "postings",
+          "leadMonths": 7,
+          "corr": 0.9772938811842669,
+          "latestYoY": -17.19384238339587,
+          "contribution": -16.803436955339496
+        }
+      ],
+      "baseRentYoY": 5.337073909875328,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.942951874894231,
+          "delta": -0.39412203498109744,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.767097711400338,
+          "delta": -0.5699761984749898,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 5.4082604841817306,
+          "delta": 0.0711865743064024,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "postings",
+        "dominantLeadMonths": 7,
+        "dominantContribution": -16.803436955339496,
+        "dominantCorr": 0.9772938811842669,
+        "evalYM": "2024-10",
+        "rentYoY": 5.075386339014261,
+        "delta": -0.2616875708610671,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Denver",
+      "detectionYM": "2020-10",
+      "detectionDate": "2020-10-01",
+      "firstNewStateYM": "2020-08",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -5.040373959748904,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.737125111953889,
+          "latestYoY": -6.837881219903692,
+          "contribution": -5.040373959748904
+        }
+      ],
+      "baseRentYoY": 0.712858994995114,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -0.25740916656487045,
+          "delta": -0.9702681615599844,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 2.596362621479299,
+          "delta": 1.8835036264841851,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 9.086545853473893,
+          "delta": 8.373686858478779,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 1,
+        "dominantContribution": -5.040373959748904,
+        "dominantCorr": 0.737125111953889,
+        "evalYM": "2020-11",
+        "rentYoY": 0.19394485069669387,
+        "delta": -0.5189141442984201,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Denver",
+      "detectionYM": "2021-07",
+      "detectionDate": "2021-07-01",
+      "firstNewStateYM": "2021-05",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 7.284969118127942,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.822999809249096,
+          "latestYoY": 8.851726374972966,
+          "contribution": 7.284969118127942
+        }
+      ],
+      "baseRentYoY": 9.086545853473893,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 12.518216810333932,
+          "delta": 3.4316709568600388,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 13.639133643366572,
+          "delta": 4.552587789892678,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 13.760700792401986,
+          "delta": 4.674154938928092,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 1,
+        "dominantContribution": 7.284969118127942,
+        "dominantCorr": 0.822999809249096,
+        "evalYM": "2021-08",
+        "rentYoY": 10.634124799344217,
+        "delta": 1.547578945870324,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Denver",
+      "detectionYM": "2022-10",
+      "detectionDate": "2022-10-01",
+      "firstNewStateYM": "2022-08",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -14.352957381514555,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 2,
+          "corr": 0.7269943365554956,
+          "latestYoY": 4.854052645295804,
+          "contribution": 3.528868782472271
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.6189862902918517,
+          "latestYoY": -28.888888888888886,
+          "contribution": -17.881826163986826
+        }
+      ],
+      "baseRentYoY": 6.132383295507268,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.210306838933491,
+          "delta": -1.9220764565737776,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.611146449341076,
+          "delta": -2.5212368461661923,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 2.2048059960841644,
+          "delta": -3.927577299423104,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 4,
+        "dominantContribution": -17.881826163986826,
+        "dominantCorr": 0.6189862902918517,
+        "evalYM": "2023-02",
+        "rentYoY": 4.061168331908019,
+        "delta": -2.0712149635992496,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Atlanta",
+      "detectionYM": "2021-11",
+      "detectionDate": "2021-11-01",
+      "firstNewStateYM": "2021-09",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 23.355888449360066,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 3,
+          "corr": 0.7525786278127133,
+          "latestYoY": 31.034482758620683,
+          "contribution": 23.355888449360066
+        }
+      ],
+      "baseRentYoY": 19.9685126378735,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 17.193224834297514,
+          "delta": -2.775287803575985,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 15.072387965561179,
+          "delta": -4.89612467231232,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 9.905492160930205,
+          "delta": -10.063020476943294,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 3,
+        "dominantContribution": 23.355888449360066,
+        "dominantCorr": 0.7525786278127133,
+        "evalYM": "2022-02",
+        "rentYoY": 17.193224834297514,
+        "delta": -2.775287803575985,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Atlanta",
+      "detectionYM": "2023-03",
+      "detectionDate": "2023-03-01",
+      "firstNewStateYM": "2023-01",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -9.547697975377,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.6206003683995048,
+          "latestYoY": -15.384615384615389,
+          "contribution": -9.547697975377
+        }
+      ],
+      "baseRentYoY": 4.32830457983946,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 1.992375496925391,
+          "delta": -2.335929082914069,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": -0.0028324112943136177,
+          "delta": -4.331136991133774,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": -0.3537717384112022,
+          "delta": -4.682076318250663,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 5,
+        "dominantContribution": -9.547697975377,
+        "dominantCorr": 0.6206003683995048,
+        "evalYM": "2023-08",
+        "rentYoY": 0.29953391195657536,
+        "delta": -4.028770667882885,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2018-06",
+      "detectionDate": "2018-06-01",
+      "firstNewStateYM": "2018-04",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 8.497074965601591,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_absorption",
+          "leadMonths": 2,
+          "corr": -0.5261649255305361,
+          "latestYoY": -16.149071428571425,
+          "contribution": 8.497074965601591
+        }
+      ],
+      "baseRentYoY": 2.240563855419899,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.500410196609706,
+          "delta": 0.25984634118980665,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.3577819746446713,
+          "delta": 1.117218119224772,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.362294292237336,
+          "delta": 1.1217304368174368,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_absorption",
+        "dominantLeadMonths": 2,
+        "dominantContribution": 8.497074965601591,
+        "dominantCorr": -0.5261649255305361,
+        "evalYM": "2018-08",
+        "rentYoY": 2.675650461541658,
+        "delta": 0.43508660612175865,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2019-06",
+      "detectionDate": "2019-06-01",
+      "firstNewStateYM": "2019-04",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -15.76384850357862,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "jolts_absorption",
+          "leadMonths": 10,
+          "corr": -0.5288112075727951,
+          "latestYoY": 23.905689774284806,
+          "contribution": -12.641596677400168
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 10,
+          "corr": 0.46833777392676745,
+          "latestYoY": -6.666666666666672,
+          "contribution": -3.122251826178452
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 1,
+          "corr": 0.4091113477986485,
+          "latestYoY": 0,
+          "contribution": 0
+        }
+      ],
+      "baseRentYoY": 3.2378974864392216,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.32691294893623,
+          "delta": 0.08901546249700854,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 2.5709397024227068,
+          "delta": -0.6669577840165148,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 2.749008869453439,
+          "delta": -0.4888886169857827,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 6,
+      "signalLead": {
+        "dominantSignal": "jolts_absorption",
+        "dominantLeadMonths": 10,
+        "dominantContribution": -12.641596677400168,
+        "dominantCorr": -0.5288112075727951,
+        "evalYM": "2020-04",
+        "rentYoY": 2.1565953329047165,
+        "delta": -1.081302153534505,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2021-06",
+      "detectionDate": "2021-06-01",
+      "firstNewStateYM": "2021-04",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 6.115804462257703,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 6,
+          "corr": 0.8391877790387992,
+          "latestYoY": 7.287766355776427,
+          "contribution": 6.115804462257703
+        }
+      ],
+      "baseRentYoY": 1.8655671855248503,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 7.3317440198609765,
+          "delta": 5.466176834336126,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 10.648525180475458,
+          "delta": 8.782957994950607,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 10.969658646718447,
+          "delta": 9.104091461193596,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 6,
+        "dominantContribution": 6.115804462257703,
+        "dominantCorr": 0.8391877790387992,
+        "evalYM": "2021-12",
+        "rentYoY": 10.648525180475458,
+        "delta": 8.782957994950607,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Washington DC",
+      "detectionYM": "2023-12",
+      "detectionDate": "2023-12-01",
+      "firstNewStateYM": "2023-10",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -20.349620199826347,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.6882260310084007,
+          "latestYoY": 1.370111057460167,
+          "contribution": 0.9429460951165336
+        },
+        {
+          "name": "postings",
+          "leadMonths": 5,
+          "corr": 0.9561615203578165,
+          "latestYoY": -18.189013772360298,
+          "contribution": -17.391635062389287
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 7,
+          "corr": 0.41609933147238265,
+          "latestYoY": -9.375000000000009,
+          "contribution": -3.900931232553591
+        }
+      ],
+      "baseRentYoY": 4.283185437458511,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.153842508680527,
+          "delta": -0.1293429287779837,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.762454186893692,
+          "delta": 0.47926874943518083,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 4.371559492253481,
+          "delta": 0.08837405479497029,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "postings",
+        "dominantLeadMonths": 5,
+        "dominantContribution": -17.391635062389287,
+        "dominantCorr": 0.9561615203578165,
+        "evalYM": "2024-05",
+        "rentYoY": 4.378794426204897,
+        "delta": 0.09560898874638646,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2019-03",
+      "detectionDate": "2019-03-01",
+      "firstNewStateYM": "2019-01",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 14.035541321651415,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 8,
+          "corr": 0.7970942506284311,
+          "latestYoY": 2.630111005745516,
+          "contribution": 2.096446361194311
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 6,
+          "corr": 0.39228454870073337,
+          "latestYoY": 30.43478260869566,
+          "contribution": 11.939094960457105
+        }
+      ],
+      "baseRentYoY": 3.639303315835006,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.840787835991969,
+          "delta": 0.20148452015696305,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.968849272612386,
+          "delta": 0.32954595677737997,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.021897895955373,
+          "delta": -0.617405419879633,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 6,
+        "dominantContribution": 11.939094960457105,
+        "dominantCorr": 0.39228454870073337,
+        "evalYM": "2019-09",
+        "rentYoY": 3.968849272612386,
+        "delta": 0.32954595677737997,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2020-02",
+      "detectionDate": "2020-02-01",
+      "firstNewStateYM": "2019-12",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -1.7441216521197385,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.38370676346634214,
+          "latestYoY": -4.545454545454549,
+          "contribution": -1.7441216521197385
+        }
+      ],
+      "baseRentYoY": 3.162182550771825,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 1.6714875213550362,
+          "delta": -1.4906950294167889,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 1.4892880839746911,
+          "delta": -1.672894466797134,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 2.0956989129396644,
+          "delta": -1.0664836378321607,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 5,
+        "dominantContribution": -1.7441216521197385,
+        "dominantCorr": 0.38370676346634214,
+        "evalYM": "2020-07",
+        "rentYoY": 1.3220994027704627,
+        "delta": -1.8400831480013624,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2021-01",
+      "detectionDate": "2021-01-01",
+      "firstNewStateYM": "2020-11",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 4.013439893953286,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.766707031070661,
+          "latestYoY": -3.493495050018134,
+          "contribution": -2.6784872178594537
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 7,
+          "corr": 0.3638044555834829,
+          "latestYoY": 26.47058823529412,
+          "contribution": 9.630117941915724
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.6464019826226561,
+          "latestYoY": -4.545454545454549,
+          "contribution": -2.938190830102985
+        }
+      ],
+      "baseRentYoY": 3.0894896260598106,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.97498633951535,
+          "delta": 1.8854967134555398,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 11.138641645839172,
+          "delta": 8.049152019779362,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 15.416180451952727,
+          "delta": 12.326690825892916,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_hires",
+        "dominantLeadMonths": 7,
+        "dominantContribution": 9.630117941915724,
+        "dominantCorr": 0.3638044555834829,
+        "evalYM": "2021-08",
+        "rentYoY": 13.097553983413748,
+        "delta": 10.008064357353938,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Dallas",
+      "detectionYM": "2023-01",
+      "detectionDate": "2023-01-01",
+      "firstNewStateYM": "2022-11",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -2.602608219996045,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.6984088370001181,
+          "latestYoY": 5.4178630799456045,
+          "contribution": 3.7838834526906875
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 5,
+          "corr": 0.31107769955453923,
+          "latestYoY": -12.499999999999993,
+          "contribution": -3.8884712444317384
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.6994457199114008,
+          "latestYoY": -3.5714285714285587,
+          "contribution": -2.498020428254994
+        }
+      ],
+      "baseRentYoY": 5.161365329214005,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 3.431772962743862,
+          "delta": -1.7295923664701434,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 0.21198493526176274,
+          "delta": -4.949380393952243,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 0.20067232607089308,
+          "delta": -4.9606930031431125,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_hires",
+        "dominantLeadMonths": 5,
+        "dominantContribution": -3.8884712444317384,
+        "dominantCorr": 0.31107769955453923,
+        "evalYM": "2023-06",
+        "rentYoY": 0.986638368693244,
+        "delta": -4.174726960520761,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Phoenix",
+      "detectionYM": "2018-09",
+      "detectionDate": "2018-09-01",
+      "firstNewStateYM": "2018-07",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 6.570242870554268,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_hires",
+          "leadMonths": 1,
+          "corr": 0.6176028298321012,
+          "latestYoY": 10.638297872340425,
+          "contribution": 6.570242870554268
+        }
+      ],
+      "baseRentYoY": 7.417094858488621,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 8.11551452889376,
+          "delta": 0.6984196704051389,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 7.892689906393653,
+          "delta": 0.47559504790503215,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 8.040824712431528,
+          "delta": 0.6237298539429066,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_hires",
+        "dominantLeadMonths": 1,
+        "dominantContribution": 6.570242870554268,
+        "dominantCorr": 0.6176028298321012,
+        "evalYM": "2018-10",
+        "rentYoY": 7.591463803451916,
+        "delta": 0.17436894496329458,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Phoenix",
+      "detectionYM": "2023-03",
+      "detectionDate": "2023-03-01",
+      "firstNewStateYM": "2023-01",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -13.765209132756318,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.488039232888633,
+          "latestYoY": -28.20512820512821,
+          "contribution": -13.765209132756318
+        }
+      ],
+      "baseRentYoY": 0.7355203164368818,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -0.21212991150780183,
+          "delta": -0.9476502279446836,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": -0.05148883998157399,
+          "delta": -0.7870091564184557,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 0.06729717242561924,
+          "delta": -0.6682231440112625,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 4,
+        "dominantContribution": -13.765209132756318,
+        "dominantCorr": 0.488039232888633,
+        "evalYM": "2023-07",
+        "rentYoY": -0.2503432114032096,
+        "delta": -0.9858635278400913,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2019-01",
+      "detectionDate": "2019-01-01",
+      "firstNewStateYM": "2018-11",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -9.608697134491388,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_absorption",
+          "leadMonths": 8,
+          "corr": -0.399557878888636,
+          "latestYoY": 24.048323515025732,
+          "contribution": -9.608697134491388
+        }
+      ],
+      "baseRentYoY": 4.441875021224204,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.411130955802438,
+          "delta": -0.03074406542176611,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.781831339174181,
+          "delta": 0.3399563179499765,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 4.390093811918329,
+          "delta": -0.05178120930587493,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_absorption",
+        "dominantLeadMonths": 8,
+        "dominantContribution": -9.608697134491388,
+        "dominantCorr": -0.399557878888636,
+        "evalYM": "2019-09",
+        "rentYoY": 4.317895022311899,
+        "delta": -0.12397999891230516,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2019-10",
+      "detectionDate": "2019-10-01",
+      "firstNewStateYM": "2019-08",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 6.168961384097109,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_absorption",
+          "leadMonths": 8,
+          "corr": -0.38501233955071845,
+          "latestYoY": -16.022762780267875,
+          "contribution": 6.168961384097109
+        }
+      ],
+      "baseRentYoY": 4.390093811918329,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.225513394409775,
+          "delta": -0.1645804175085539,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 2.963067524537404,
+          "delta": -1.4270262873809254,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 2.098356108187267,
+          "delta": -2.2917377037310622,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_absorption",
+        "dominantLeadMonths": 8,
+        "dominantContribution": 6.168961384097109,
+        "dominantCorr": -0.38501233955071845,
+        "evalYM": "2020-06",
+        "rentYoY": 2.150703677800051,
+        "delta": -2.2393901341182785,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2020-11",
+      "detectionDate": "2020-11-01",
+      "firstNewStateYM": "2020-09",
+      "direction": "softening",
+      "priorState": "neutral",
+      "scoreAtDetection": -6.1033715888973425,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.7708992058920721,
+          "latestYoY": -7.917210891188582,
+          "contribution": -6.1033715888973425
+        }
+      ],
+      "baseRentYoY": 1.687530223721229,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": -0.058144505972713284,
+          "delta": -1.7456747296939423,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 2.3221282615247794,
+          "delta": 0.6345980378035503,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.988894703583734,
+          "delta": 2.301364479862505,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "employment",
+        "dominantLeadMonths": 1,
+        "dominantContribution": -6.1033715888973425,
+        "dominantCorr": 0.7708992058920721,
+        "evalYM": "2020-12",
+        "rentYoY": 1.1509418190797882,
+        "delta": -0.5365884046414409,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2021-07",
+      "detectionDate": "2021-07-01",
+      "firstNewStateYM": "2021-05",
+      "direction": "firming",
+      "priorState": "softening",
+      "scoreAtDetection": 36.240050616848904,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 2,
+          "corr": 0.8045559520262324,
+          "latestYoY": 9.488291413703378,
+          "contribution": 7.6338613314544475
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 7,
+          "corr": 0.4903918163210479,
+          "latestYoY": 58.333333333333336,
+          "contribution": 28.60618928539446
+        }
+      ],
+      "baseRentYoY": 3.7188941277723715,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 4.440009463220475,
+          "delta": 0.7211153354481037,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 6.049903142109576,
+          "delta": 2.3310090143372046,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 6.3235612251364355,
+          "delta": 2.604667097364064,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 7,
+        "dominantContribution": 28.60618928539446,
+        "dominantCorr": 0.4903918163210479,
+        "evalYM": "2022-02",
+        "rentYoY": 6.438765732841197,
+        "delta": 2.719871605068825,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Minneapolis",
+      "detectionYM": "2024-03",
+      "detectionDate": "2024-03-01",
+      "firstNewStateYM": "2024-01",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -16.683371068377788,
+      "cleanCountAtDetection": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 3,
+          "corr": 0.6133569947355145,
+          "latestYoY": 0.7085962553015319,
+          "contribution": 0.434622469632587
+        },
+        {
+          "name": "postings",
+          "leadMonths": 7,
+          "corr": 0.9070222385113733,
+          "latestYoY": -18.872738518633057,
+          "contribution": -17.117993538010374
+        }
+      ],
+      "baseRentYoY": 2.457189614748659,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.736845802151683,
+          "delta": 0.2796561874030239,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.0374806918289936,
+          "delta": 0.5802910770803344,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 2.865692055608336,
+          "delta": 0.4085024408596767,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "postings",
+        "dominantLeadMonths": 7,
+        "dominantContribution": -17.117993538010374,
+        "dominantCorr": 0.9070222385113733,
+        "evalYM": "2024-10",
+        "rentYoY": 3.045544784127335,
+        "delta": 0.5883551693786759,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2019-04",
+      "detectionDate": "2019-04-01",
+      "firstNewStateYM": "2019-02",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 9.943125676324653,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 8,
+          "corr": 0.39772502705298624,
+          "latestYoY": 24.999999999999993,
+          "contribution": 9.943125676324653
+        }
+      ],
+      "baseRentYoY": 2.8039017988730937,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.772914553279198,
+          "delta": -0.03098724559389554,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 2.754971327416565,
+          "delta": -0.048930471456528846,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 3.2343407630967373,
+          "delta": 0.4304389642236437,
+          "hit": true,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 9,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 8,
+        "dominantContribution": 9.943125676324653,
+        "dominantCorr": 0.39772502705298624,
+        "evalYM": "2019-12",
+        "rentYoY": 3.07752813541505,
+        "delta": 0.2736263365419562,
+        "hit": true,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2020-08",
+      "detectionDate": "2020-08-01",
+      "firstNewStateYM": "2020-06",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -2.7196029036395224,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 9,
+          "corr": 0.38074440650953356,
+          "latestYoY": -7.142857142857134,
+          "contribution": -2.7196029036395224
+        }
+      ],
+      "baseRentYoY": 1.9232250510692914,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 2.434157137029203,
+          "delta": 0.5109320859599116,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 4.92369845969076,
+          "delta": 3.0004734086214686,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 11.56795248324272,
+          "delta": 9.644727432173429,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": null,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 9,
+        "dominantContribution": -2.7196029036395224,
+        "dominantCorr": 0.38074440650953356,
+        "evalYM": "2021-05",
+        "rentYoY": 11.56795248324272,
+        "delta": 9.644727432173429,
+        "hit": false,
+        "strictHit": false,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2021-10",
+      "detectionDate": "2021-10-01",
+      "firstNewStateYM": "2021-08",
+      "direction": "firming",
+      "priorState": "neutral",
+      "scoreAtDetection": 15.636937638111139,
+      "cleanCountAtDetection": 1,
+      "contributingSignals": [
+        {
+          "name": "jolts_quits",
+          "leadMonths": 3,
+          "corr": 0.5082004732386122,
+          "latestYoY": 30.76923076923076,
+          "contribution": 15.636937638111139
+        }
+      ],
+      "baseRentYoY": 25.61512781614051,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 29.43090669375148,
+          "delta": 3.8157788776109705,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 29.449459109477296,
+          "delta": 3.834331293336785,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 23.981571478679243,
+          "delta": -1.6335563374612683,
+          "hit": false,
+          "strictHit": false,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_quits",
+        "dominantLeadMonths": 3,
+        "dominantContribution": 15.636937638111139,
+        "dominantCorr": 0.5082004732386122,
+        "evalYM": "2022-01",
+        "rentYoY": 29.43090669375148,
+        "delta": 3.8157788776109705,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    },
+    {
+      "metro": "Miami",
+      "detectionYM": "2022-11",
+      "detectionDate": "2022-11-01",
+      "firstNewStateYM": "2022-09",
+      "direction": "softening",
+      "priorState": "firming",
+      "scoreAtDetection": -3.7965343839547017,
+      "cleanCountAtDetection": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.5345187737622947,
+          "latestYoY": 5.8196107784431135,
+          "contribution": 3.1106912170672465
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 3,
+          "corr": 0.3336508791808397,
+          "latestYoY": -10.416666666666668,
+          "contribution": -3.4755299914670803
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.49759586338545647,
+          "latestYoY": -6.896551724137923,
+          "contribution": -3.431695609554868
+        }
+      ],
+      "baseRentYoY": 13.647226066530866,
+      "forwardWindows": {
+        "3": {
+          "rentYoY": 8.14867766764032,
+          "delta": -5.498548398890547,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "6": {
+          "rentYoY": 3.771086185843427,
+          "delta": -9.87613988068744,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        },
+        "9": {
+          "rentYoY": 1.9907162553435613,
+          "delta": -11.656509811187306,
+          "hit": true,
+          "strictHit": true,
+          "beyondData": false
+        }
+      },
+      "firstHitHorizon": 3,
+      "signalLead": {
+        "dominantSignal": "jolts_hires",
+        "dominantLeadMonths": 3,
+        "dominantContribution": -3.4755299914670803,
+        "dominantCorr": 0.3336508791808397,
+        "evalYM": "2023-02",
+        "rentYoY": 8.14867766764032,
+        "delta": -5.498548398890547,
+        "hit": true,
+        "strictHit": true,
+        "beyondData": false
+      },
+      "isWorkedExample": false
+    }
+  ],
+  "currentByMetro": {
+    "San Francisco": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -42.04259393692122,
+      "cleanCount": 4,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.8394572159393716,
+          "latestYoY": 0.3875645940990241,
+          "contribution": 0.3253438951590394
+        },
+        {
+          "name": "postings",
+          "leadMonths": 5,
+          "corr": 0.9633414927198849,
+          "latestYoY": -9.696807800186997,
+          "contribution": -9.341337300849965
+        },
+        {
+          "name": "warn",
+          "leadMonths": 7,
+          "corr": -0.5899007283779661,
+          "latestYoY": 37.29372937293729,
+          "contribution": -21.99959812102646
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 6,
+          "corr": 0.6248634699115504,
+          "latestYoY": -17.647058823529417,
+          "contribution": -11.027002410203833
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "wrong-sign"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2025-03",
+        "firstNewStateYM": "2025-01",
+        "direction": "firming",
+        "priorState": "softening",
+        "scoreAtDetection": 30.706617989867976,
+        "cleanCountAtDetection": 4,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 4,
+            "corr": 0.8975138421454036,
+            "nAtBestLag": 105,
+            "latestYoY": -1.4861647097462956,
+            "latestYoYDate": "2025-01-01",
+            "contribution": -1.3338533987053063
+          },
+          "postings": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.9671167386916119,
+            "nAtBestLag": 43,
+            "latestYoY": -10.904568660819477,
+            "latestYoYDate": "2025-01-01",
+            "contribution": -10.54599088009049
+          },
+          "warn": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 7,
+            "corr": -0.5853214705905216,
+            "nAtBestLag": 102,
+            "latestYoY": -65.98053892215569,
+            "latestYoYDate": "2025-01-01",
+            "contribution": 38.619826072271316
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 6,
+            "corr": 0.6734814382711424,
+            "nAtBestLag": 103,
+            "latestYoY": -24.68190308127743,
+            "latestYoYDate": "2025-01-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 7,
+            "corr": -0.35599750022420734,
+            "nAtBestLag": 102,
+            "latestYoY": 18.51851851851852,
+            "latestYoYDate": "2025-01-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 6,
+            "corr": 0.6346617914227936,
+            "nAtBestLag": 103,
+            "latestYoY": 6.249999999999992,
+            "latestYoYDate": "2025-01-01",
+            "contribution": 3.9666361963924546
+          }
+        }
+      }
+    },
+    "Austin": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -5.809770530391447,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 1,
+          "corr": 0.5065308658448885,
+          "latestYoY": -10.088016249153691,
+          "contribution": -5.109891605341123
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 6,
+          "corr": 0.34945715395039295,
+          "latestYoY": 4.0000000000000036,
+          "contribution": 1.3978286158015731
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.4405185835788979,
+          "latestYoY": -4.761904761904765,
+          "contribution": -2.0977075408518964
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "boundary-pinned",
+            "wrong-sign",
+            "weak-corr"
+          ]
+        },
+        {
+          "name": "warn",
+          "flags": [
+            "wrong-sign",
+            "weak-corr"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-10",
+        "firstNewStateYM": "2023-08",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -1.881869917523438,
+        "cleanCountAtDetection": 1,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign"
+            ],
+            "leadMonths": 12,
+            "corr": -0.43775305262379666,
+            "nAtBestLag": 80,
+            "latestYoY": 3.429365876264761,
+            "latestYoYDate": "2023-08-01"
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -12,
+            "corr": -0.7874689756507562,
+            "nAtBestLag": 19,
+            "latestYoY": -27.847884428710103,
+            "latestYoYDate": "2023-08-01"
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 2,
+            "corr": 0.33671782584196785,
+            "nAtBestLag": 90,
+            "latestYoY": -16.897628768997976,
+            "latestYoYDate": "2023-08-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -12,
+            "corr": -0.38063766196217746,
+            "nAtBestLag": 80,
+            "latestYoY": 3.8461538461538494,
+            "latestYoYDate": "2023-08-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 2,
+            "corr": 0.4046020322675388,
+            "nAtBestLag": 90,
+            "latestYoY": -4.651162790697678,
+            "latestYoYDate": "2023-08-01",
+            "contribution": -1.881869917523438
+          }
+        }
+      }
+    },
+    "Salt Lake City": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -7.627373985904585,
+      "cleanCount": 2,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 5,
+          "corr": 0.9382567340778628,
+          "latestYoY": -8.129303749043611,
+          "contribution": -7.627373985904585
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.5960947489708975,
+          "latestYoY": 0,
+          "contribution": 0
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "warn",
+          "flags": [
+            "thin",
+            "wrong-sign",
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "weak-corr"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-01",
+        "firstNewStateYM": "2022-11",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -5.734157889360932,
+        "cleanCountAtDetection": 2,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 1,
+            "corr": 0.5669162068406998,
+            "nAtBestLag": 82,
+            "latestYoY": 3.5069885641677283,
+            "latestYoYDate": "2022-11-01",
+            "contribution": 1.9881686542316805
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -10,
+            "corr": -0.9967517690971445,
+            "nAtBestLag": 12,
+            "latestYoY": -1.3347740418229344,
+            "latestYoYDate": "2022-11-01"
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 4,
+            "corr": 0.6747606639834699,
+            "nAtBestLag": 79,
+            "latestYoY": 21.7949008382654,
+            "latestYoYDate": "2022-11-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "lags-not-leads",
+              "weak-corr"
+            ],
+            "leadMonths": -2,
+            "corr": 0.14584614090998915,
+            "nAtBestLag": 81,
+            "latestYoY": -19.565217391304337,
+            "latestYoYDate": "2022-11-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.579174490769446,
+            "nAtBestLag": 78,
+            "latestYoY": -13.33333333333333,
+            "latestYoYDate": "2022-11-01",
+            "contribution": -7.7223265435926125
+          }
+        }
+      }
+    },
+    "Philadelphia": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "firming",
+      "score": 3.104643376413515,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 2,
+          "corr": 0.5309613004149492,
+          "latestYoY": 0.20399572580383143,
+          "contribution": 0.10831383585189373
+        },
+        {
+          "name": "postings",
+          "leadMonths": 6,
+          "corr": 0.9347865827712802,
+          "latestYoY": -7.263899466869772,
+          "contribution": -6.790195760229318
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.48932626503954707,
+          "latestYoY": 19.999999999999996,
+          "contribution": 9.78652530079094
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "warn",
+          "flags": [
+            "thin"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "wrong-sign",
+            "lags-not-leads",
+            "weak-corr"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2026-03",
+        "firstNewStateYM": "2026-01",
+        "direction": "firming",
+        "priorState": "softening",
+        "scoreAtDetection": 3.104643376413515,
+        "cleanCountAtDetection": 3,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 2,
+            "corr": 0.5309613004149492,
+            "nAtBestLag": 119,
+            "latestYoY": 0.20399572580383143,
+            "latestYoYDate": "2026-01-01",
+            "contribution": 0.10831383585189373
+          },
+          "postings": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 6,
+            "corr": 0.9347865827712802,
+            "nAtBestLag": 43,
+            "latestYoY": -7.263899466869772,
+            "latestYoYDate": "2025-02-01",
+            "contribution": -6.790195760229318
+          },
+          "warn": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "thin"
+            ],
+            "leadMonths": 4,
+            "corr": -0.5687775299555695,
+            "nAtBestLag": 20,
+            "latestYoY": 99.66555183946488,
+            "latestYoYDate": "2026-01-01"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 7,
+            "corr": 0.6544849636064864,
+            "nAtBestLag": 113,
+            "latestYoY": -12.08197510002185,
+            "latestYoYDate": "2025-12-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "lags-not-leads",
+              "weak-corr"
+            ],
+            "leadMonths": -8,
+            "corr": -0.2594477938799125,
+            "nAtBestLag": 112,
+            "latestYoY": 5.000000000000004,
+            "latestYoYDate": "2025-12-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.48932626503954707,
+            "nAtBestLag": 115,
+            "latestYoY": 19.999999999999996,
+            "latestYoYDate": "2025-12-01",
+            "contribution": 9.78652530079094
+          }
+        }
+      }
+    },
+    "New York": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -297.88744626940536,
+      "cleanCount": 4,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.7781527843563014,
+          "latestYoY": 0.026276162467537455,
+          "contribution": 0.020446868986312816
+        },
+        {
+          "name": "postings",
+          "leadMonths": 6,
+          "corr": 0.9812854635304381,
+          "latestYoY": 0.9153564505707457,
+          "contribution": 0.8982259788938907
+        },
+        {
+          "name": "warn",
+          "leadMonths": 4,
+          "corr": -0.6808616767294021,
+          "latestYoY": 432.2986577181208,
+          "contribution": -294.3355889418296
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 6,
+          "corr": 0.5811689228092721,
+          "latestYoY": -7.692307692307699,
+          "contribution": -4.470530175455943
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "wrong-sign",
+            "lags-not-leads",
+            "weak-corr"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2020-07",
+        "firstNewStateYM": "2020-05",
+        "direction": "softening",
+        "priorState": "neutral",
+        "scoreAtDetection": -340.20706222662744,
+        "cleanCountAtDetection": 3,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 8,
+            "corr": -0.3758792202196985,
+            "nAtBestLag": 45,
+            "latestYoY": -17.794877590227767,
+            "latestYoYDate": "2020-05-01"
+          },
+          "postings": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "warn": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 2,
+            "corr": -0.34702672581917676,
+            "nAtBestLag": 51,
+            "latestYoY": 1103.5248041775458,
+            "latestYoYDate": "2020-05-01",
+            "contribution": -382.9525996539819
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 1,
+            "corr": -0.44595484551350245,
+            "nAtBestLag": 52,
+            "latestYoY": -40.32911246283874,
+            "latestYoYDate": "2020-05-01",
+            "contribution": 17.984963118061916
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 1,
+            "corr": 0.4814556115695774,
+            "nAtBestLag": 52,
+            "latestYoY": 51.42857142857142,
+            "latestYoYDate": "2020-05-01",
+            "contribution": 24.76057430929255
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign",
+              "weak-corr"
+            ],
+            "leadMonths": 11,
+            "corr": -0.24648865479989376,
+            "nAtBestLag": 42,
+            "latestYoY": -23.529411764705877,
+            "latestYoYDate": "2020-05-01"
+          }
+        }
+      }
+    },
+    "Seattle": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -13.878556148771738,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 2,
+          "corr": 0.7401683388721754,
+          "latestYoY": -0.21821631878557443,
+          "contribution": -0.16151681019031972
+        },
+        {
+          "name": "postings",
+          "leadMonths": 4,
+          "corr": 0.9720311297098739,
+          "latestYoY": -9.605214610748988,
+          "contribution": -9.336567609192125
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.6570707594083935,
+          "latestYoY": -6.666666666666672,
+          "contribution": -4.380471729389294
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "warn",
+          "flags": [
+            "weak-corr"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "boundary-pinned",
+            "wrong-sign",
+            "lags-not-leads"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-02",
+        "firstNewStateYM": "2022-12",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -1753.1527518085259,
+        "cleanCountAtDetection": 3,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 3,
+            "corr": 0.7632021555300057,
+            "nAtBestLag": 81,
+            "latestYoY": 2.119766825649179,
+            "latestYoYDate": "2022-12-01",
+            "contribution": 1.6178106105564511
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -11,
+            "corr": -0.9948756615530099,
+            "nAtBestLag": 12,
+            "latestYoY": -23.90011068068622,
+            "latestYoYDate": "2022-12-01"
+          },
+          "warn": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 9,
+            "corr": -0.37563300930351146,
+            "nAtBestLag": 65,
+            "latestYoY": 4700,
+            "latestYoYDate": "2022-12-01",
+            "contribution": -1765.4751437265038
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 7,
+            "corr": 0.5482289256819974,
+            "nAtBestLag": 77,
+            "latestYoY": 9.039931473237104,
+            "latestYoYDate": "2022-12-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "lags-not-leads",
+              "weak-corr"
+            ],
+            "leadMonths": -10,
+            "corr": -0.27554455058061494,
+            "nAtBestLag": 74,
+            "latestYoY": 0,
+            "latestYoYDate": "2022-12-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 4,
+            "corr": 0.6422748784452916,
+            "nAtBestLag": 80,
+            "latestYoY": 16.666666666666668,
+            "latestYoYDate": "2022-12-01",
+            "contribution": 10.704581307421527
+          }
+        }
+      }
+    },
+    "Boston": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -16.842394875800867,
+      "cleanCount": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 5,
+          "corr": 0.8197500797898634,
+          "latestYoY": -1.090619225334248,
+          "contribution": -0.8940351969881087
+        },
+        {
+          "name": "postings",
+          "leadMonths": 6,
+          "corr": 0.9529693590189664,
+          "latestYoY": -16.73543805776797,
+          "contribution": -15.948359678812757
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "warn",
+          "flags": [
+            "weak-corr"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "boundary-pinned",
+            "wrong-sign",
+            "lags-not-leads",
+            "weak-corr"
+          ]
+        },
+        {
+          "name": "jolts_quits",
+          "flags": [
+            "wrong-sign",
+            "lags-not-leads"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-01",
+        "firstNewStateYM": "2022-11",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -12.021664744640256,
+        "cleanCountAtDetection": 2,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.8252738763582792,
+            "nAtBestLag": 78,
+            "latestYoY": 2.197925218299859,
+            "latestYoYDate": "2022-11-01",
+            "contribution": 1.813890264851942
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -9,
+            "corr": -0.9827084825290506,
+            "nAtBestLag": 13,
+            "latestYoY": -3.6525860867140727,
+            "latestYoYDate": "2022-11-01"
+          },
+          "warn": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "thin"
+            ],
+            "leadMonths": 10,
+            "corr": -0.7415833816760543,
+            "nAtBestLag": 14,
+            "latestYoY": 42.72997032640949,
+            "latestYoYDate": "2022-11-01"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 6,
+            "corr": 0.7105858232153454,
+            "nAtBestLag": 77,
+            "latestYoY": -18.149467296513325,
+            "latestYoYDate": "2022-11-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "lags-not-leads",
+              "weak-corr"
+            ],
+            "leadMonths": -9,
+            "corr": -0.1392947063018895,
+            "nAtBestLag": 74,
+            "latestYoY": -3.333333333333336,
+            "latestYoYDate": "2022-11-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 7,
+            "corr": 0.5810933103986724,
+            "nAtBestLag": 76,
+            "latestYoY": -23.809523809523807,
+            "latestYoYDate": "2022-11-01",
+            "contribution": -13.835555009492198
+          }
+        }
+      }
+    },
+    "Boise": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -7.131742765520206,
+      "cleanCount": 2,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 1,
+          "corr": 0.9540223819415029,
+          "latestYoY": -10.440325298556681,
+          "contribution": -9.960304009573177
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 1,
+          "corr": 0.6505690861321827,
+          "latestYoY": 4.347826086956526,
+          "contribution": 2.828561244052971
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "warn",
+          "flags": [
+            "wrong-sign",
+            "lags-not-leads",
+            "weak-corr"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "boundary-pinned",
+            "weak-corr"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2022-09",
+        "firstNewStateYM": "2022-07",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -10.473740585649532,
+        "cleanCountAtDetection": 1,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign"
+            ],
+            "leadMonths": 12,
+            "corr": -0.6209980460683636,
+            "nAtBestLag": 67,
+            "latestYoY": 4.738694828053074,
+            "latestYoYDate": "2022-07-01"
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -11,
+            "corr": -0.9910674120652978,
+            "nAtBestLag": 7,
+            "latestYoY": 19.95562677184765,
+            "latestYoYDate": "2022-07-01"
+          },
+          "warn": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "thin",
+              "wrong-sign"
+            ],
+            "leadMonths": 8,
+            "corr": 0.4821508762399969,
+            "nAtBestLag": 23,
+            "latestYoY": -100,
+            "latestYoYDate": "2022-01-01"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 1,
+            "corr": 0.8038711103450495,
+            "nAtBestLag": 78,
+            "latestYoY": 16.046084157065806,
+            "latestYoYDate": "2022-07-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "weak-corr"
+            ],
+            "leadMonths": 12,
+            "corr": 0.2825949064140054,
+            "nAtBestLag": 67,
+            "latestYoY": -11.111111111111114,
+            "latestYoYDate": "2022-07-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 1,
+            "corr": 0.6982493723766354,
+            "nAtBestLag": 78,
+            "latestYoY": -15.000000000000002,
+            "latestYoYDate": "2022-07-01",
+            "contribution": -10.473740585649532
+          }
+        }
+      }
+    },
+    "Sacramento": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -22.441342194969735,
+      "cleanCount": 2,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 2,
+          "corr": 0.9509431866580266,
+          "latestYoY": -11.969621925045402,
+          "contribution": -11.382430416494458
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 1,
+          "corr": 0.6266716674469323,
+          "latestYoY": -17.647058823529417,
+          "contribution": -11.058911778475277
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "warn",
+          "flags": [
+            "boundary-pinned",
+            "wrong-sign",
+            "weak-corr"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign",
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "boundary-pinned"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2022-10",
+        "firstNewStateYM": "2022-08",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -3.98868919564265,
+        "cleanCountAtDetection": 1,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "lags-not-leads"
+            ],
+            "leadMonths": -3,
+            "corr": 0.640828210577181,
+            "nAtBestLag": 77,
+            "latestYoY": 3.818359374999991,
+            "latestYoYDate": "2022-08-01"
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -11,
+            "corr": -0.980683034567998,
+            "nAtBestLag": 8,
+            "latestYoY": 3.4161073825503383,
+            "latestYoYDate": "2022-08-01"
+          },
+          "warn": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign",
+              "weak-corr"
+            ],
+            "leadMonths": 11,
+            "corr": 0.2825947738538428,
+            "nAtBestLag": 59,
+            "latestYoY": -79.01554404145078,
+            "latestYoYDate": "2022-08-01"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": 0,
+            "corr": 0.75235767232853,
+            "nAtBestLag": 80,
+            "latestYoY": -2.8994310059146526,
+            "latestYoYDate": "2022-08-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": 0,
+            "corr": -0.3949040514882972,
+            "nAtBestLag": 80,
+            "latestYoY": -2.2222222222222143,
+            "latestYoYDate": "2022-08-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 1,
+            "corr": 0.6182468253246103,
+            "nAtBestLag": 79,
+            "latestYoY": -6.451612903225811,
+            "latestYoYDate": "2022-08-01",
+            "contribution": -3.98868919564265
+          }
+        }
+      }
+    },
+    "Chicago": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -11.6563830645577,
+      "cleanCount": 2,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.7292751191219455,
+          "latestYoY": 0.04073319755600035,
+          "contribution": 0.029705707499869897
+        },
+        {
+          "name": "postings",
+          "leadMonths": 7,
+          "corr": 0.9710949678283008,
+          "latestYoY": -12.033929903057416,
+          "contribution": -11.68608877205757
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "wrong-sign",
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_quits",
+          "flags": [
+            "wrong-sign",
+            "lags-not-leads"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2024-03",
+        "firstNewStateYM": "2024-01",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -16.61064825534665,
+        "cleanCountAtDetection": 2,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 4,
+            "corr": 0.7461732726277922,
+            "nAtBestLag": 93,
+            "latestYoY": 0.2583698814538112,
+            "latestYoYDate": "2024-01-01",
+            "contribution": 0.192788699992845
+          },
+          "postings": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 7,
+            "corr": 0.9772938811842669,
+            "nAtBestLag": 29,
+            "latestYoY": -17.19384238339587,
+            "latestYoYDate": "2024-01-01",
+            "contribution": -16.803436955339496
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 7,
+            "corr": 0.6598499675484047,
+            "nAtBestLag": 90,
+            "latestYoY": -8.365120711318143,
+            "latestYoYDate": "2024-01-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": 0,
+            "corr": -0.457214436702091,
+            "nAtBestLag": 97,
+            "latestYoY": -12.820512820512823,
+            "latestYoYDate": "2024-01-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -7,
+            "corr": -0.6351967498696193,
+            "nAtBestLag": 90,
+            "latestYoY": -13.636363636363647,
+            "latestYoYDate": "2024-01-01"
+          }
+        }
+      }
+    },
+    "Denver": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "firming",
+      "score": 1.4920474981815666,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 1,
+          "corr": 0.673639199250736,
+          "latestYoY": -0.2890173410404652,
+          "contribution": -0.19469341018807587
+        },
+        {
+          "name": "postings",
+          "leadMonths": 3,
+          "corr": 0.9455042528024441,
+          "latestYoY": -10.679028242767618,
+          "contribution": -10.097066619334194
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.5499110179595122,
+          "latestYoY": 21.428571428571434,
+          "contribution": 11.783807527703837
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "boundary-pinned",
+            "wrong-sign",
+            "lags-not-leads"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2022-10",
+        "firstNewStateYM": "2022-08",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -14.352957381514555,
+        "cleanCountAtDetection": 2,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 2,
+            "corr": 0.7269943365554956,
+            "nAtBestLag": 78,
+            "latestYoY": 4.854052645295804,
+            "latestYoYDate": "2022-08-01",
+            "contribution": 3.528868782472271
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -11,
+            "corr": -0.9964906656099454,
+            "nAtBestLag": 8,
+            "latestYoY": 16.315257138411265,
+            "latestYoYDate": "2022-08-01"
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 5,
+            "corr": 0.7668329431267994,
+            "nAtBestLag": 75,
+            "latestYoY": 2.9537821088982503,
+            "latestYoYDate": "2022-08-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign",
+              "lags-not-leads",
+              "weak-corr"
+            ],
+            "leadMonths": -12,
+            "corr": -0.2650322690173856,
+            "nAtBestLag": 68,
+            "latestYoY": -16.981132075471688,
+            "latestYoYDate": "2022-08-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 4,
+            "corr": 0.6189862902918517,
+            "nAtBestLag": 76,
+            "latestYoY": -28.888888888888886,
+            "latestYoYDate": "2022-08-01",
+            "contribution": -17.881826163986826
+          }
+        }
+      }
+    },
+    "Atlanta": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -31.49463279874451,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 4,
+          "corr": 0.9496075545362909,
+          "latestYoY": -8.49150849150849,
+          "contribution": -8.063600612945526
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 6,
+          "corr": 0.5923569805531866,
+          "latestYoY": -24.999999999999993,
+          "contribution": -14.808924513829663
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.7328791521173929,
+          "latestYoY": -11.764705882352938,
+          "contribution": -8.622107671969326
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-03",
+        "firstNewStateYM": "2023-01",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -9.547697975377,
+        "cleanCountAtDetection": 1,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "lags-not-leads"
+            ],
+            "leadMonths": -2,
+            "corr": 0.556287609525246,
+            "nAtBestLag": 83,
+            "latestYoY": 3.8133846365260404,
+            "latestYoYDate": "2023-01-01"
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -12,
+            "corr": -0.965354580829419,
+            "nAtBestLag": 12,
+            "latestYoY": -10.154876042434903,
+            "latestYoYDate": "2023-01-01"
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 3,
+            "corr": 0.44929936429985157,
+            "nAtBestLag": 82,
+            "latestYoY": 0.9395861636971986,
+            "latestYoYDate": "2023-01-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned"
+            ],
+            "leadMonths": 12,
+            "corr": 0.40218296207194976,
+            "nAtBestLag": 73,
+            "latestYoY": -10.714285714285708,
+            "latestYoYDate": "2023-01-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.6206003683995048,
+            "nAtBestLag": 80,
+            "latestYoY": -15.384615384615389,
+            "latestYoYDate": "2023-01-01",
+            "contribution": -9.547697975377
+          }
+        }
+      }
+    },
+    "Washington DC": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -15.940031602238662,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 4,
+          "corr": 0.6900282277595371,
+          "latestYoY": -3.0805335234530573,
+          "contribution": -2.1256550877421554
+        },
+        {
+          "name": "postings",
+          "leadMonths": 5,
+          "corr": 0.9437975544546006,
+          "latestYoY": -11.581047381546133,
+          "contribution": -10.930164196726096
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 7,
+          "corr": 0.36052653972130105,
+          "latestYoY": -8.000000000000007,
+          "contribution": -2.884212317770411
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_quits",
+          "flags": [
+            "lags-not-leads"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-12",
+        "firstNewStateYM": "2023-10",
+        "direction": "softening",
+        "priorState": "neutral",
+        "scoreAtDetection": -20.349620199826347,
+        "cleanCountAtDetection": 3,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 4,
+            "corr": 0.6882260310084007,
+            "nAtBestLag": 90,
+            "latestYoY": 1.370111057460167,
+            "latestYoYDate": "2023-10-01",
+            "contribution": 0.9429460951165336
+          },
+          "postings": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.9561615203578165,
+            "nAtBestLag": 28,
+            "latestYoY": -18.189013772360298,
+            "latestYoYDate": "2023-10-01",
+            "contribution": -17.391635062389287
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "lags-not-leads"
+            ],
+            "leadMonths": -8,
+            "corr": -0.3318908743183774,
+            "nAtBestLag": 86,
+            "latestYoY": 3.305795454545452,
+            "latestYoYDate": "2023-10-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 7,
+            "corr": 0.41609933147238265,
+            "nAtBestLag": 87,
+            "latestYoY": -9.375000000000009,
+            "latestYoYDate": "2023-10-01",
+            "contribution": -3.900931232553591
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "lags-not-leads"
+            ],
+            "leadMonths": -2,
+            "corr": 0.4398274686343309,
+            "nAtBestLag": 92,
+            "latestYoY": -26.923076923076927,
+            "latestYoYDate": "2023-10-01"
+          }
+        }
+      }
+    },
+    "Dallas": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -9.525526915197606,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 5,
+          "corr": 0.9418370698769701,
+          "latestYoY": -8.334039847392962,
+          "contribution": -7.849307670106499
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 7,
+          "corr": 0.44836808490841357,
+          "latestYoY": 4.0000000000000036,
+          "contribution": 1.7934723396336558
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 6,
+          "corr": 0.7286352327921999,
+          "latestYoY": -4.761904761904765,
+          "contribution": -3.469691584724764
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-01",
+        "firstNewStateYM": "2022-11",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -2.602608219996045,
+        "cleanCountAtDetection": 3,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 1,
+            "corr": 0.6984088370001181,
+            "nAtBestLag": 82,
+            "latestYoY": 5.4178630799456045,
+            "latestYoYDate": "2022-11-01",
+            "contribution": 3.7838834526906875
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -10,
+            "corr": -0.9941536589289994,
+            "nAtBestLag": 12,
+            "latestYoY": -5.3815560526969906,
+            "latestYoYDate": "2022-11-01"
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 6,
+            "corr": 0.7096902699972227,
+            "nAtBestLag": 77,
+            "latestYoY": 0.5951331799212254,
+            "latestYoYDate": "2022-11-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.31107769955453923,
+            "nAtBestLag": 78,
+            "latestYoY": -12.499999999999993,
+            "latestYoYDate": "2022-11-01",
+            "contribution": -3.8884712444317384
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 5,
+            "corr": 0.6994457199114008,
+            "nAtBestLag": 78,
+            "latestYoY": -3.5714285714285587,
+            "latestYoYDate": "2022-11-01",
+            "contribution": -2.498020428254994
+          }
+        }
+      }
+    },
+    "Phoenix": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -30.39088381131232,
+      "cleanCount": 2,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 1,
+          "corr": 0.9143854477461842,
+          "latestYoY": -28.965087281795515,
+          "contribution": -26.4852543031719
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 4,
+          "corr": 0.5858444262210626,
+          "latestYoY": -6.666666666666672,
+          "contribution": -3.9056295081404206
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "boundary-pinned",
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "lags-not-leads"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2023-03",
+        "firstNewStateYM": "2023-01",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -13.765209132756318,
+        "cleanCountAtDetection": 1,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign"
+            ],
+            "leadMonths": 12,
+            "corr": -0.6158764085710425,
+            "nAtBestLag": 73,
+            "latestYoY": 4.071661237785016,
+            "latestYoYDate": "2023-01-01"
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -12,
+            "corr": -0.8389065541840173,
+            "nAtBestLag": 12,
+            "latestYoY": -15.873704768621502,
+            "latestYoYDate": "2023-01-01"
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 5,
+            "corr": 0.40528366916342834,
+            "nAtBestLag": 80,
+            "latestYoY": -6.216977417830009,
+            "latestYoYDate": "2023-01-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "lags-not-leads",
+              "weak-corr"
+            ],
+            "leadMonths": -3,
+            "corr": 0.27015530693492906,
+            "nAtBestLag": 82,
+            "latestYoY": -11.11111111111112,
+            "latestYoYDate": "2023-01-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 4,
+            "corr": 0.488039232888633,
+            "nAtBestLag": 81,
+            "latestYoY": -28.20512820512821,
+            "latestYoYDate": "2023-01-01",
+            "contribution": -13.765209132756318
+          }
+        }
+      }
+    },
+    "Minneapolis": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -4.850913223890947,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "employment",
+          "leadMonths": 3,
+          "corr": 0.5759235246261081,
+          "latestYoY": -0.10175527855507505,
+          "contribution": -0.05860325867475025
+        },
+        {
+          "name": "postings",
+          "leadMonths": 6,
+          "corr": 0.913566134483213,
+          "latestYoY": -15.818605554476603,
+          "contribution": -14.451342329317873
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 6,
+          "corr": 0.5473451672990949,
+          "latestYoY": 17.647058823529417,
+          "contribution": 9.659032364101677
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "boundary-pinned",
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_hires",
+          "flags": [
+            "boundary-pinned",
+            "lags-not-leads",
+            "weak-corr"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2024-03",
+        "firstNewStateYM": "2024-01",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -16.683371068377788,
+        "cleanCountAtDetection": 2,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 3,
+            "corr": 0.6133569947355145,
+            "nAtBestLag": 94,
+            "latestYoY": 0.7085962553015319,
+            "latestYoYDate": "2024-01-01",
+            "contribution": 0.434622469632587
+          },
+          "postings": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 7,
+            "corr": 0.9070222385113733,
+            "nAtBestLag": 29,
+            "latestYoY": -18.872738518633057,
+            "latestYoYDate": "2024-01-01",
+            "contribution": -17.117993538010374
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "lags-not-leads"
+            ],
+            "leadMonths": -11,
+            "corr": -0.6595391294540783,
+            "nAtBestLag": 86,
+            "latestYoY": -18.300366910502532,
+            "latestYoYDate": "2024-01-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign",
+              "weak-corr"
+            ],
+            "leadMonths": 9,
+            "corr": -0.1945039122771661,
+            "nAtBestLag": 88,
+            "latestYoY": 18.74999999999999,
+            "latestYoYDate": "2024-01-01"
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "boundary-pinned",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -12,
+            "corr": -0.5490235956200299,
+            "nAtBestLag": 85,
+            "latestYoY": -26.086956521739125,
+            "latestYoYDate": "2024-01-01"
+          }
+        }
+      }
+    },
+    "Miami": {
+      "ym": "2026-03",
+      "asOfYM": "2026-02",
+      "state": "softening",
+      "score": -8.425167880869015,
+      "cleanCount": 3,
+      "contributingSignals": [
+        {
+          "name": "postings",
+          "leadMonths": 6,
+          "corr": 0.9128365688836101,
+          "latestYoY": -4.565625533367476,
+          "contribution": -4.167669946686569
+        },
+        {
+          "name": "jolts_hires",
+          "leadMonths": 4,
+          "corr": 0.3114563292203577,
+          "latestYoY": -24.13793103448275,
+          "contribution": -7.517911394974149
+        },
+        {
+          "name": "jolts_quits",
+          "leadMonths": 5,
+          "corr": 0.5216661537266734,
+          "latestYoY": 6.249999999999992,
+          "contribution": 3.260413460791704
+        }
+      ],
+      "flaggedSignals": [
+        {
+          "name": "employment",
+          "flags": [
+            "lags-not-leads"
+          ]
+        },
+        {
+          "name": "jolts_absorption",
+          "flags": [
+            "wrong-sign"
+          ]
+        }
+      ],
+      "lastTurn": {
+        "detectionYM": "2022-11",
+        "firstNewStateYM": "2022-09",
+        "direction": "softening",
+        "priorState": "firming",
+        "scoreAtDetection": -3.7965343839547017,
+        "cleanCountAtDetection": 3,
+        "perSignalAtDetection": {
+          "employment": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 1,
+            "corr": 0.5345187737622947,
+            "nAtBestLag": 80,
+            "latestYoY": 5.8196107784431135,
+            "latestYoYDate": "2022-09-01",
+            "contribution": 3.1106912170672465
+          },
+          "postings": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "thin",
+              "wrong-sign",
+              "lags-not-leads"
+            ],
+            "leadMonths": -9,
+            "corr": -0.9959939541679422,
+            "nAtBestLag": 11,
+            "latestYoY": 1.6721527320605607,
+            "latestYoYDate": "2022-09-01"
+          },
+          "warn": {
+            "tested": false,
+            "reason": "no-data"
+          },
+          "jolts_absorption": {
+            "tested": true,
+            "clean": false,
+            "flags": [
+              "wrong-sign"
+            ],
+            "leadMonths": 7,
+            "corr": 0.44861510934233295,
+            "nAtBestLag": 74,
+            "latestYoY": -0.4204977566746554,
+            "latestYoYDate": "2022-09-01"
+          },
+          "jolts_hires": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 3,
+            "corr": 0.3336508791808397,
+            "nAtBestLag": 78,
+            "latestYoY": -10.416666666666668,
+            "latestYoYDate": "2022-09-01",
+            "contribution": -3.4755299914670803
+          },
+          "jolts_quits": {
+            "tested": true,
+            "clean": true,
+            "flags": [],
+            "leadMonths": 4,
+            "corr": 0.49759586338545647,
+            "nAtBestLag": 77,
+            "latestYoY": -6.896551724137923,
+            "latestYoYDate": "2022-09-01",
+            "contribution": -3.431695609554868
+          }
+        }
+      }
+    }
+  },
+  "aggregate": {
+    "overall": {
+      "nTurns": 59,
+      "nEvaluable": 58,
+      "hitRates": {
+        "3": {
+          "n": 58,
+          "hits": 43,
+          "strictHits": 27,
+          "hitRate": 0.7413793103448276,
+          "strictHitRate": 0.46551724137931033
+        },
+        "6": {
+          "n": 58,
+          "hits": 38,
+          "strictHits": 31,
+          "hitRate": 0.6551724137931034,
+          "strictHitRate": 0.5344827586206896
+        },
+        "9": {
+          "n": 58,
+          "hits": 37,
+          "strictHits": 27,
+          "hitRate": 0.6379310344827587,
+          "strictHitRate": 0.46551724137931033
+        }
+      },
+      "medianLeadAtFirstHit": 3,
+      "atSignalLead": {
+        "n": 58,
+        "hits": 46,
+        "strictHits": 31,
+        "hitRate": 0.7931034482758621,
+        "strictHitRate": 0.5344827586206896,
+        "medianDominantLead": 5
+      }
+    },
+    "byDirection": {
+      "firming": {
+        "nTurns": 27,
+        "nEvaluable": 26,
+        "hitRates": {
+          "3": {
+            "n": 26,
+            "hits": 17,
+            "strictHits": 10,
+            "hitRate": 0.6538461538461539,
+            "strictHitRate": 0.38461538461538464
+          },
+          "6": {
+            "n": 26,
+            "hits": 17,
+            "strictHits": 13,
+            "hitRate": 0.6538461538461539,
+            "strictHitRate": 0.5
+          },
+          "9": {
+            "n": 26,
+            "hits": 17,
+            "strictHits": 11,
+            "hitRate": 0.6538461538461539,
+            "strictHitRate": 0.4230769230769231
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 26,
+          "hits": 20,
+          "strictHits": 12,
+          "hitRate": 0.7692307692307693,
+          "strictHitRate": 0.46153846153846156,
+          "medianDominantLead": 5
+        }
+      },
+      "softening": {
+        "nTurns": 32,
+        "nEvaluable": 32,
+        "hitRates": {
+          "3": {
+            "n": 32,
+            "hits": 26,
+            "strictHits": 17,
+            "hitRate": 0.8125,
+            "strictHitRate": 0.53125
+          },
+          "6": {
+            "n": 32,
+            "hits": 21,
+            "strictHits": 18,
+            "hitRate": 0.65625,
+            "strictHitRate": 0.5625
+          },
+          "9": {
+            "n": 32,
+            "hits": 20,
+            "strictHits": 16,
+            "hitRate": 0.625,
+            "strictHitRate": 0.5
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 32,
+          "hits": 26,
+          "strictHits": 19,
+          "hitRate": 0.8125,
+          "strictHitRate": 0.59375,
+          "medianDominantLead": 5
+        }
+      }
+    },
+    "byMetro": {
+      "San Francisco": {
+        "nTurns": 5,
+        "nEvaluable": 5,
+        "hitRates": {
+          "3": {
+            "n": 5,
+            "hits": 4,
+            "strictHits": 3,
+            "hitRate": 0.8,
+            "strictHitRate": 0.6
+          },
+          "6": {
+            "n": 5,
+            "hits": 4,
+            "strictHits": 4,
+            "hitRate": 0.8,
+            "strictHitRate": 0.8
+          },
+          "9": {
+            "n": 5,
+            "hits": 4,
+            "strictHits": 4,
+            "hitRate": 0.8,
+            "strictHitRate": 0.8
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 5,
+          "hits": 4,
+          "strictHits": 4,
+          "hitRate": 0.8,
+          "strictHitRate": 0.8,
+          "medianDominantLead": 7
+        }
+      },
+      "Austin": {
+        "nTurns": 4,
+        "nEvaluable": 4,
+        "hitRates": {
+          "3": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 0.75,
+            "strictHitRate": 0.5
+          },
+          "6": {
+            "n": 4,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.25,
+            "strictHitRate": 0.25
+          },
+          "9": {
+            "n": 4,
+            "hits": 1,
+            "strictHits": 0,
+            "hitRate": 0.25,
+            "strictHitRate": 0
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 4,
+          "hits": 4,
+          "strictHits": 2,
+          "hitRate": 1,
+          "strictHitRate": 0.5,
+          "medianDominantLead": 1.5
+        }
+      },
+      "Salt Lake City": {
+        "nTurns": 3,
+        "nEvaluable": 3,
+        "hitRates": {
+          "3": {
+            "n": 3,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.6666666666666666,
+            "strictHitRate": 0.6666666666666666
+          },
+          "6": {
+            "n": 3,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.6666666666666666,
+            "strictHitRate": 0.6666666666666666
+          },
+          "9": {
+            "n": 3,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.6666666666666666,
+            "strictHitRate": 0.6666666666666666
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 3,
+          "hits": 2,
+          "strictHits": 2,
+          "hitRate": 0.6666666666666666,
+          "strictHitRate": 0.6666666666666666,
+          "medianDominantLead": 4
+        }
+      },
+      "Philadelphia": {
+        "nTurns": 3,
+        "nEvaluable": 2,
+        "hitRates": {
+          "3": {
+            "n": 2,
+            "hits": 1,
+            "strictHits": 0,
+            "hitRate": 0.5,
+            "strictHitRate": 0
+          },
+          "6": {
+            "n": 2,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.5,
+            "strictHitRate": 0.5
+          },
+          "9": {
+            "n": 2,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.5,
+            "strictHitRate": 0.5
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 2,
+          "hits": 1,
+          "strictHits": 1,
+          "hitRate": 0.5,
+          "strictHitRate": 0.5,
+          "medianDominantLead": 5
+        }
+      },
+      "New York": {
+        "nTurns": 1,
+        "nEvaluable": 1,
+        "hitRates": {
+          "3": {
+            "n": 1,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 1,
+            "strictHitRate": 1
+          },
+          "6": {
+            "n": 1,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 1,
+            "strictHitRate": 1
+          },
+          "9": {
+            "n": 1,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 1,
+            "strictHitRate": 1
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 1,
+          "hits": 1,
+          "strictHits": 1,
+          "hitRate": 1,
+          "strictHitRate": 1,
+          "medianDominantLead": 2
+        }
+      },
+      "Seattle": {
+        "nTurns": 4,
+        "nEvaluable": 4,
+        "hitRates": {
+          "3": {
+            "n": 4,
+            "hits": 4,
+            "strictHits": 3,
+            "hitRate": 1,
+            "strictHitRate": 0.75
+          },
+          "6": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 0.75,
+            "strictHitRate": 0.5
+          },
+          "9": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 0.75,
+            "strictHitRate": 0.5
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 4,
+          "hits": 3,
+          "strictHits": 2,
+          "hitRate": 0.75,
+          "strictHitRate": 0.5,
+          "medianDominantLead": 9
+        }
+      },
+      "Boston": {
+        "nTurns": 4,
+        "nEvaluable": 4,
+        "hitRates": {
+          "3": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 0.75,
+            "strictHitRate": 0.5
+          },
+          "6": {
+            "n": 4,
+            "hits": 4,
+            "strictHits": 3,
+            "hitRate": 1,
+            "strictHitRate": 0.75
+          },
+          "9": {
+            "n": 4,
+            "hits": 4,
+            "strictHits": 2,
+            "hitRate": 1,
+            "strictHitRate": 0.5
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 4,
+          "hits": 4,
+          "strictHits": 3,
+          "hitRate": 1,
+          "strictHitRate": 0.75,
+          "medianDominantLead": 5.5
+        }
+      },
+      "Boise": {
+        "nTurns": 3,
+        "nEvaluable": 3,
+        "hitRates": {
+          "3": {
+            "n": 3,
+            "hits": 2,
+            "strictHits": 1,
+            "hitRate": 0.6666666666666666,
+            "strictHitRate": 0.3333333333333333
+          },
+          "6": {
+            "n": 3,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.6666666666666666,
+            "strictHitRate": 0.6666666666666666
+          },
+          "9": {
+            "n": 3,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 1,
+            "strictHitRate": 0.6666666666666666
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 3,
+          "hits": 3,
+          "strictHits": 2,
+          "hitRate": 1,
+          "strictHitRate": 0.6666666666666666,
+          "medianDominantLead": 8
+        }
+      },
+      "Sacramento": {
+        "nTurns": 3,
+        "nEvaluable": 3,
+        "hitRates": {
+          "3": {
+            "n": 3,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.3333333333333333,
+            "strictHitRate": 0.3333333333333333
+          },
+          "6": {
+            "n": 3,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.3333333333333333,
+            "strictHitRate": 0.3333333333333333
+          },
+          "9": {
+            "n": 3,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.3333333333333333,
+            "strictHitRate": 0.3333333333333333
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 3,
+          "hits": 1,
+          "strictHits": 1,
+          "hitRate": 0.3333333333333333,
+          "strictHitRate": 0.3333333333333333,
+          "medianDominantLead": 2
+        }
+      },
+      "Chicago": {
+        "nTurns": 5,
+        "nEvaluable": 5,
+        "hitRates": {
+          "3": {
+            "n": 5,
+            "hits": 4,
+            "strictHits": 2,
+            "hitRate": 0.8,
+            "strictHitRate": 0.4
+          },
+          "6": {
+            "n": 5,
+            "hits": 4,
+            "strictHits": 3,
+            "hitRate": 0.8,
+            "strictHitRate": 0.6
+          },
+          "9": {
+            "n": 5,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.4,
+            "strictHitRate": 0.4
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 5,
+          "hits": 4,
+          "strictHits": 2,
+          "hitRate": 0.8,
+          "strictHitRate": 0.4,
+          "medianDominantLead": 5
+        }
+      },
+      "Denver": {
+        "nTurns": 3,
+        "nEvaluable": 3,
+        "hitRates": {
+          "3": {
+            "n": 3,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 1,
+            "strictHitRate": 0.6666666666666666
+          },
+          "6": {
+            "n": 3,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.6666666666666666,
+            "strictHitRate": 0.6666666666666666
+          },
+          "9": {
+            "n": 3,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.6666666666666666,
+            "strictHitRate": 0.6666666666666666
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 3,
+          "hits": 3,
+          "strictHits": 2,
+          "hitRate": 1,
+          "strictHitRate": 0.6666666666666666,
+          "medianDominantLead": 1
+        }
+      },
+      "Atlanta": {
+        "nTurns": 2,
+        "nEvaluable": 2,
+        "hitRates": {
+          "3": {
+            "n": 2,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.5,
+            "strictHitRate": 0.5
+          },
+          "6": {
+            "n": 2,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.5,
+            "strictHitRate": 0.5
+          },
+          "9": {
+            "n": 2,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.5,
+            "strictHitRate": 0.5
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 2,
+          "hits": 1,
+          "strictHits": 1,
+          "hitRate": 0.5,
+          "strictHitRate": 0.5,
+          "medianDominantLead": 4
+        }
+      },
+      "Washington DC": {
+        "nTurns": 4,
+        "nEvaluable": 4,
+        "hitRates": {
+          "3": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 1,
+            "hitRate": 0.75,
+            "strictHitRate": 0.25
+          },
+          "6": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 0.75,
+            "strictHitRate": 0.5
+          },
+          "9": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 2,
+            "hitRate": 0.75,
+            "strictHitRate": 0.5
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 4,
+          "hits": 3,
+          "strictHits": 2,
+          "hitRate": 0.75,
+          "strictHitRate": 0.5,
+          "medianDominantLead": 5.5
+        }
+      },
+      "Dallas": {
+        "nTurns": 4,
+        "nEvaluable": 4,
+        "hitRates": {
+          "3": {
+            "n": 4,
+            "hits": 4,
+            "strictHits": 3,
+            "hitRate": 1,
+            "strictHitRate": 0.75
+          },
+          "6": {
+            "n": 4,
+            "hits": 4,
+            "strictHits": 3,
+            "hitRate": 1,
+            "strictHitRate": 0.75
+          },
+          "9": {
+            "n": 4,
+            "hits": 3,
+            "strictHits": 3,
+            "hitRate": 0.75,
+            "strictHitRate": 0.75
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 4,
+          "hits": 4,
+          "strictHits": 3,
+          "hitRate": 1,
+          "strictHitRate": 0.75,
+          "medianDominantLead": 5.5
+        }
+      },
+      "Phoenix": {
+        "nTurns": 2,
+        "nEvaluable": 2,
+        "hitRates": {
+          "3": {
+            "n": 2,
+            "hits": 2,
+            "strictHits": 0,
+            "hitRate": 1,
+            "strictHitRate": 0
+          },
+          "6": {
+            "n": 2,
+            "hits": 2,
+            "strictHits": 0,
+            "hitRate": 1,
+            "strictHitRate": 0
+          },
+          "9": {
+            "n": 2,
+            "hits": 2,
+            "strictHits": 0,
+            "hitRate": 1,
+            "strictHitRate": 0
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 2,
+          "hits": 2,
+          "strictHits": 0,
+          "hitRate": 1,
+          "strictHitRate": 0,
+          "medianDominantLead": 2.5
+        }
+      },
+      "Minneapolis": {
+        "nTurns": 5,
+        "nEvaluable": 5,
+        "hitRates": {
+          "3": {
+            "n": 5,
+            "hits": 3,
+            "strictHits": 1,
+            "hitRate": 0.6,
+            "strictHitRate": 0.2
+          },
+          "6": {
+            "n": 5,
+            "hits": 1,
+            "strictHits": 1,
+            "hitRate": 0.2,
+            "strictHitRate": 0.2
+          },
+          "9": {
+            "n": 5,
+            "hits": 2,
+            "strictHits": 1,
+            "hitRate": 0.4,
+            "strictHitRate": 0.2
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 5,
+          "hits": 3,
+          "strictHits": 1,
+          "hitRate": 0.6,
+          "strictHitRate": 0.2,
+          "medianDominantLead": 7
+        }
+      },
+      "Miami": {
+        "nTurns": 4,
+        "nEvaluable": 4,
+        "hitRates": {
+          "3": {
+            "n": 4,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.5,
+            "strictHitRate": 0.5
+          },
+          "6": {
+            "n": 4,
+            "hits": 2,
+            "strictHits": 2,
+            "hitRate": 0.5,
+            "strictHitRate": 0.5
+          },
+          "9": {
+            "n": 4,
+            "hits": 2,
+            "strictHits": 1,
+            "hitRate": 0.5,
+            "strictHitRate": 0.25
+          }
+        },
+        "medianLeadAtFirstHit": 3,
+        "atSignalLead": {
+          "n": 4,
+          "hits": 3,
+          "strictHits": 2,
+          "hitRate": 0.75,
+          "strictHitRate": 0.5,
+          "medianDominantLead": 5.5
+        }
+      }
+    }
+  }
+}
