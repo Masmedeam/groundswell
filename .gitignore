@@ -4,7 +4,10 @@ node_modules/
 __pycache__/
 *.pyc
 .venv/
-data/
+# Salim's data/ — Parquet/DuckDB cache, regenerable, intentionally not committed.
+data/*
+# Exception: Laurie's engine port (Path B) commits validated JSON snapshots here.
+!data/laurie-engine/
 .DS_Store
 .next/
 dist/
