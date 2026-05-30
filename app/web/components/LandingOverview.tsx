@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import MetroCard from "./MetroCard";
 import type { MetroOverview } from "@/lib/engine-overview";
 
@@ -15,6 +15,40 @@ const CROSS_METRO_EXAMPLES = [
   "Can I trade on these signals?",
 ];
 
+type SortKey = "concessions" | "alpha" | "firmest" | "recent";
+
+const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: "concessions", label: "Concessions (high→low)" },
+  { value: "alpha", label: "Alphabetical (A→Z)" },
+  { value: "firmest", label: "Firmest → softest" },
+  { value: "recent", label: "Confirmed turn — most recent" },
+];
+
+function sortRows(rows: MetroOverview[], key: SortKey): MetroOverview[] {
+  const copy = [...rows];
+  switch (key) {
+    case "concessions":
+      copy.sort((a, b) => (b.concession_share ?? -1) - (a.concession_share ?? -1));
+      break;
+    case "alpha":
+      copy.sort((a, b) => a.display_name.localeCompare(b.display_name));
+      break;
+    case "firmest":
+      // Sort by lastTurn.scoreAtDetection descending. Positive = firming (top);
+      // negative = softening (bottom). Magnitude within each direction reflects
+      // how strong the confirmed turn was, giving a real gradient.
+      copy.sort((a, b) => (b.state_score ?? 0) - (a.state_score ?? 0));
+      break;
+    case "recent":
+      // YYYY-MM strings sort lexicographically correctly.
+      copy.sort((a, b) =>
+        (b.state_since ?? "0000-00").localeCompare(a.state_since ?? "0000-00"),
+      );
+      break;
+  }
+  return copy;
+}
+
 export default function LandingOverview({
   overview,
   fetchedAt,
@@ -25,6 +59,8 @@ export default function LandingOverview({
   onAsk: (text: string) => void;
 }) {
   const [input, setInput] = useState("");
+  const [sortKey, setSortKey] = useState<SortKey>("concessions");
+  const sorted = useMemo(() => sortRows(overview, sortKey), [overview, sortKey]);
   return (
     <main className="mx-auto min-h-screen max-w-7xl px-6 py-8">
       {/* Title block */}
@@ -92,21 +128,37 @@ export default function LandingOverview({
         ))}
       </div>
 
-      {/* Section title */}
-      <div className="mb-3 flex items-baseline justify-between">
+      {/* Section title — sort dropdown on right (Salim's input styling — ground tokens) */}
+      <div className="mb-3 flex items-baseline justify-between gap-3">
         <h2 className="text-sm font-semibold text-ground-ink">
-          17 markets — sorted by current concession share (Sun Belt oversupply on top)
+          17 markets across 4 tiers — engine&apos;s current read per metro
         </h2>
-        {fetchedAt && (
-          <span className="text-[11px] tabular-nums text-black/40">
-            concessions as of {fetchedAt.slice(0, 10)}
-          </span>
-        )}
+        <div className="flex items-center gap-3 shrink-0">
+          {fetchedAt && (
+            <span className="hidden sm:inline text-[11px] tabular-nums text-black/40">
+              concessions as of {fetchedAt.slice(0, 10)}
+            </span>
+          )}
+          <label className="flex items-center gap-2 text-[11px] text-black/55">
+            <span>Sort</span>
+            <select
+              value={sortKey}
+              onChange={(e) => setSortKey(e.target.value as SortKey)}
+              className="rounded-lg border border-black/10 bg-white px-2.5 py-1 text-[12px] text-ground-ink shadow-sm hover:border-ground focus:border-ground focus:outline-none"
+            >
+              {SORT_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
       </div>
 
-      {/* Metro grid — decision 1: concession share desc */}
+      {/* Metro grid — sorted client-side via dropdown selection */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {overview.map((row) => (
+        {sorted.map((row) => (
           <MetroCard
             key={row.metro_id}
             row={row}

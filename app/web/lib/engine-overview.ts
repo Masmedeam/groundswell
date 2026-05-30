@@ -39,6 +39,13 @@ export interface MetroOverview {
   // would masquerade as a current statement. With it, the reader sees
   // "Firming · since 2025-03" honestly.
   state_since: string | null;          // "YYYY-MM" or null if no confirmed turn ever
+  // Score at the moment the confirmed turn fired (lastTurn.scoreAtDetection).
+  // Used for the "firmest → softest" sort gradient — NOT currentByMetro.score
+  // (that's the noisy latest-month composite that caused the prior state-field
+  // bug; using it for the gradient would put SF firming at the bottom of the
+  // firming bucket because its current monthly score is -42 even though the
+  // confirmed firming turn was a strong +30.7).
+  state_score: number | null;
   score: number;                       // raw monthly composite score (descriptive only)
   dominant: DominantSignal | null;
   concession_share: number | null;
@@ -141,12 +148,14 @@ export function getEngineOverview(): OverviewResult {
     const stateValue: EngineState =
       (lastTurn?.direction as EngineState | undefined) ?? cur?.state ?? "neutral";
     const stateSince = lastTurn?.detectionYM ?? null;
+    const stateScore = lastTurn?.scoreAtDetection ?? null;
     return {
       metro_id,
       display_name: displayName,
       tier: meta.tier ?? "",
       state: stateValue,
       state_since: stateSince,
+      state_score: stateScore,
       score: cur?.score ?? 0,
       dominant: getDominantSignal(results, displayName),
       concession_share: share,
