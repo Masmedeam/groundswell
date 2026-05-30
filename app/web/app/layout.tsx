@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "GroundsWell",
-  description: "Demand-side rental market intelligence",
+  title: "HomeStar",
+  description: "Rental market intelligence",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

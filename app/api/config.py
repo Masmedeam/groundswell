@@ -4,8 +4,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# load the repo-root .env (two levels up: app/api/ -> repo root)
-load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+for parent in [Path(__file__).resolve().parent, *Path(__file__).resolve().parents]:
+    env_path = parent / ".env"
+    if env_path.exists():
+        load_dotenv(env_path)
+        break
 
 ES_URL = os.getenv("ES_URL", "http://localhost:9201")
 CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY")

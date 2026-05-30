@@ -281,29 +281,53 @@ def search_warn(metro_id=None, date_from=None, date_to=None, min_workers=0, size
 
 
 def search_postings(metro_id=None, date_from=None, date_to=None, query=None, size=50):
-    filters = []
-    if metro_id:
-        filters.append(term("metro_id", metro_id))
-    if query:
-        filters.append({"match": {"positionName": query}})
-    if date_from or date_to:
-        r = {}
-        if date_from:
-            r["gte"] = date_from
-        if date_to:
-            r["lte"] = date_to
-        filters.append({"range": {"postingDateParsed": r}})
-    body = {"size": size, "query": {"bool": {"filter": filters}} if filters else {"match_all": {}},
-            "sort": [{"postingDateParsed": "desc"}],
-            "_source": ["positionName", "company", "location", "salary", "postingDateParsed", "url"]}
-    res = es.search(index=_idx("job_postings"), body=body)
-    total = res["hits"]["total"]["value"]
-    rows = [h["_source"] for h in res["hits"]["hits"]]
+    rows, total, source_counts = [], 0, {}
+
+    def _search(index, title_field, date_field, source_label):
+        filters = []
+        if metro_id:
+            filters.append(term("metro_id", metro_id))
+        if query:
+            filters.append({"match": {title_field: query}})
+        if date_from or date_to:
+            r = {}
+            if date_from:
+                r["gte"] = date_from
+            if date_to:
+                r["lte"] = date_to
+            filters.append({"range": {date_field: r}})
+        body = {"size": size, "query": {"bool": {"filter": filters}} if filters else {"match_all": {}},
+                "sort": [{date_field: {"order": "desc", "missing": "_last"}}],
+                "_source": [title_field, "company", "location", "salary", date_field, "url", "query", "source"]}
+        try:
+            res = es.search(index=index, body=body)
+        except Exception:
+            return 0, []
+        hits = []
+        for h in res["hits"]["hits"]:
+            s = h["_source"]
+            hits.append({
+                "title": s.get(title_field),
+                "company": s.get("company"),
+                "location": s.get("location"),
+                "salary": s.get("salary"),
+                "date": s.get(date_field),
+                "url": s.get("url"),
+                "query": s.get("query"),
+                "source": s.get("source") or source_label,
+            })
+        return res["hits"]["total"]["value"], hits
+
+    indeed_total, indeed_rows = _search(_idx("job_postings"), "positionName", "postingDateParsed", "Apify:Indeed")
+    linkedin_total, linkedin_rows = _search(_idx("linkedin_job_postings"), "title", "postedAt", "LinkedIn")
+    total = indeed_total + linkedin_total
+    source_counts = {"indeed": indeed_total, "linkedin": linkedin_total}
+    rows = (linkedin_rows + indeed_rows)[:size]
     art = _artifact("table", f"Job postings — {metro_id or 'all'}", columns=list(rows[0].keys()) if rows else [],
                     rows=rows, summary_text=f"{total} postings (shown {len(rows)})",
-                    sources=[{"label": "groundswell-job_postings", "es_index": "groundswell-job_postings",
+                    sources=[{"label": "job postings", "es_index": "groundswell-job_postings,groundswell-linkedin_job_postings",
                               "query": f"metro_id={metro_id} q={query}", "n": total, "date_range": f"{date_from or '*'}..{date_to or '*'}"}])
-    return {"summary": {"total_postings": total, "shown": len(rows)}, "artifact": art}
+    return {"summary": {"total_postings": total, "source_counts": source_counts, "shown": len(rows)}, "artifact": art}
 
 
 def get_industry_mix(metro_id, top=12):

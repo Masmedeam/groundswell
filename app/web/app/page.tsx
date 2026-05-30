@@ -69,7 +69,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-center px-4">
         <div className="w-full max-w-2xl text-center">
           <h1 className="text-4xl font-semibold tracking-tight text-ground-ink">
-            Grounds<span className="text-ground">Well</span>
+            Home<span className="text-ground">Star</span>
           </h1>
           <p className="mt-2 text-sm text-black/50">
             Demand-side rental market intelligence — ask about any U.S. metro.
@@ -109,7 +109,7 @@ export default function Home() {
   return (
     <main className="flex h-screen flex-col">
       <header className="flex items-center justify-between border-b border-black/[0.06] px-5 py-3">
-        <div className="text-sm font-semibold">Grounds<span className="text-ground">Well</span></div>
+        <div className="text-sm font-semibold">Home<span className="text-ground">Star</span></div>
         <button
           onClick={() => { setMessages([]); setArtifacts([]); sessionRef.current = null; }}
           className="text-xs text-black/40 hover:text-ground"
