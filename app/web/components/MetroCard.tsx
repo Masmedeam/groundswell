@@ -1,8 +1,14 @@
 "use client";
 import type { MetroOverview } from "@/lib/engine-overview";
 
-// Decision 3: my engine's state names rendered in Salim's visual language
-// (parallels his dir() helper in Artifacts.tsx — same arrow + token mapping).
+// Visual treatment: research-note entry, not dashboard card.
+// - Metro name = serif headline (Source Serif 4)
+// - State = quiet uppercase caption with arrow, ground / cool / stable hint
+// - Numbers (lead, r-value, concession %) = tabular-nums set in body weight,
+//   no loud color blocks
+// - Borders/rules are 1px subtle ground tints rather than shadowed boxes
+// All data and click handlers are unchanged — visual refinement only.
+
 function stateDir(state: string): { c: string; a: string; label: string } {
   if (state === "firming") return { c: "text-firm", a: "▲", label: "Firming" };
   if (state === "softening") return { c: "text-cool", a: "▼", label: "Softening" };
@@ -13,7 +19,7 @@ function bandStyle(band: string): { c: string; label: string } {
   if (band === "high") return { c: "text-cool", label: "oversupplied" };
   if (band === "low") return { c: "text-firm", label: "constrained" };
   if (band === "mid") return { c: "text-stable", label: "softening texture" };
-  return { c: "text-black/40", label: "—" };
+  return { c: "text-ink-faint", label: "—" };
 }
 
 export default function MetroCard({
@@ -31,58 +37,76 @@ export default function MetroCard({
     ? `${(row.concession_share * 100).toFixed(0)}%`
     : "—";
   return (
-    <div className="rounded-xl border border-black/[0.06] bg-white p-4 shadow-sm transition hover:shadow">
-      <div className="flex items-baseline justify-between gap-2">
-        <h3 className="text-base font-semibold text-ground-ink">{row.display_name}</h3>
-        <div className="text-right">
-          <div className={`text-xs font-medium ${d.c}`}>
-            {d.a} {d.label}
+    <article className="group relative flex flex-col border-t border-rule pt-5 pb-5 px-1 transition-colors hover:border-ground/60">
+      {/* Top row: metro name (serif) + state caption */}
+      <header className="flex items-baseline justify-between gap-3">
+        <h3 className="font-serif text-[19px] font-semibold leading-tight tracking-tight text-ground-ink">
+          {row.display_name}
+        </h3>
+        <div className="text-right shrink-0">
+          <div className={`text-[10px] font-semibold uppercase tracking-[0.14em] ${d.c}`}>
+            <span className="mr-1">{d.a}</span>{d.label}
           </div>
           {row.state_since && (
-            <div className="text-[10px] text-black/45 tabular-nums">
+            <div className="mt-0.5 text-[10px] tabular-nums text-ink-faint">
               since {row.state_since}
             </div>
           )}
         </div>
-      </div>
-      <div className="mt-3 space-y-2 text-[12px]">
+      </header>
+
+      {/* Editorial data block — one-line captions, not labeled stat fields */}
+      <dl className="mt-4 space-y-2.5 text-[12.5px] leading-relaxed">
         <div>
-          <div className="text-[10px] uppercase tracking-wider text-black/45">Dominant signal</div>
-          {row.dominant ? (
-            <div className="mt-0.5">
-              <span className="font-medium text-ground-ink">{row.dominant.name}</span>
-              <span className="text-black/55">
-                {" "}· leads {row.dominant.leadMonths}mo · r={row.dominant.corr.toFixed(2)}
-              </span>
-            </div>
-          ) : (
-            <div className="mt-0.5 italic text-black/45">no clean signal established</div>
-          )}
-        </div>
-        <div>
-          <div className="text-[10px] uppercase tracking-wider text-black/45">Concessions</div>
-          <div className="mt-0.5">
-            <span className={`font-medium ${b.c}`}>{pct}</span>
-            <span className="text-black/55"> · {b.label}</span>
-            {row.n_buildings > 0 && (
-              <span className="ml-1 text-[11px] text-black/35">({row.n_buildings} buildings)</span>
+          <dt className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ground/80">
+            Dominant signal
+          </dt>
+          <dd className="mt-1 text-ink-soft">
+            {row.dominant ? (
+              <>
+                <span className="font-medium text-ground-ink">{row.dominant.name}</span>
+                <span className="tabular-nums">
+                  {" "}· leads {row.dominant.leadMonths}mo · r = {row.dominant.corr.toFixed(2)}
+                </span>
+              </>
+            ) : (
+              <span className="italic text-ink-faint">no clean signal established</span>
             )}
-          </div>
+          </dd>
         </div>
-      </div>
-      <div className="mt-3 flex items-center gap-3 border-t border-black/[0.04] pt-2 text-[11px]">
-        <button onClick={onAskWhy} className="font-medium text-ground hover:underline">
+        <div>
+          <dt className="text-[9.5px] font-semibold uppercase tracking-[0.16em] text-ground/80">
+            Concessions
+          </dt>
+          <dd className="mt-1 text-ink-soft">
+            <span className="font-medium tabular-nums text-ground-ink">{pct}</span>
+            <span className={`ml-1 ${b.c}`}>· {b.label}</span>
+            {row.n_buildings > 0 && (
+              <span className="ml-1 tabular-nums text-ink-faint">
+                ({row.n_buildings} buildings)
+              </span>
+            )}
+          </dd>
+        </div>
+      </dl>
+
+      {/* Affordances — kept ground green, smaller + more editorial */}
+      <footer className="mt-4 flex items-center gap-4 text-[11px]">
+        <button
+          onClick={onAskWhy}
+          className="font-medium text-ground transition hover:text-ground-deep hover:underline underline-offset-2"
+        >
           Ask why →
         </button>
         {row.concession_share != null && (
           <button
             onClick={onAskConcessions}
-            className="text-ground/70 hover:text-ground hover:underline"
+            className="text-ink-soft transition hover:text-ground hover:underline underline-offset-2"
           >
             Concession detail
           </button>
         )}
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 }

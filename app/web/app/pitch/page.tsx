@@ -1,12 +1,12 @@
-// Pitch page — branded landing that embeds the submission PDF + offers
-// a direct download. The PDF itself lives at app/web/public/pitch.pdf,
-// served by Next at /pitch.pdf. To update the PDF (e.g. after the Loom
-// demo is recorded and the link is filled in), just overwrite that one
-// asset file and redeploy. No code change.
+// Pitch page — branded landing for the submission PDF.
+// We deliberately do NOT embed the PDF inline (browser viewer chrome —
+// toolbar, zoom, menu — looks unbranded). Instead we surface a clean
+// branded card with a primary Download button and a secondary
+// "View in browser" link that opens /pitch.pdf in a new tab (the
+// browser's native viewer takes over outside our brand).
 //
-// Uses HomeStar design tokens (ground green, cream bg, serif headings).
-// Not server-component-only — could be either since there's no data
-// fetch; kept as a default export client-or-server page for simplicity.
+// To swap the PDF: overwrite app/web/public/pitch.pdf and redeploy.
+// No code change.
 
 import Link from "next/link";
 import Image from "next/image";
@@ -19,9 +19,9 @@ export const metadata = {
 
 export default function PitchPage() {
   return (
-    <main className="min-h-screen bg-[#FAFAF7]">
-      {/* Header band — matches the app's branding */}
-      <header className="border-b border-black/[0.06] bg-[#FAFAF7]">
+    <main className="min-h-screen bg-cream">
+      {/* Header band — matches landing chrome */}
+      <header className="border-b border-rule">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link
             href="/"
@@ -35,37 +35,28 @@ export default function PitchPage() {
               height={36}
               priority
             />
-            <span className="font-sans text-base font-semibold text-ground-ink">
+            <span className="text-base font-semibold text-ground-ink">
               Home<span className="text-ground">Star</span>
             </span>
           </Link>
-          <div className="flex items-center gap-5">
-            <a
-              href="/pitch.pdf"
-              download="HomeStar-pitch.pdf"
-              className="rounded-md bg-ground px-4 py-2 text-xs font-semibold text-white hover:opacity-90"
-            >
-              Download PDF
-            </a>
-            <Link
-              href="/"
-              className="text-xs text-black/45 hover:text-ground"
-            >
-              ← Back to app
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint transition hover:text-ground"
+          >
+            ← Back to app
+          </Link>
         </div>
       </header>
 
       {/* Title block */}
-      <section className="mx-auto max-w-5xl px-6 pt-10 pb-6">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-ground">
-          Submission pitch · Bright Data hackathon 2026
+      <section className="mx-auto max-w-3xl px-6 pt-16">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground">
+          Market intelligence · Submission pitch
         </p>
-        <h1 className="mt-3 font-serif text-3xl font-semibold leading-tight tracking-tight text-ground-ink sm:text-4xl">
+        <h1 className="mt-4 font-serif text-4xl font-semibold leading-[1.1] tracking-tight text-ground-ink sm:text-[44px]">
           HomeStar — CRE rental-market intelligence
         </h1>
-        <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-black/60">
+        <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
           A demand-side early-warning engine, validated across 17 markets.
           Two-page pitch — methodology, headline numbers, what we tested and
           dropped, and where the Bright Data live layer corroborates the
@@ -73,40 +64,58 @@ export default function PitchPage() {
         </p>
       </section>
 
-      {/* Embedded PDF viewer */}
-      <section className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="overflow-hidden rounded-lg border border-black/10 bg-white shadow-sm">
-          <object
-            data="/pitch.pdf#view=FitH&toolbar=1"
-            type="application/pdf"
-            className="block h-[1100px] w-full"
-            aria-label="HomeStar submission pitch (PDF)"
-          >
-            {/* Fallback if browser can't embed PDFs (mobile, some browsers) */}
-            <div className="flex flex-col items-center justify-center gap-3 p-12 text-center">
-              <p className="text-sm text-black/60">
-                Your browser can&apos;t embed the PDF inline.
-              </p>
-              <a
-                href="/pitch.pdf"
-                className="rounded-md bg-ground px-4 py-2 text-xs font-semibold text-white hover:opacity-90"
-              >
-                Open PDF in new tab
-              </a>
+      {/* Branded download card — no embedded viewer */}
+      <section className="mx-auto max-w-3xl px-6 pt-10 pb-20">
+        <div className="border-t border-ground/80 bg-white/70 px-8 py-7">
+          <div className="flex items-baseline justify-between gap-4">
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground/80">
+                Document
+              </div>
+              <div className="mt-1.5 font-serif text-[18px] font-semibold text-ground-ink">
+                HomeStar pitch
+              </div>
             </div>
-          </object>
+            <div className="text-right text-[11px] tabular-nums text-ink-faint">
+              2 pages · PDF · 494 KB
+            </div>
+          </div>
+
+          <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <a
+              href="/pitch.pdf"
+              download="HomeStar-pitch.pdf"
+              className="rounded-sm bg-ground px-5 py-2.5 text-[11.5px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-ground-deep"
+            >
+              Download PDF
+            </a>
+            <a
+              href="/pitch.pdf"
+              target="_blank"
+              rel="noopener"
+              className="text-[12px] font-medium text-ground transition hover:text-ground-deep hover:underline underline-offset-4"
+            >
+              View in browser →
+            </a>
+          </div>
+
+          <p className="mt-7 border-t border-rule pt-4 text-[11px] text-ink-faint">
+            Also linked from the app header. Direct URL:{" "}
+            <a
+              href="/pitch.pdf"
+              className="text-ground hover:underline"
+              target="_blank"
+              rel="noopener"
+            >
+              /pitch.pdf
+            </a>
+          </p>
         </div>
-        <p className="mt-3 text-center text-[11px] text-black/40">
-          PDF is also linked from the app header.
-          {" "}<a href="/pitch.pdf" className="text-ground hover:underline">
-            Direct link: /pitch.pdf
-          </a>
-        </p>
       </section>
 
-      {/* Footer — matches the app's tone */}
-      <footer className="border-t border-black/[0.06] bg-[#FAFAF7]">
-        <div className="mx-auto max-w-5xl px-6 py-6 text-[11px] text-black/55">
+      {/* Footer */}
+      <footer className="border-t border-rule">
+        <div className="mx-auto max-w-5xl px-6 py-6 text-[11px] text-ink-soft">
           Built on Bright Data Web Unlocker · Anthropic Claude (Sonnet 4.6) · FRED / BLS / Zillow public data
           <br />
           <span className="font-medium text-ground-ink">

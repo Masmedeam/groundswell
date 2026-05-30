@@ -5,7 +5,8 @@
 :root { color-scheme: light; }
 html, body { height: 100%; }
 body {
-  @apply bg-[#FAFAFA] text-ground-ink antialiased;
+  @apply bg-cream text-ground-ink antialiased;
+  font-feature-settings: "ss01", "cv11";
 }
 /* minimal prose for agent answers */
 .prose-gw p { @apply my-2 leading-relaxed; }

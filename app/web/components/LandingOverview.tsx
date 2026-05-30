@@ -1,9 +1,21 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import MetroCard from "./MetroCard";
 import type { MetroOverview } from "@/lib/engine-overview";
+
+// Visual treatment: editorial / research-note framing matching pitch PDF.
+// - Source Serif 4 for title + section headings; Inter for body + UI
+// - Cream (#FAFAF7) bg from globals.css; no shadowed boxes
+// - Banner is an inline kicker + paragraph with a left ground rule
+// - "Ask the analyst" is a docked popover in the upper-right (frees
+//   the main column so the metro grid lands above the fold)
+// All four onAsk() entry points (per-card "Ask why", per-card
+// "Concession detail", popover example chip, popover free-form input)
+// still call props.onAsk(), which flips messages.length 0 → 1 in
+// HomeShell and transitions into the chat workspace. Agent flow and
+// get_signal_validation are untouched.
 
 function questionForState(state: string, metro: string): string {
   if (state === "firming") return `What are the top 3 signals driving the firming call in ${metro}?`;
@@ -36,19 +48,133 @@ function sortRows(rows: MetroOverview[], key: SortKey): MetroOverview[] {
       copy.sort((a, b) => a.display_name.localeCompare(b.display_name));
       break;
     case "firmest":
-      // Sort by lastTurn.scoreAtDetection descending. Positive = firming (top);
-      // negative = softening (bottom). Magnitude within each direction reflects
-      // how strong the confirmed turn was, giving a real gradient.
       copy.sort((a, b) => (b.state_score ?? 0) - (a.state_score ?? 0));
       break;
     case "recent":
-      // YYYY-MM strings sort lexicographically correctly.
       copy.sort((a, b) =>
         (b.state_since ?? "0000-00").localeCompare(a.state_since ?? "0000-00"),
       );
       break;
   }
   return copy;
+}
+
+// Docked Ask the analyst — compact button that expands to a popover.
+// Submit/chip-click calls onAsk(), which flips the parent into the
+// chat workspace (popover effectively goes away on transition).
+// `open` state is lifted to the parent so the secondary affordance
+// under the engine-status block can also trigger it.
+function AskAnalystDock({
+  onAsk,
+  open,
+  setOpen,
+}: {
+  onAsk: (text: string) => void;
+  open: boolean;
+  setOpen: (v: boolean) => void;
+}) {
+  const [input, setInput] = useState("");
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Click-outside + Esc to close
+  useEffect(() => {
+    if (!open) return;
+    function onDocClick(e: MouseEvent) {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  // Autofocus input when popover opens
+  useEffect(() => {
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  function submit(text: string) {
+    const v = text.trim();
+    if (!v) return;
+    setOpen(false);
+    setInput("");
+    onAsk(v);
+  }
+
+  return (
+    <div ref={rootRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        className={
+          "flex items-center gap-2 rounded-sm border px-3.5 py-1.5 text-[10.5px] font-semibold uppercase tracking-[0.18em] transition " +
+          (open
+            ? "border-ground bg-ground text-white"
+            : "border-ground/70 text-ground hover:bg-ground hover:text-white")
+        }
+      >
+        Ask the analyst
+        <span className="text-[9px]">▾</span>
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-[calc(100%+8px)] z-30 w-[380px] border-t-2 border-ground bg-cream shadow-[0_10px_30px_-12px_rgba(14,21,19,0.18)]">
+          <div className="border-b border-rule px-5 pt-4 pb-3">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground/80">
+              Ask the analyst
+            </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                submit(input);
+              }}
+              className="mt-2"
+            >
+              <div className="flex items-center gap-2 border-b border-rule pb-1.5 focus-within:border-ground">
+                <input
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="type your question…"
+                  className="flex-1 bg-transparent px-1 py-1 font-serif text-[15px] outline-none placeholder:font-sans placeholder:text-[13px] placeholder:text-ink-faint"
+                />
+                <button
+                  type="submit"
+                  className="rounded-sm bg-ground px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-ground-deep"
+                >
+                  Ask
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="px-5 py-4">
+            <div className="text-[9.5px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+              Examples
+            </div>
+            <ul className="mt-2 space-y-1.5">
+              {CROSS_METRO_EXAMPLES.map((ex) => (
+                <li key={ex}>
+                  <button
+                    onClick={() => submit(ex)}
+                    className="text-left text-[12.5px] leading-snug text-ink-soft transition hover:text-ground hover:underline underline-offset-2"
+                  >
+                    · {ex}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function LandingOverview({
@@ -60,110 +186,93 @@ export default function LandingOverview({
   fetchedAt: string;
   onAsk: (text: string) => void;
 }) {
-  const [input, setInput] = useState("");
   const [sortKey, setSortKey] = useState<SortKey>("concessions");
+  const [askOpen, setAskOpen] = useState(false);
   const sorted = useMemo(() => sortRows(overview, sortKey), [overview, sortKey]);
   return (
-    <main className="mx-auto min-h-screen max-w-7xl px-6 py-8">
-      {/* Pitch link — small, top-right, unobtrusive */}
-      <div className="mb-2 flex justify-end">
-        <Link
-          href="/pitch"
-          className="text-[11px] uppercase tracking-[0.18em] text-black/45 hover:text-ground transition"
-        >
-          Pitch ↗
-        </Link>
+    <main className="mx-auto min-h-screen max-w-6xl px-8 pt-6 pb-16">
+      {/* Top bar: kicker left · docked Ask · Pitch link */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-ground">
+          <span className="inline-block h-px w-6 bg-ground/60" />
+          Market intelligence
+        </div>
+        <div className="flex items-center gap-5">
+          <AskAnalystDock onAsk={onAsk} open={askOpen} setOpen={setAskOpen} />
+          <Link
+            href="/pitch"
+            className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ink-faint transition hover:text-ground"
+          >
+            Pitch ↗
+          </Link>
+        </div>
       </div>
 
-      {/* Title block — logo mark above wordmark */}
-      <div className="mb-6 flex flex-col items-center text-center">
+      {/* Title block — compact, no tagline (engine-status carries the framing) */}
+      <header className="mt-6 flex items-center gap-3">
         <Image
           src="/logo.png"
           alt="HomeStar"
-          width={56}
-          height={56}
+          width={40}
+          height={40}
           priority
-          className="mb-2"
         />
-        <h1 className="text-3xl font-semibold tracking-tight text-ground-ink">
+        <h1 className="font-serif text-[34px] font-semibold leading-none tracking-tight text-ground-ink">
           Home<span className="text-ground">Star</span>
         </h1>
-        <p className="mt-2 text-sm text-black/55">
-          Rental-market intelligence — 17 markets, demand-side engine
-        </p>
-      </div>
+      </header>
 
-      {/* Header banner — engine framing (postings-universal, JOLTS+WARN corroborators) */}
-      <div className="mb-5 rounded-xl border border-ground-soft bg-ground-soft/40 px-5 py-4">
-        <div className="mb-1 text-sm font-semibold text-ground">
-          17 markets. 6 demand signals validated, 3 tested and dropped. Walk-forward backtest at 79.3% hit rate.
-        </div>
-        <p className="text-[13px] leading-relaxed text-black/65">
-          <strong className="text-ground-ink">Postings is the universal leader</strong>{" "}
-          across markets (clean in 16 of 17).{" "}
-          <strong className="text-ground-ink">JOLTS quits</strong>{" "}
-          (14/17) and{" "}
-          <strong className="text-ground-ink">WARN</strong>{" "}
-          (SF&apos;s multi-cycle depth signal) add corroborating signal underneath. Click any market to surface the full top-signal decomposition.
-        </p>
-      </div>
-
-      {/* Ask anything input — moved UP under header banner (decision 4) */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const v = input.trim();
-          if (v) {
-            onAsk(v);
-            setInput("");
-          }
-        }}
-        className="mb-3"
-      >
-        <div className="flex items-center gap-2 rounded-xl border border-black/10 bg-white p-1.5 shadow-sm focus-within:border-ground">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Or ask anything cross-metro — e.g. compare Sun Belt concessions, what's the engine's hit rate"
-            className="flex-1 bg-transparent px-3 py-2 text-sm outline-none placeholder:text-black/30"
-          />
+      {/* Editorial banner — tightened: kicker + single paragraph */}
+      <section className="mt-5 grid grid-cols-[3px_1fr] gap-5">
+        <div className="bg-ground/80" />
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground">
+            Engine status
+          </div>
+          <p className="mt-1.5 max-w-3xl text-[13.5px] leading-relaxed text-ink-soft">
+            17 markets · 6 demand signals validated · 3 tested and dropped ·
+            walk-forward backtest at{" "}
+            <strong className="font-semibold text-ground">79.3% hit rate</strong>.
+            {" "}<strong className="font-semibold text-ground-ink">Postings</strong>{" "}
+            is the universal leader (16/17),{" "}
+            <strong className="font-semibold text-ground-ink">JOLTS quits</strong>{" "}
+            (14/17) and{" "}
+            <strong className="font-semibold text-ground-ink">WARN</strong>{" "}
+            (SF&apos;s multi-cycle depth signal) corroborate underneath.
+          </p>
+          {/* Quiet secondary affordance — keeps the dock discoverable */}
           <button
-            type="submit"
-            className="rounded-lg bg-ground px-4 py-2 text-sm font-medium text-white hover:opacity-90"
+            type="button"
+            onClick={() => setAskOpen(true)}
+            className="mt-2.5 text-[11.5px] text-ink-faint transition hover:text-ground"
           >
-            Ask
+            Have a cross-metro question? <span className="font-medium text-ground">Ask the analyst →</span>
           </button>
         </div>
-      </form>
-      <div className="mb-7 flex flex-wrap gap-2">
-        {CROSS_METRO_EXAMPLES.map((ex) => (
-          <button
-            key={ex}
-            onClick={() => onAsk(ex)}
-            className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-[11px] text-black/55 hover:border-ground hover:text-ground"
-          >
-            {ex}
-          </button>
-        ))}
-      </div>
+      </section>
 
-      {/* Section title — sort dropdown on right (Salim's input styling — ground tokens) */}
-      <div className="mb-3 flex items-baseline justify-between gap-3">
-        <h2 className="text-sm font-semibold text-ground-ink">
-          17 markets across 4 tiers — engine&apos;s current read per metro
-        </h2>
-        <div className="flex items-center gap-3 shrink-0">
+      {/* Section title + sort — tighter top margin */}
+      <section className="mt-7 flex items-end justify-between border-b border-rule pb-2.5">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-ground/80">
+            By metro
+          </div>
+          <h2 className="mt-0.5 font-serif text-[18px] font-semibold leading-tight text-ground-ink">
+            17 markets across 4 tiers — current read
+          </h2>
+        </div>
+        <div className="flex items-center gap-5 shrink-0 pb-1">
           {fetchedAt && (
-            <span className="hidden sm:inline text-[11px] tabular-nums text-black/40">
+            <span className="hidden sm:inline text-[10.5px] tabular-nums uppercase tracking-[0.14em] text-ink-faint">
               concessions as of {fetchedAt.slice(0, 10)}
             </span>
           )}
-          <label className="flex items-center gap-2 text-[11px] text-black/55">
+          <label className="flex items-center gap-2 text-[10.5px] uppercase tracking-[0.14em] text-ink-soft">
             <span>Sort</span>
             <select
               value={sortKey}
               onChange={(e) => setSortKey(e.target.value as SortKey)}
-              className="rounded-lg border border-black/10 bg-white px-2.5 py-1 text-[12px] text-ground-ink shadow-sm hover:border-ground focus:border-ground focus:outline-none"
+              className="border-b border-rule bg-transparent px-1 py-0.5 text-[11.5px] normal-case tracking-normal text-ground-ink hover:border-ground focus:border-ground focus:outline-none"
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -173,10 +282,10 @@ export default function LandingOverview({
             </select>
           </label>
         </div>
-      </div>
+      </section>
 
-      {/* Metro grid — sorted client-side via dropdown selection */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {/* Metro grid — top-rule entries, no shadowed cards */}
+      <div className="grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
         {sorted.map((row) => (
           <MetroCard
             key={row.metro_id}
@@ -187,7 +296,7 @@ export default function LandingOverview({
         ))}
       </div>
 
-      <p className="mt-10 text-center text-[11px] text-black/35">
+      <p className="mt-16 text-[10.5px] uppercase tracking-[0.18em] text-ink-faint">
         Each card click pre-seeds a question for the analyst agent. Numbers reflect the validated engine state.
       </p>
     </main>
