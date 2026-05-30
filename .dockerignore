@@ -14,12 +14,24 @@ app/web/node_modules/
 
 # Production keeps large local scrape caches and snapshot archives under the
 # repo root. Keep them out of Docker contexts while allowing the committed
-# engine snapshots required by API/web images.
-backups/
-backups/**
-data/**
-!data/
-!data/laurie-engine/
-!data/laurie-engine/**
+# engine snapshots required by API/web images. These explicit patterns are
+# intentionally compatible with the older docker-compose/Docker engine on prod.
+backups
+backups/*
+backups/*/*
+backups/*/*/*
+data/raw
+data/raw/*
+data/raw/*/*
+data/raw/*/*/*
+data/processed
+data/processed/*
+data/processed/*/*
+data/cache
+data/cache/*
+data/cache/*/*
+data/*
+!data/laurie-engine
+!data/laurie-engine/*
 *.parquet
 *.duckdb
