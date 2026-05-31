@@ -198,7 +198,7 @@ export default function LandingOverview({
           Market overview
         </div>
         <h1 className="mt-2 font-serif text-[32px] font-semibold leading-tight tracking-tight text-ground-ink">
-          17 markets across 4 tiers — the engine&apos;s current read.
+          Rent Growth Signal Across 17 Validated Metro Markets
         </h1>
       </header>
 
